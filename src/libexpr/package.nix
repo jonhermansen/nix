@@ -14,6 +14,7 @@
   boehmgc,
   nlohmann_json,
   sqlite,
+  rapidyaml,
   toml11,
   libcpuid,
 
@@ -66,6 +67,7 @@ mkMesonLibrary (finalAttrs: {
 
   buildInputs = [
     sqlite
+    rapidyaml
     toml11
   ]
   ++ lib.optional stdenv.hostPlatform.isx86_64 libcpuid;
