@@ -37,6 +37,7 @@ enum struct ExperimentalFeature {
     PipeOperators,
     ExternalBuilders,
     BLAKE3Hashes,
+    FromYaml,
 };
 
 /**
