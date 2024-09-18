@@ -76,6 +76,18 @@ endif
 # Used in public header. Affects ABI!
 configdata_pub.set('NIX_USE_BOEHMGC', bdw_gc.found().to_int())
 
+ryml = dependency(
+  'ryml',
+  version : '>=0.7.1',
+  method : 'cmake',
+  include_type : 'system',
+  required : false,
+)
+if ryml.found()
+  deps_other += ryml
+  configdata_priv.set('HAVE_RYML', 1)
+endif
+
 toml11 = dependency(
   'toml11',
   version : '>=3.7.0',
