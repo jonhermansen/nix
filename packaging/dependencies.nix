@@ -137,20 +137,7 @@ scope: {
         installPhase = lib.replaceStrings [ "--without-python" ] [ "" ] old.installPhase;
       });
 
-  rapidyaml = pkgs.rapidyaml.overrideAttrs (old: let
-    version = "0.7.2";
-    hash =  "sha256-vAYafhWo9xavM2j+mT3OGcX7ZSS25mieR/3b79BO+jA=";
-  in {
-    inherit version;
-
-    src = pkgs.fetchFromGitHub {
-      inherit hash;
-      owner = "biojppm";
-      repo = old.pname;
-      rev = "v${version}";
-      fetchSubmodules = true;
-    };
-
+  rapidyaml = pkgs.rapidyaml.overrideAttrs (old: old // {
     cmakeFlags = [
       "-DRYML_WITH_TAB_TOKENS=ON"
       "-DBUILD_SHARED_LIBS=ON"
