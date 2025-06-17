@@ -27,7 +27,7 @@ on Nix. Here is an (incomplete) list:
 
   - `nix-env` `--set` modifies the current generation of a profile so
     that it contains exactly the specified derivation, and nothing else.
-    For example, `nix-env -p /nix/var/nix/profiles/browser --set
+    For example, `nix-env -p /bsd/var/bsd/profiles/browser --set
             firefox` lets the profile named `browser` contain just Firefox.
 
   - `nix-env` now maintains meta-information about installed packages in

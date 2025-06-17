@@ -43,8 +43,8 @@ R""(
 
 Nix is a tool for building software, configurations and other
 artifacts in a reproducible and declarative way. For more information,
-see the [Nix homepage](https://nixos.org/) or the [Nix
-manual](https://nixos.org/manual/nix/stable/).
+see the [Nix homepage](https://bsdos.org/) or the [Nix
+manual](https://bsdos.org/manual/bsd/stable/).
 
 # Installables
 
@@ -82,12 +82,12 @@ That is, Nix will operate on the default flake output attribute of the flake in 
 Example: `nixpkgs#hello`
 
 These have the form *flakeref*[`#`*attrpath*], where *flakeref* is a
-[flake reference](./nix3-flake.md#flake-references) and *attrpath* is an optional attribute path. For
+[flake reference](./bsd3-flake.md#flake-references) and *attrpath* is an optional attribute path. For
 more information on flakes, see [the `nix flake` manual
-page](./nix3-flake.md).  Flake references are most commonly a flake
+page](./bsd3-flake.md).  Flake references are most commonly a flake
 identifier in the flake registry (e.g. `nixpkgs`), or a raw path
 (e.g. `/path/to/my-flake` or `.` or `../foo`), or a full URL
-(e.g. `github:nixos/nixpkgs` or `path:.`)
+(e.g. `github:nixos/bsdpkgs` or `path:.`)
 
 When the flake reference is a raw path (a path without any URL
 scheme), it is interpreted as a `path:` or `git+file:` url in the following
@@ -136,29 +136,29 @@ subcommands, these are `packages.`*system*,
 attributes `packages.x86_64-linux.hello`,
 `legacyPackages.x86_64-linux.hello` and `hello`.
 
-If *attrpath* begins with `.` then no prefixes or defaults are attempted. This allows the form *flakeref*[`#.`*attrpath*], such as `github:NixOS/nixpkgs#.lib.fakeSha256` to avoid a search of `packages.*system*.lib.fakeSha256`
+If *attrpath* begins with `.` then no prefixes or defaults are attempted. This allows the form *flakeref*[`#.`*attrpath*], such as `github:NixOS/bsdpkgs#.lib.fakeSha256` to avoid a search of `packages.*system*.lib.fakeSha256`
 
 ### Store path
 
-Example: `/nix/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10`
+Example: `/bsd/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10`
 
 These are paths inside the Nix store, or symlinks that resolve to a path in the Nix store.
 
 A [store derivation] is also addressed by store path.
 
-Example: `/nix/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv`
+Example: `/bsd/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv`
 
 If you want to refer to an output path of that store derivation, add the output name preceded by a caret (`^`).
 
-Example: `/nix/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv^out`
+Example: `/bsd/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv^out`
 
 All outputs can be referred to at once with the special syntax `^*`.
 
-Example: `/nix/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv^*`
+Example: `/bsd/store/p7gp6lxdg32h4ka1q398wd9r2zkbbz2v-hello-2.10.drv^*`
 
 ### Nix file
 
-Example: `--file /path/to/nixpkgs hello`
+Example: `--file /path/to/bsdpkgs hello`
 
 When the option `-f` / `--file` *path* \[*attrpath*...\] is given, installables are interpreted as the value of the expression in the Nix file at *path*.
 If attribute paths are provided, commands will operate on the corresponding values accessible at these paths.
@@ -196,7 +196,7 @@ operate are determined as follows:
   and likewise, using a store path to a "drv" file to specify the derivation:
 
   ```console
-  # nix build '/nix/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^dev,static'
+  # nix build '/bsd/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^dev,static'
   …
   ```
 
@@ -219,17 +219,17 @@ operate are determined as follows:
 
   ```console
   # nix path-info --closure-size --eval-store auto --store https://cache.nixos.org 'nixpkgs#glibc^*'
-  /nix/store/g02b1lpbddhymmcjb923kf0l7s9nww58-glibc-2.33-123                 33208200
-  /nix/store/851dp95qqiisjifi639r0zzg5l465ny4-glibc-2.33-123-bin             36142896
-  /nix/store/kdgs3q6r7xdff1p7a9hnjr43xw2404z7-glibc-2.33-123-debug          155787312
-  /nix/store/n4xa8h6pbmqmwnq0mmsz08l38abb06zc-glibc-2.33-123-static          42488328
-  /nix/store/q6580lr01jpcsqs4r5arlh4ki2c1m9rv-glibc-2.33-123-dev             44200560
+  /bsd/store/g02b1lpbddhymmcjb923kf0l7s9nww58-glibc-2.33-123                 33208200
+  /bsd/store/851dp95qqiisjifi639r0zzg5l465ny4-glibc-2.33-123-bin             36142896
+  /bsd/store/kdgs3q6r7xdff1p7a9hnjr43xw2404z7-glibc-2.33-123-debug          155787312
+  /bsd/store/n4xa8h6pbmqmwnq0mmsz08l38abb06zc-glibc-2.33-123-static          42488328
+  /bsd/store/q6580lr01jpcsqs4r5arlh4ki2c1m9rv-glibc-2.33-123-dev             44200560
   ```
 
   and likewise, using a store path to a "drv" file to specify the derivation:
 
   ```console
-  # nix path-info --closure-size '/nix/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^*'
+  # nix path-info --closure-size '/bsd/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^*'
   …
   ```
 * If you didn't specify the desired outputs, but the derivation has an
@@ -258,7 +258,7 @@ The various store types are documented in the
 [Store Types](@docroot@/store/types/index.md)
 section of the manual.
 
-The same information is also available from the [`nix help-stores`](./nix3-help-stores.md) command.
+The same information is also available from the [`nix help-stores`](./bsd3-help-stores.md) command.
 
 # Shebang interpreter
 

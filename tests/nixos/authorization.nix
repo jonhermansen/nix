@@ -19,7 +19,7 @@
 
   testScript =
     let
-      pathFour = "/nix/store/20xfy868aiic0r0flgzq4n5dq1yvmxkn-four";
+      pathFour = "/bsd/store/20xfy868aiic0r0flgzq4n5dq1yvmxkn-four";
     in
     ''
       machine.wait_for_unit("multi-user.target")

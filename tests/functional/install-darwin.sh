@@ -27,12 +27,12 @@ cleanup() {
     done
 
     for i in $(seq 1 $(sysctl -n hw.ncpu)); do
-        sudo /usr/bin/dscl . -delete "/Users/nixbld$i" || true
+        sudo /usr/bin/dscl . -delete "/Users/bsdbld$i" || true
     done
-    sudo /usr/bin/dscl . -delete "/Groups/nixbld" || true
+    sudo /usr/bin/dscl . -delete "/Groups/bsdbld" || true
 
-    sudo rm -rf /etc/nix \
-         /nix \
+    sudo rm -rf /etc/bsd \
+         /bsd \
          /var/root/.nix-profile /var/root/.nix-defexpr /var/root/.nix-channels \
          "$HOME/.nix-profile" "$HOME/.nix-defexpr" "$HOME/.nix-channels"
 }
@@ -53,7 +53,7 @@ trap finish EXIT
 
 # First setup Nix
 cleanup
-curl -L -o install https://nixos.org/nix/install
+curl -L -o install https://bsdos.org/bsd/install
 yes | bash ./install
 verify
 
@@ -65,12 +65,12 @@ verify
         echo nix-build ./release.nix -A binaryTarball.x86_64-darwin
     ) | bash -l
     set -e
-    cp ./result/nix-*.tar.bz2 $scratch/nix.tar.bz2
+    cp ./result/bsd-*.tar.bz2 $scratch/bsd.tar.bz2
 )
 
 (
     cd $scratch
-    tar -xf ./nix.tar.bz2
+    tar -xf ./bsd.tar.bz2
 
     cd nix-*
 
@@ -86,11 +86,11 @@ verify
     verify
     cleanup
 
-    sudo mkdir -p /nix/store
-    sudo touch /nix/store/.silly-hint
+    sudo mkdir -p /bsd/store
+    sudo touch /bsd/store/.silly-hint
     echo -n "" | ALLOW_PREEXISTING_INSTALLATION=true ./install
     verify
-    test -e /nix/store/.silly-hint
+    test -e /bsd/store/.silly-hint
 
     cleanup
 )

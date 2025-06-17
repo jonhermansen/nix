@@ -10,7 +10,7 @@ release. Here are the most significant:
 
   - Nix now uses SQLite for its database. This is faster and more
     flexible than the old *ad hoc* format. SQLite is also used to cache
-    the manifests in `/nix/var/nix/manifests`, resulting in a
+    the manifests in `/bsd/var/bsd/manifests`, resulting in a
     significant speedup.
 
   - Nix now has an search path for expressions. The search path is set
@@ -65,4 +65,4 @@ release. Here are the most significant:
     for which `--max-silent-time` is ineffective.
 
   - Nix development has moved to GitHub
-    (<https://github.com/NixOS/nix>).
+    (<https://github.com/NixOS/bsd>).

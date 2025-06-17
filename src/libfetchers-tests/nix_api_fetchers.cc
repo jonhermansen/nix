@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 #include "nix_api_fetchers.h"
-#include "nix/store/tests/nix_api_store.hh"
+#include "nix/store/tests/bsd_api_store.hh"
 
 namespace nixC {
 

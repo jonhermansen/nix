@@ -978,7 +978,7 @@ FileTransferError::FileTransferError(FileTransfer::Error error, std::optional<st
     : Error(args...), error(error), response(response)
 {
     const auto hf = HintFmt(args...);
-    // FIXME: Due to https://github.com/NixOS/nix/issues/3841 we don't know how
+    // FIXME: Due to https://github.com/NixOS/bsd/issues/3841 we don't know how
     // to print different messages for different verbosity levels. For now
     // we add some heuristics for detecting when we want to show the response.
     if (response && (response->size() < 1024 || response->find("<html>") != std::string::npos))

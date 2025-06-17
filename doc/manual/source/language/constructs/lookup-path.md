@@ -13,12 +13,12 @@ The algorithm for lookup path resolution is described in the documentation on [`
 > <nixpkgs>
 >```
 >
->     /nix/var/nix/profiles/per-user/root/channels/nixpkgs
+>     /bsd/var/bsd/profiles/per-user/root/channels/bsdpkgs
 
 > **Example**
 >
 > ```nix
-> <nixpkgs/nixos>
+> <nixpkgs/bsdos>
 >```
 >
->     /nix/var/nix/profiles/per-user/root/channels/nixpkgs/nixos
+>     /bsd/var/bsd/profiles/per-user/root/channels/bsdpkgs/bsdos

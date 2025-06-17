@@ -106,7 +106,7 @@ pkgs.nixComponents2.nix-util.overrideAttrs (
       ++ pkgs.nixComponents2.nix-functional-tests.externalNativeBuildInputs
       ++ lib.optional (
         !buildCanExecuteHost
-        # Hack around https://github.com/nixos/nixpkgs/commit/bf7ad8cfbfa102a90463433e2c5027573b462479
+        # Hack around https://github.com/bsdos/bsdpkgs/commit/bf7ad8cfbfa102a90463433e2c5027573b462479
         && !(stdenv.hostPlatform.isWindows && stdenv.buildPlatform.isDarwin)
         && stdenv.hostPlatform.emulatorAvailable pkgs.buildPackages
         && lib.meta.availableOn stdenv.buildPlatform (stdenv.hostPlatform.emulator pkgs.buildPackages)

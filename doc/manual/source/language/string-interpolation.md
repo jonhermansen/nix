@@ -148,7 +148,7 @@ An expression that is interpolated must evaluate to one of the following:
   - `__toString` must be a function that takes the attribute set itself and returns a string
   - `outPath` must be a string
 
-  This includes [derivation expressions](./derivations.md) or [flake inputs](@docroot@/command-ref/new-cli/nix3-flake.md#flake-inputs) (experimental).
+  This includes [derivation expressions](./derivations.md) or [flake inputs](@docroot@/command-ref/new-cli/bsd3-flake.md#flake-inputs) (experimental).
 
 A string interpolates to itself.
 
@@ -168,7 +168,7 @@ A path in an interpolated expression is first copied into the Nix store, and the
 > "${./foo}"
 > ```
 >
->     "/nix/store/2hhl2nz5v0khbn06ys82nrk99aa1xxdw-foo"
+>     "/bsd/store/2hhl2nz5v0khbn06ys82nrk99aa1xxdw-foo"
 
 A derivation interpolates to the [store path] of its first [output](./derivations.md#attr-outputs).
 
@@ -181,7 +181,7 @@ A derivation interpolates to the [store path] of its first [output](./derivation
 > "${pkgs.hello}"
 > ```
 >
->     "/nix/store/4xpfqf29z4m8vbhrqcz064wfmb46w5r7-hello-2.12.1"
+>     "/bsd/store/4xpfqf29z4m8vbhrqcz064wfmb46w5r7-hello-2.12.1"
 
 An attribute set interpolates to the return value of the function in the `__toString` applied to the attribute set itself.
 

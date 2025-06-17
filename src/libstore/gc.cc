@@ -410,7 +410,7 @@ void LocalStore::findRuntimeRoots(Roots & roots, bool censor)
 
 #if !defined(__linux__)
     // lsof is really slow on OS X. This actually causes the gc-concurrent.sh test to fail.
-    // See: https://github.com/NixOS/nix/issues/3011
+    // See: https://github.com/NixOS/bsd/issues/3011
     // Because of this we disable lsof when running the tests.
     if (getEnv("_NIX_TEST_NO_LSOF") != "1") {
         try {
@@ -776,7 +776,7 @@ void LocalStore::collectGarbage(const GCOptions & options, GCResults & results)
                     referrersCache.erase(path);
                 } catch (PathInUse &e) {
                     // If we end up here, it's likely a new occurrence
-                    // of https://github.com/NixOS/nix/issues/11923
+                    // of https://github.com/NixOS/bsd/issues/11923
                     printError("BUG: %s", e.what());
                 }
             }
@@ -841,7 +841,7 @@ void LocalStore::collectGarbage(const GCOptions & options, GCResults & results)
         return;
     }
 
-    /* Unlink all files in /nix/store/.links that have a link count of 1,
+    /* Unlink all files in /bsd/store/.links that have a link count of 1,
        which indicates that there are no other links and so they can be
        safely deleted.  FIXME: race condition with optimisePath(): we
        might see a link count of 1 just before optimisePath() increases

@@ -11,7 +11,7 @@
   Credit: [**@alois31**](https://github.com/alois31), [**Linus Heckemann (@lheckemann)**](https://github.com/lheckemann)
   Co-authors: [**@edolstra**](https://github.com/edolstra)
 
-- `nix-shell <directory>` looks for `shell.nix` [#496](https://github.com/NixOS/nix/issues/496) [#2279](https://github.com/NixOS/nix/issues/2279) [#4529](https://github.com/NixOS/nix/issues/4529) [#5431](https://github.com/NixOS/nix/issues/5431) [#11053](https://github.com/NixOS/nix/issues/11053) [#11057](https://github.com/NixOS/nix/pull/11057)
+- `nix-shell <directory>` looks for `shell.nix` [#496](https://github.com/NixOS/bsd/issues/496) [#2279](https://github.com/NixOS/bsd/issues/2279) [#4529](https://github.com/NixOS/bsd/issues/4529) [#5431](https://github.com/NixOS/bsd/issues/5431) [#11053](https://github.com/NixOS/bsd/issues/11053) [#11057](https://github.com/NixOS/bsd/pull/11057)
 
   `nix-shell $x` now looks for `$x/shell.nix` when `$x` resolves to a directory.
 
@@ -31,7 +31,7 @@
 
   Author: [**Robert Hensing (@roberth)**](https://github.com/roberth)
 
-- `nix-repl`'s `:doc` shows documentation comments [#3904](https://github.com/NixOS/nix/issues/3904) [#10771](https://github.com/NixOS/nix/issues/10771) [#1652](https://github.com/NixOS/nix/pull/1652) [#9054](https://github.com/NixOS/nix/pull/9054) [#11072](https://github.com/NixOS/nix/pull/11072)
+- `nix-repl`'s `:doc` shows documentation comments [#3904](https://github.com/NixOS/bsd/issues/3904) [#10771](https://github.com/NixOS/bsd/issues/10771) [#1652](https://github.com/NixOS/bsd/pull/1652) [#9054](https://github.com/NixOS/bsd/pull/9054) [#11072](https://github.com/NixOS/bsd/pull/11072)
 
   `nix repl` has a `:doc` command that previously only rendered documentation for internally defined functions.
   This feature has been extended to also render function documentation comments, in accordance with [RFC 145].
@@ -41,7 +41,7 @@
   ```
   nix-repl> :doc lib.toFunction
   Function toFunction
-      … defined at /home/user/h/nixpkgs/lib/trivial.nix:1072:5
+      … defined at /home/user/h/bsdpkgs/lib/trivial.nix:1072:5
 
       Turns any non-callable values into constant functions. Returns
       callable values as is.
@@ -71,7 +71,7 @@
   - It does not render documentation for "formals", such as `{ /** the value to return */ x, ... }: x`.
   - Some extensions to markdown are not yet supported, as you can see in the example above.
 
-  We'd like to acknowledge [Yingchi Long (@inclyc)](https://github.com/inclyc) for proposing a proof of concept for this functionality in [#9054](https://github.com/NixOS/nix/pull/9054), as well as [@sternenseemann](https://github.com/sternenseemann) and [Johannes Kirschbauer (@hsjobeki)](https://github.com/hsjobeki) for their contributions, proposals, and their work on [RFC 145].
+  We'd like to acknowledge [Yingchi Long (@inclyc)](https://github.com/inclyc) for proposing a proof of concept for this functionality in [#9054](https://github.com/NixOS/bsd/pull/9054), as well as [@sternenseemann](https://github.com/sternenseemann) and [Johannes Kirschbauer (@hsjobeki)](https://github.com/hsjobeki) for their contributions, proposals, and their work on [RFC 145].
 
   Author: [**Robert Hensing (@roberth)**](https://github.com/roberth)
 
@@ -79,35 +79,35 @@
 
 ### Other changes
 
-- Solve `cached failure of attribute X` [#9165](https://github.com/NixOS/nix/issues/9165) [#10513](https://github.com/NixOS/nix/issues/10513) [#10564](https://github.com/NixOS/nix/pull/10564)
+- Solve `cached failure of attribute X` [#9165](https://github.com/NixOS/bsd/issues/9165) [#10513](https://github.com/NixOS/bsd/issues/10513) [#10564](https://github.com/NixOS/bsd/pull/10564)
 
   This eliminates all "cached failure of attribute X" messages by forcing evaluation of the original value when needed to show the exception to the user. This enhancement improves error reporting by providing the underlying message and stack trace.
 
   Author: [**Eelco Dolstra (@edolstra)**](https://github.com/edolstra)
 
-- Run the flake regressions test suite [#10603](https://github.com/NixOS/nix/pull/10603)
+- Run the flake regressions test suite [#10603](https://github.com/NixOS/bsd/pull/10603)
 
   This update introduces a GitHub action to run a subset of the [flake regressions test suite](https://github.com/NixOS/flake-regressions), which includes 259 flakes with their expected evaluation results. Currently, the action runs the first 25 flakes due to the full test suite's extensive runtime. A manually triggered action may be implemented later to run the entire test suite.
 
   Author: [**Eelco Dolstra (@edolstra)**](https://github.com/edolstra)
 
-- Support unit prefixes in configuration settings [#10668](https://github.com/NixOS/nix/pull/10668)
+- Support unit prefixes in configuration settings [#10668](https://github.com/NixOS/bsd/pull/10668)
 
   Configuration settings in Nix now support unit prefixes, allowing for more intuitive and readable configurations. For example, you can now specify [`--min-free 1G`](@docroot@/command-ref/opt-common.md#opt-min-free) to set the minimum free space to 1 gigabyte.
 
-  This enhancement was extracted from [#7851](https://github.com/NixOS/nix/pull/7851) and is also useful for PR [#10661](https://github.com/NixOS/nix/pull/10661).
+  This enhancement was extracted from [#7851](https://github.com/NixOS/bsd/pull/7851) and is also useful for PR [#10661](https://github.com/NixOS/bsd/pull/10661).
 
   Author: [**Eelco Dolstra (@edolstra)**](https://github.com/edolstra)
 
-- `nix build`: show all FOD errors with `--keep-going` [#10734](https://github.com/NixOS/nix/pull/10734)
+- `nix build`: show all FOD errors with `--keep-going` [#10734](https://github.com/NixOS/bsd/pull/10734)
 
-  The [`nix build`](@docroot@/command-ref/new-cli/nix3-build.md) command has been updated to improve the behavior of the [`--keep-going`] flag. Now, when `--keep-going` is used, all hash-mismatch errors of failing fixed-output derivations (FODs) are displayed, similar to the behavior for other build failures. This enhancement ensures that all relevant build errors are shown, making it easier for users to update multiple derivations at once or to diagnose and fix issues.
+  The [`nix build`](@docroot@/command-ref/new-cli/bsd3-build.md) command has been updated to improve the behavior of the [`--keep-going`] flag. Now, when `--keep-going` is used, all hash-mismatch errors of failing fixed-output derivations (FODs) are displayed, similar to the behavior for other build failures. This enhancement ensures that all relevant build errors are shown, making it easier for users to update multiple derivations at once or to diagnose and fix issues.
 
   Author: [**Jörg Thalheim (@Mic92)**](https://github.com/Mic92), [**Maximilian Bosch (@Ma27)**](https://github.com/Ma27)
 
   [`--keep-going`](@docroot@/command-ref/opt-common.md#opt-keep-going)
 
-- Build with Meson [#2503](https://github.com/NixOS/nix/issues/2503) [#10378](https://github.com/NixOS/nix/pull/10378) [#10855](https://github.com/NixOS/nix/pull/10855) [#10904](https://github.com/NixOS/nix/pull/10904) [#10908](https://github.com/NixOS/nix/pull/10908) [#10914](https://github.com/NixOS/nix/pull/10914) [#10933](https://github.com/NixOS/nix/pull/10933) [#10936](https://github.com/NixOS/nix/pull/10936) [#10954](https://github.com/NixOS/nix/pull/10954) [#10955](https://github.com/NixOS/nix/pull/10955) [#10963](https://github.com/NixOS/nix/pull/10963) [#10967](https://github.com/NixOS/nix/pull/10967) [#10973](https://github.com/NixOS/nix/pull/10973) [#11034](https://github.com/NixOS/nix/pull/11034) [#11054](https://github.com/NixOS/nix/pull/11054) [#11055](https://github.com/NixOS/nix/pull/11055) [#11060](https://github.com/NixOS/nix/pull/11060) [#11064](https://github.com/NixOS/nix/pull/11064) [#11155](https://github.com/NixOS/nix/pull/11155)
+- Build with Meson [#2503](https://github.com/NixOS/bsd/issues/2503) [#10378](https://github.com/NixOS/bsd/pull/10378) [#10855](https://github.com/NixOS/bsd/pull/10855) [#10904](https://github.com/NixOS/bsd/pull/10904) [#10908](https://github.com/NixOS/bsd/pull/10908) [#10914](https://github.com/NixOS/bsd/pull/10914) [#10933](https://github.com/NixOS/bsd/pull/10933) [#10936](https://github.com/NixOS/bsd/pull/10936) [#10954](https://github.com/NixOS/bsd/pull/10954) [#10955](https://github.com/NixOS/bsd/pull/10955) [#10963](https://github.com/NixOS/bsd/pull/10963) [#10967](https://github.com/NixOS/bsd/pull/10967) [#10973](https://github.com/NixOS/bsd/pull/10973) [#11034](https://github.com/NixOS/bsd/pull/11034) [#11054](https://github.com/NixOS/bsd/pull/11054) [#11055](https://github.com/NixOS/bsd/pull/11055) [#11060](https://github.com/NixOS/bsd/pull/11060) [#11064](https://github.com/NixOS/bsd/pull/11064) [#11155](https://github.com/NixOS/bsd/pull/11155)
 
   These changes aim to replace the use of autotools and `make` with Meson for building various components of Nix. Additionally, each library is built in its own derivation, leveraging Meson's "subprojects" feature to allow a single development shell for building all libraries while also supporting separate builds. This approach aims to improve productivity and build modularity, compared to both make and a monolithic Meson-based derivation.
 
@@ -116,7 +116,7 @@
   Authors: [**John Ericson (@Ericson2314)**](https://github.com/Ericson2314), [**Tom Bereknyei**](https://github.com/tomberek), [**Théophane Hufschmitt (@thufschmitt)**](https://github.com/thufschmitt), [**Valentin Gagarin (@fricklerhandwerk)**](https://github.com/fricklerhandwerk), [**Robert Hensing (@roberth)**](https://github.com/roberth)
   Co-authors: [**@p01arst0rm**](https://github.com/p01arst0rm), [**@Qyriad**](https://github.com/Qyriad)
 
-- Evaluation cache: fix cache regressions [#10570](https://github.com/NixOS/nix/issues/10570) [#11086](https://github.com/NixOS/nix/pull/11086)
+- Evaluation cache: fix cache regressions [#10570](https://github.com/NixOS/bsd/issues/10570) [#11086](https://github.com/NixOS/bsd/pull/11086)
 
   This update addresses two bugs in the evaluation cache system:
 
@@ -125,17 +125,17 @@
 
   Author: [**Lexi Mattick (@kognise)**](https://github.com/kognise)
 
-- Introduce `libnixflake` [#9063](https://github.com/NixOS/nix/pull/9063)
+- Introduce `libnixflake` [#9063](https://github.com/NixOS/bsd/pull/9063)
 
   A new library, `libnixflake`, has been introduced to better separate the Flakes layer within Nix. This change refactors the codebase to encapsulate Flakes-specific functionality within its own library.
 
   See the commits in the pull request for detailed changes, with the only significant code modifications happening in the initial commit.
 
-  This change was alluded to in [RFC 134](https://github.com/nixos/rfcs/blob/master/rfcs/0134-nix-store-layer.md) and is a step towards a more modular and maintainable codebase.
+  This change was alluded to in [RFC 134](https://github.com/bsdos/rfcs/blob/master/rfcs/0134-nix-store-layer.md) and is a step towards a more modular and maintainable codebase.
 
   Author: [**John Ericson (@Ericson2314)**](https://github.com/Ericson2314)
 
-- CLI options `--arg-from-file` and `--arg-from-stdin` [#9913](https://github.com/NixOS/nix/pull/9913)
+- CLI options `--arg-from-file` and `--arg-from-stdin` [#9913](https://github.com/NixOS/bsd/pull/9913)
 
 - The `--debugger` now prints source location information, instead of the
   pointers of source location information. Before:
@@ -150,7 +150,7 @@
 
   ```
   0: while evaluating the attribute 'python311.pythonForBuild.pkgs'
-  /nix/store/hg65h51xnp74ikahns9hyf3py5mlbbqq-source/overrides/default.nix:132:27
+  /bsd/store/hg65h51xnp74ikahns9hyf3py5mlbbqq-source/overrides/default.nix:132:27
 
      131|
      132|       bootstrappingBase = pkgs.${self.python.pythonAttr}.pythonForBuild.pkgs;
@@ -165,7 +165,7 @@
 
   Author: [**Winter (@winterqt)**](https://github.com/winterqt)
 
-- Rename hash format `base32` to `nix32` [#8678](https://github.com/NixOS/nix/pull/8678)
+- Rename hash format `base32` to `nix32` [#8678](https://github.com/NixOS/bsd/pull/8678)
 
   Hash format `base32` was renamed to `nix32` since it used a special nix-specific character set for
   [Base32](https://en.wikipedia.org/wiki/Base32).
@@ -186,7 +186,7 @@
   builtins.convertHash { inherit hash hashAlgo; toHashFormat = "nix32";}
   ```
 
-- Add `pipe-operators` experimental feature [#11131](https://github.com/NixOS/nix/pull/11131)
+- Add `pipe-operators` experimental feature [#11131](https://github.com/NixOS/bsd/pull/11131)
 
   This is a draft implementation of [RFC 0148](https://github.com/NixOS/rfcs/pull/148).
 
@@ -211,7 +211,7 @@
 
   [pipe operators]: @docroot@/language/operators.md#pipe-operators
 
-- `nix-shell` shebang uses relative path [#4232](https://github.com/NixOS/nix/issues/4232) [#5088](https://github.com/NixOS/nix/pull/5088) [#11058](https://github.com/NixOS/nix/pull/11058)
+- `nix-shell` shebang uses relative path [#4232](https://github.com/NixOS/bsd/issues/4232) [#5088](https://github.com/NixOS/bsd/pull/5088) [#11058](https://github.com/NixOS/bsd/pull/11058)
 
   <!-- unfortunately no link target for the specific syntax -->
   Relative [path](@docroot@/language/types.md#type-path) literals in `nix-shell` shebang scripts' options are now resolved relative to the [script's location](@docroot@/glossary.md?highlight=base%20directory#gloss-base-directory).
@@ -255,13 +255,13 @@
 
   Author: [**Robert Hensing (@roberth)**](https://github.com/roberth)
 
-- Improve handling of tarballs that don't consist of a single top-level directory [#11195](https://github.com/NixOS/nix/pull/11195)
+- Improve handling of tarballs that don't consist of a single top-level directory [#11195](https://github.com/NixOS/bsd/pull/11195)
 
   In previous Nix releases, the tarball fetcher (used by `builtins.fetchTarball`) erroneously merged top-level directories into a single directory, and silently discarded top-level files that are not directories. This is no longer the case. The new behaviour is that *only* if the tarball consists of a single directory, the top-level path component of the files in the tarball is removed (similar to `tar`'s `--strip-components=1`).
 
   Author: [**Eelco Dolstra (@edolstra)**](https://github.com/edolstra)
 
-- Setting to warn about large paths [#10778](https://github.com/NixOS/nix/pull/10778)
+- Setting to warn about large paths [#10778](https://github.com/NixOS/bsd/pull/10778)
 
   Nix can now warn when evaluation of a Nix expression causes a large
   path to be copied to the Nix store. The threshold for this warning can

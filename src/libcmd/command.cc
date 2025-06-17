@@ -6,7 +6,7 @@
 #include "nix/store/store-open.hh"
 #include "nix/store/local-fs-store.hh"
 #include "nix/store/derivations.hh"
-#include "nix/expr/nixexpr.hh"
+#include "nix/expr/bsdexpr.hh"
 #include "nix/store/profiles.hh"
 #include "nix/cmd/repl.hh"
 #include "nix/util/strings.hh"

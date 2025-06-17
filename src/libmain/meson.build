@@ -67,7 +67,7 @@ if host_machine.system() != 'windows'
   )
 endif
 
-subdir('include/nix/main')
+subdir('include/bsd/main')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

@@ -12,7 +12,7 @@ source build-remote.sh
 registerBuildHook () {
     # Dummy post-build-hook just to ensure that it's executed correctly.
     # (we can't reuse the one from `$PWD/push-to-store.sh` because of
-    # https://github.com/NixOS/nix/issues/4341)
+    # https://github.com/NixOS/bsd/issues/4341)
     cat <<EOF > "$TEST_ROOT/post-build-hook.sh"
 #!/bin/sh
 

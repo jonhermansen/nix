@@ -139,7 +139,7 @@ __dumpEnvToOutput() {
 }
 
 # In case of `__structuredAttrs = true;` the list of outputs is an associative
-# array with a format like `outname => /nix/store/hash-drvname-outname`.
+# array with a format like `outname => /bsd/store/hash-drvname-outname`.
 # Otherwise it is a space-separated list of output variable names.
 if [ -e "$NIX_ATTRS_SH_FILE" ]; then
     for __output in "${outputs[@]}"; do

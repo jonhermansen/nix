@@ -269,8 +269,8 @@ struct ChrootLinuxDerivationBuilder : LinuxDerivationBuilder
 
             static std::atomic<unsigned int> counter{0};
 
-            cgroup = buildUser ? fmt("%s/nix-build-uid-%d", rootCgroupPath, buildUser->getUID())
-                               : fmt("%s/nix-build-pid-%d-%d", rootCgroupPath, getpid(), counter++);
+            cgroup = buildUser ? fmt("%s/bsd-build-uid-%d", rootCgroupPath, buildUser->getUID())
+                               : fmt("%s/bsd-build-pid-%d-%d", rootCgroupPath, getpid(), counter++);
 
             debug("using cgroup '%s'", *cgroup);
 
@@ -753,7 +753,7 @@ struct ChrootLinuxDerivationBuilder : LinuxDerivationBuilder
            making it impossible to bind-mount paths from the host
            Nix store into the sandbox. Therefore, we save the
            pre-pivot_root namespace in
-           sandboxMountNamespace. Since we made /nix/store a
+           sandboxMountNamespace. Since we made /bsd/store a
            shared subtree above, this allows addDependency() to
            make paths appear in the sandbox. */
         if (unshare(CLONE_NEWNS) == -1)

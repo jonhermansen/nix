@@ -8,7 +8,7 @@ clearStoreIfPossible
 
 repo="$TEST_ROOT/git"
 
-rm -rf "$repo" "${repo}-tmp" "$TEST_HOME/.cache/nix"
+rm -rf "$repo" "${repo}-tmp" "$TEST_HOME/.cache/bsd"
 
 git init "$repo"
 git -C "$repo" config user.email "foobar@example.com"

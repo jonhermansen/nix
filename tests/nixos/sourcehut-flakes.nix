@@ -90,7 +90,7 @@ in
           sslServerCert = "${cert}/server.crt";
           servedDirs = [
             {
-              urlPath = "/~NixOS/nixpkgs";
+              urlPath = "/~NixOS/bsdpkgs";
               dir = nixpkgs-repo;
             }
             {
@@ -146,13 +146,13 @@ in
       client.succeed("nix registry list | grep nixpkgs")
 
       # Test that it resolves HEAD
-      rev = client.succeed("nix flake info sourcehut:~NixOS/nixpkgs --json | jq -r .revision")
+      rev = client.succeed("nix flake info sourcehut:~NixOS/bsdpkgs --json | jq -r .revision")
       assert rev.strip() == "${nixpkgs.rev}", "revision mismatch"
       # Test that it resolves branches
-      rev = client.succeed("nix flake info sourcehut:~NixOS/nixpkgs/master --json | jq -r .revision")
+      rev = client.succeed("nix flake info sourcehut:~NixOS/bsdpkgs/master --json | jq -r .revision")
       assert rev.strip() == "${nixpkgs.rev}", "revision mismatch"
       # Test that it resolves tags
-      rev = client.succeed("nix flake info sourcehut:~NixOS/nixpkgs/foo-bar --json | jq -r .revision")
+      rev = client.succeed("nix flake info sourcehut:~NixOS/bsdpkgs/foo-bar --json | jq -r .revision")
       assert rev.strip() == "${nixpkgs.rev}", "revision mismatch"
 
       # Registry and pinning test

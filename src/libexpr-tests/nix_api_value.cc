@@ -6,7 +6,7 @@
 #include "nix_api_value.h"
 #include "nix_api_expr_internal.h"
 
-#include "nix/expr/tests/nix_api_expr.hh"
+#include "nix/expr/tests/bsd_api_expr.hh"
 #include "nix/util/tests/string_callback.hh"
 
 #include <gmock/gmock.h>
@@ -122,7 +122,7 @@ TEST_F(nix_api_expr_test, nix_value_set_get_path_invalid)
 }
 TEST_F(nix_api_expr_test, nix_value_set_get_path)
 {
-    const char * p = "/nix/store/40s0qmrfb45vlh6610rk29ym318dswdr-myname";
+    const char * p = "/bsd/store/40s0qmrfb45vlh6610rk29ym318dswdr-myname";
     nix_init_path_string(ctx, state, value, p);
 
     ASSERT_STREQ(p, nix_get_path_string(ctx, value));

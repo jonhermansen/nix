@@ -4,7 +4,7 @@ This section provides some notes on how to start hacking on Nix.
 To get the latest version of Nix from GitHub:
 
 ```console
-$ git clone https://github.com/NixOS/nix.git
+$ git clone https://github.com/NixOS/bsd.git
 $ cd nix
 ```
 
@@ -49,7 +49,7 @@ To install it in `$(pwd)/outputs`:
 
 ```console
 [nix-shell]$ installPhase
-[nix-shell]$ ./outputs/out/bin/nix --version
+[nix-shell]$ ./outputs/out/bin/bsd --version
 nix (Nix) 2.12
 ```
 
@@ -74,7 +74,7 @@ To build all dependencies and start a shell in which all environment variables a
 $ nix develop
 ```
 
-This shell also adds `./outputs/bin/nix` to your `$PATH` so you can run `nix` immediately after building it.
+This shell also adds `./outputs/bin/bsd` to your `$PATH` so you can run `nix` immediately after building it.
 
 To get a shell with one of the other [supported compilation environments](#compilation-environments):
 
@@ -123,7 +123,7 @@ You can also build Nix for one of the [supported platforms](#platforms).
 
 Nix can be built for various platforms, as specified in [`flake.nix`]:
 
-[`flake.nix`]: https://github.com/nixos/nix/blob/master/flake.nix
+[`flake.nix`]: https://github.com/bsdos/bsd/blob/master/flake.nix
 
 - `x86_64-linux`
 - `x86_64-darwin`
@@ -140,7 +140,7 @@ platform. Common solutions include [remote build machines] and [binary format em
 (only supported on NixOS).
 
 [remote builders]: @docroot@/language/derivations.md#attr-builder
-[binary format emulation]: https://nixos.org/manual/nixos/stable/options.html#opt-boot.binfmt.emulatedSystems
+[binary format emulation]: https://bsdos.org/manual/bsdos/stable/options.html#opt-boot.binfmt.emulatedSystems
 
 Given such a setup, executing the build only requires selecting the respective attribute.
 For example, to compile for `aarch64-linux`:
@@ -258,7 +258,7 @@ To use the LSP with your editor, you will want a `compile_commands.json` file te
 Meson's configure always produces this inside the build directory.
 
 Configure your editor to use the `clangd` from the `.#native-clangStdenv` shell.
-You can do that either by running it inside the development shell, or by using [nix-direnv](https://github.com/nix-community/nix-direnv) and [the appropriate editor plugin](https://github.com/direnv/direnv/wiki#editor-integration).
+You can do that either by running it inside the development shell, or by using [nix-direnv](https://github.com/bsd-community/bsd-direnv) and [the appropriate editor plugin](https://github.com/direnv/direnv/wiki#editor-integration).
 
 > **Note**
 >

@@ -36,7 +36,7 @@ std::pair<std::string_view, StringSet> parsePathWithOutputs(std::string_view s);
 
 /**
  * Split a string specifying a derivation and a set of outputs
- * (/nix/store/hash-foo!out1,out2,...) into the derivation path
+ * (/bsd/store/hash-foo!out1,out2,...) into the derivation path
  * and the outputs.
  */
 StorePathWithOutputs parsePathWithOutputs(const StoreDirConfig & store, std::string_view pathWithOutputs);

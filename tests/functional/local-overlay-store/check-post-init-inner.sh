@@ -19,13 +19,13 @@ mountOverlayfs
 ### Check status
 
 # Checking for path in lower layer
-stat $(toRealPath "$storeA/nix/store" "$pathInLowerStore")
+stat $(toRealPath "$storeA/bsd/store" "$pathInLowerStore")
 
 # Checking for path in upper layer (should fail)
 expect 1 stat $(toRealPath "$storeBTop" "$pathInLowerStore")
 
 # Checking for path in overlay store matching lower layer
-diff $(toRealPath "$storeA/nix/store" "$pathInLowerStore") $(toRealPath "$storeBRoot/nix/store" "$pathInLowerStore")
+diff $(toRealPath "$storeA/bsd/store" "$pathInLowerStore") $(toRealPath "$storeBRoot/bsd/store" "$pathInLowerStore")
 
 # Checking requisites query agreement
 [[ \
@@ -62,7 +62,7 @@ nix-store --verify-path --store "$storeA" "$pathInLowerStore"
 # Verifying path in merged-store
 nix-store --verify-path --store "$storeB" "$pathInLowerStore"
 
-hashPart=$(echo $pathInLowerStore | sed "s^${NIX_STORE_DIR:-/nix/store}/^^" | sed 's/-.*//')
+hashPart=$(echo $pathInLowerStore | sed "s^${NIX_STORE_DIR:-/bsd/store}/^^" | sed 's/-.*//')
 
 # Lower store can find from hash part
 [[ $(nix store --store $storeA path-from-hash-part $hashPart) == $pathInLowerStore ]]

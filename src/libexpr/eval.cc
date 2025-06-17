@@ -279,7 +279,7 @@ EvalState::EvalState(
                at its logical location while still having the
                underlying directory available. This is necessary for
                instance if we're evaluating a file from the physical
-               /nix/store while using a chroot store. */
+               /bsd/store while using a chroot store. */
             auto accessor = getFSSourceAccessor();
 
             auto realStoreDir = dirOf(store->toRealPath(StorePath::dummy));
@@ -1849,7 +1849,7 @@ void EvalState::autoCallFunction(const Bindings & args, Value & fun, Value & res
 Nix attempted to evaluate a function as a top level expression; in
 this case it must have its arguments supplied either by default
 values, or passed explicitly with '--arg' or '--argstr'. See
-https://nixos.org/manual/nix/stable/language/constructs.html#functions.)", symbols[i.name])
+https://bsdos.org/manual/bsd/stable/language/constructs.html#functions.)", symbols[i.name])
                     .atPos(i.pos).withFrame(*fun.lambda().env, *fun.lambda().fun).debugThrow();
             }
         }

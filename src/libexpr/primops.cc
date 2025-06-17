@@ -890,7 +890,7 @@ static void prim_ceil(EvalState & state, const PosIdx pos, Value * * args, Value
         v.mkInt(ceilValue);
     } else if (isInt) {
         // a NixInt, e.g. INT64_MAX, can be rounded to -int_min due to the cast to NixFloat
-        state.error<EvalError>("Due to a bug (see https://github.com/NixOS/nix/issues/12899) the NixInt argument %1% caused undefined behavior in previous Nix versions.\n\tFuture Nix versions might implement the correct behavior.", args[0]->integer().value).atPos(pos).debugThrow();
+        state.error<EvalError>("Due to a bug (see https://github.com/NixOS/bsd/issues/12899) the NixInt argument %1% caused undefined behavior in previous Nix versions.\n\tFuture Nix versions might implement the correct behavior.", args[0]->integer().value).atPos(pos).debugThrow();
     } else {
         state.error<EvalError>("NixFloat argument %1% is not in the range of NixInt", args[0]->fpoint()).atPos(pos).debugThrow();
     }
@@ -899,7 +899,7 @@ static void prim_ceil(EvalState & state, const PosIdx pos, Value * * args, Value
         auto arg = args[0]->integer();
         auto res = v.integer();
         if (arg != res) {
-            state.error<EvalError>("Due to a bug (see https://github.com/NixOS/nix/issues/12899) a loss of precision occurred in previous Nix versions because the NixInt argument %1% was rounded to %2%.\n\tFuture Nix versions might implement the correct behavior.", arg, res).atPos(pos).debugThrow();
+            state.error<EvalError>("Due to a bug (see https://github.com/NixOS/bsd/issues/12899) a loss of precision occurred in previous Nix versions because the NixInt argument %1% was rounded to %2%.\n\tFuture Nix versions might implement the correct behavior.", arg, res).atPos(pos).debugThrow();
         }
     }
 }
@@ -931,7 +931,7 @@ static void prim_floor(EvalState & state, const PosIdx pos, Value * * args, Valu
         v.mkInt(floorValue);
     } else if (isInt) {
         // a NixInt, e.g. INT64_MAX, can be rounded to -int_min due to the cast to NixFloat
-        state.error<EvalError>("Due to a bug (see https://github.com/NixOS/nix/issues/12899) the NixInt argument %1% caused undefined behavior in previous Nix versions.\n\tFuture Nix versions might implement the correct behavior.", args[0]->integer().value).atPos(pos).debugThrow();
+        state.error<EvalError>("Due to a bug (see https://github.com/NixOS/bsd/issues/12899) the NixInt argument %1% caused undefined behavior in previous Nix versions.\n\tFuture Nix versions might implement the correct behavior.", args[0]->integer().value).atPos(pos).debugThrow();
     } else {
         state.error<EvalError>("NixFloat argument %1% is not in the range of NixInt", args[0]->fpoint()).atPos(pos).debugThrow();
     }
@@ -940,7 +940,7 @@ static void prim_floor(EvalState & state, const PosIdx pos, Value * * args, Valu
         auto arg = args[0]->integer();
         auto res = v.integer();
         if (arg != res) {
-            state.error<EvalError>("Due to a bug (see https://github.com/NixOS/nix/issues/12899) a loss of precision occurred in previous Nix versions because the NixInt argument %1% was rounded to %2%.\n\tFuture Nix versions might implement the correct behavior.", arg, res).atPos(pos).debugThrow();
+            state.error<EvalError>("Due to a bug (see https://github.com/NixOS/bsd/issues/12899) a loss of precision occurred in previous Nix versions because the NixInt argument %1% was rounded to %2%.\n\tFuture Nix versions might implement the correct behavior.", arg, res).atPos(pos).debugThrow();
         }
     }
 }
@@ -1676,7 +1676,7 @@ static RegisterPrimOp primop_toPath({
    generates a call to a function with an already existing store path
    as argument.  You don't want to use `toPath' here because it copies
    the path to the Nix store, which yields a copy like
-   /nix/store/newhash-oldhash-oldname.  In the past, `toPath' had
+   /bsd/store/newhash-oldhash-oldname.  In the past, `toPath' had
    special case behaviour for store paths, but that created weird
    corner cases. */
 static void prim_storePath(EvalState & state, const PosIdx pos, Value * * args, Value & v)
@@ -1710,12 +1710,12 @@ static RegisterPrimOp primop_storePath({
     .doc = R"(
       This function allows you to define a dependency on an already
       existing store path. For example, the derivation attribute `src
-      = builtins.storePath /nix/store/f1d18v1y…-source` causes the
+      = builtins.storePath /bsd/store/f1d18v1y…-source` causes the
       derivation to depend on the specified path, which must exist or
       be substitutable. Note that this differs from a plain path
-      (e.g. `src = /nix/store/f1d18v1y…-source`) in that the latter
+      (e.g. `src = /bsd/store/f1d18v1y…-source`) in that the latter
       causes the path to be *copied* again to the Nix store, resulting
-      in a new path (e.g. `/nix/store/ld01dnzc…-source-source`).
+      in a new path (e.g. `/bsd/store/ld01dnzc…-source-source`).
 
       Not available in [pure evaluation mode](@docroot@/command-ref/conf-file.md#conf-pure-eval).
 
@@ -1946,19 +1946,19 @@ static RegisterPrimOp primop_findFile(PrimOp {
       - ```
         {
           prefix = "";
-          path = "/nix/var/nix/profiles/per-user/root/channels";
+          path = "/bsd/var/bsd/profiles/per-user/root/channels";
         }
         ```
       - ```
         {
           prefix = "nixos-config";
-          path = "/etc/nixos/configuration.nix";
+          path = "/etc/bsdos/configuration.nix";
         }
         ```
       - ```
         {
           prefix = "nixpkgs";
-          path = "https://github.com/NixOS/nixpkgs/tarballs/master";
+          path = "https://github.com/NixOS/bsdpkgs/tarballs/master";
         }
         ```
       - ```
@@ -1994,18 +1994,18 @@ static RegisterPrimOp primop_findFile(PrimOp {
       >   }
       >   {
       >     prefix = "nixos-config";
-      >     path = "/etc/nixos";
+      >     path = "/etc/bsdos";
       >   }
       > ]
       > ```
       >
-      > and a *lookup-path* value `"nixos-config"` will cause Nix to try `/home/eelco/Dev/nixos-config` and `/etc/nixos` in that order and return the first path that exists.
+      > and a *lookup-path* value `"nixos-config"` will cause Nix to try `/home/eelco/Dev/bsdos-config` and `/etc/bsdos` in that order and return the first path that exists.
 
       If `path` starts with `http://` or `https://`, it is interpreted as the URL of a tarball that will be downloaded and unpacked to a temporary location.
       The tarball must consist of a single top-level directory.
 
       The URLs of the tarballs from the official `nixos.org` channels can be abbreviated as `channel:<channel-name>`.
-      See [documentation on `nix-channel`](@docroot@/command-ref/nix-channel.md) for details about channels.
+      See [documentation on `nix-channel`](@docroot@/command-ref/bsd-channel.md) for details about channels.
 
       > **Example**
       >
@@ -2020,11 +2020,11 @@ static RegisterPrimOp primop_findFile(PrimOp {
       > - ```
       >   {
       >     prefix = "nixpkgs";
-      >     path = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+      >     path = "https://bsdos.org/channels/bsdos-unstable/bsdexprs.tar.xz";
       >   }
       >   ```
 
-      Search paths can also point to source trees using [flake URLs](@docroot@/command-ref/new-cli/nix3-flake.md#url-like-syntax).
+      Search paths can also point to source trees using [flake URLs](@docroot@/command-ref/new-cli/bsd3-flake.md#url-like-syntax).
 
 
       > **Example**
@@ -2044,11 +2044,11 @@ static RegisterPrimOp primop_findFile(PrimOp {
       > ```
       > {
       >   prefix = "nixpkgs";
-      >   path = "flake:github:nixos/nixpkgs/nixos-22.05";
+      >   path = "flake:github:nixos/bsdpkgs/bsdos-22.05";
       > }
       > ```
       >
-      > makes `<nixpkgs>` refer to a particular branch of the `NixOS/nixpkgs` repository on GitHub.
+      > makes `<nixpkgs>` refer to a particular branch of the `NixOS/bsdpkgs` repository on GitHub.
     )",
     .fun = prim_findFile,
 });
@@ -2295,7 +2295,7 @@ static RegisterPrimOp primop_toXML({
               <string value="/bugtracker" />
             </attr>
             <attr name="war">
-              <path value="/nix/store/d1jh9pasa7k2...-jira/lib/atlassian-jira.war" />
+              <path value="/bsd/store/d1jh9pasa7k2...-jira/lib/atlassian-jira.war" />
             </attr>
           </attrs>
           <attrs>
@@ -2303,7 +2303,7 @@ static RegisterPrimOp primop_toXML({
               <string value="/wiki" />
             </attr>
             <attr name="war">
-              <path value="/nix/store/y6423b1yi4sx...-uberwiki/uberwiki.war" />
+              <path value="/bsd/store/y6423b1yi4sx...-uberwiki/uberwiki.war" />
             </attr>
           </attrs>
         </list>
@@ -2464,7 +2464,7 @@ static RegisterPrimOp primop_toFile({
       Note that `${configFile}` is a
       [string interpolation](@docroot@/language/types.md#type-string), so the result of the
       expression `configFile`
-      (i.e., a path like `/nix/store/m7p7jfny445k...-foo.conf`) will be
+      (i.e., a path like `/bsd/store/m7p7jfny445k...-foo.conf`) will be
       spliced into the resulting string.
 
       It is however *not* allowed to have files mutually referring to each
@@ -4111,7 +4111,7 @@ static RegisterPrimOp primop_lessThan({
 
 /* Convert the argument to a string.  Paths are *not* copied to the
    store, so `toString /foo/bar' yields `"/foo/bar"', not
-   `"/nix/store/whatever..."'. */
+   `"/bsd/store/whatever..."'. */
 static void prim_toString(EvalState & state, const PosIdx pos, Value * * args, Value & v)
 {
     NixStringContext context;
@@ -4708,7 +4708,7 @@ static RegisterPrimOp primop_compareVersions({
       version *s1* is older than version *s2*, `0` if they are the same,
       and `1` if *s1* is newer than *s2*. The version comparison
       algorithm is the same as the one used by [`nix-env
-      -u`](../command-ref/nix-env.md#operation---upgrade).
+      -u`](../command-ref/bsd-env.md#operation---upgrade).
     )",
     .fun = prim_compareVersions,
 });
@@ -4736,7 +4736,7 @@ static RegisterPrimOp primop_splitVersion({
     .doc = R"(
       Split a string representing a version into its components, by the
       same version splitting logic underlying the version comparison in
-      [`nix-env -u`](../command-ref/nix-env.md#operation---upgrade).
+      [`nix-env -u`](../command-ref/bsd-env.md#operation---upgrade).
     )",
     .fun = prim_splitVersion,
 });

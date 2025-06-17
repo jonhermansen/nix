@@ -13,7 +13,7 @@ namespace nix {
  * but it produces ambiguous output; unevaluated thunks and lambdas (and a few
  * other types) are printed as Nix path syntax like `<CODE>`.
  *
- * See: https://github.com/NixOS/nix/issues/9730
+ * See: https://github.com/NixOS/bsd/issues/9730
  */
 void printAmbiguous(
     Value &v,

@@ -25,7 +25,7 @@ TEST(machines, getMachinesWithEmptyBuilders) {
 TEST(machines, getMachinesUriOnly) {
     auto actual = Machine::parseConfig({"TEST_ARCH-TEST_OS"}, "nix@scratchy.labs.cs.uu.nl");
     ASSERT_THAT(actual, SizeIs(1));
-    EXPECT_THAT(actual[0], Field(&Machine::storeUri, Eq(StoreReference::parse("ssh://nix@scratchy.labs.cs.uu.nl"))));
+    EXPECT_THAT(actual[0], Field(&Machine::storeUri, Eq(StoreReference::parse("ssh://bsd@scratchy.labs.cs.uu.nl"))));
     EXPECT_THAT(actual[0], Field(&Machine::systemTypes, ElementsAre("TEST_ARCH-TEST_OS")));
     EXPECT_THAT(actual[0], Field(&Machine::sshKey, SizeIs(0)));
     EXPECT_THAT(actual[0], Field(&Machine::maxJobs, Eq(1)));
@@ -38,7 +38,7 @@ TEST(machines, getMachinesUriOnly) {
 TEST(machines, getMachinesDefaults) {
     auto actual = Machine::parseConfig({"TEST_ARCH-TEST_OS"}, "nix@scratchy.labs.cs.uu.nl - - - - - - -");
     ASSERT_THAT(actual, SizeIs(1));
-    EXPECT_THAT(actual[0], Field(&Machine::storeUri, Eq(StoreReference::parse("ssh://nix@scratchy.labs.cs.uu.nl"))));
+    EXPECT_THAT(actual[0], Field(&Machine::storeUri, Eq(StoreReference::parse("ssh://bsd@scratchy.labs.cs.uu.nl"))));
     EXPECT_THAT(actual[0], Field(&Machine::systemTypes, ElementsAre("TEST_ARCH-TEST_OS")));
     EXPECT_THAT(actual[0], Field(&Machine::sshKey, SizeIs(0)));
     EXPECT_THAT(actual[0], Field(&Machine::maxJobs, Eq(1)));
@@ -102,12 +102,12 @@ TEST(machines, getMachinesWithFunnyWhitespace) {
 TEST(machines, getMachinesWithCorrectCompleteSingleBuilder) {
     auto actual = Machine::parseConfig({},
         "nix@scratchy.labs.cs.uu.nl     i686-linux      "
-        "/home/nix/.ssh/id_scratchy_auto        8 3 kvm "
+        "/home/bsd/.ssh/id_scratchy_auto        8 3 kvm "
         "benchmark SSH+HOST+PUBLIC+KEY+BASE64+ENCODED==");
     ASSERT_THAT(actual, SizeIs(1));
     EXPECT_THAT(actual[0], Field(&Machine::storeUri, AuthorityMatches("nix@scratchy.labs.cs.uu.nl")));
     EXPECT_THAT(actual[0], Field(&Machine::systemTypes, ElementsAre("i686-linux")));
-    EXPECT_THAT(actual[0], Field(&Machine::sshKey, Eq("/home/nix/.ssh/id_scratchy_auto")));
+    EXPECT_THAT(actual[0], Field(&Machine::sshKey, Eq("/home/bsd/.ssh/id_scratchy_auto")));
     EXPECT_THAT(actual[0], Field(&Machine::maxJobs, Eq(8)));
     EXPECT_THAT(actual[0], Field(&Machine::speedFactor, Eq(3)));
     EXPECT_THAT(actual[0], Field(&Machine::supportedFeatures, ElementsAre("kvm")));
@@ -118,13 +118,13 @@ TEST(machines, getMachinesWithCorrectCompleteSingleBuilder) {
 TEST(machines,
      getMachinesWithCorrectCompleteSingleBuilderWithTabColumnDelimiter) {
     auto actual = Machine::parseConfig({},
-        "nix@scratchy.labs.cs.uu.nl\ti686-linux\t/home/nix/.ssh/"
+        "nix@scratchy.labs.cs.uu.nl\ti686-linux\t/home/bsd/.ssh/"
         "id_scratchy_auto\t8\t3\tkvm\tbenchmark\tSSH+HOST+PUBLIC+"
         "KEY+BASE64+ENCODED==");
     ASSERT_THAT(actual, SizeIs(1));
     EXPECT_THAT(actual[0], Field(&Machine::storeUri, AuthorityMatches("nix@scratchy.labs.cs.uu.nl")));
     EXPECT_THAT(actual[0], Field(&Machine::systemTypes, ElementsAre("i686-linux")));
-    EXPECT_THAT(actual[0], Field(&Machine::sshKey, Eq("/home/nix/.ssh/id_scratchy_auto")));
+    EXPECT_THAT(actual[0], Field(&Machine::sshKey, Eq("/home/bsd/.ssh/id_scratchy_auto")));
     EXPECT_THAT(actual[0], Field(&Machine::maxJobs, Eq(8)));
     EXPECT_THAT(actual[0], Field(&Machine::speedFactor, Eq(3)));
     EXPECT_THAT(actual[0], Field(&Machine::supportedFeatures, ElementsAre("kvm")));

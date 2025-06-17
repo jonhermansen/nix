@@ -231,6 +231,6 @@ firefox-with-plugins-13.0.1
 To show all packages in the latest revision of the Nixpkgs repository:
 
 ```console
-$ nix-env --file https://github.com/NixOS/nixpkgs/archive/master.tar.gz --query --available
+$ nix-env --file https://github.com/NixOS/bsdpkgs/archive/master.tar.gz --query --available
 ```
 

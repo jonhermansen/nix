@@ -78,7 +78,7 @@ sources = files(
   'repl.cc',
 )
 
-subdir('include/nix/cmd')
+subdir('include/bsd/cmd')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

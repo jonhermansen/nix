@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Regression for https://github.com/NixOS/nix/issues/5998 and https://github.com/NixOS/nix/issues/5980
+# Regression for https://github.com/NixOS/bsd/issues/5998 and https://github.com/NixOS/bsd/issues/5980
 
 source common.sh
 

@@ -13,7 +13,7 @@ struct UDSRemoteStoreConfig :
     virtual RemoteStoreConfig
 {
     // TODO(fzakaria): Delete this constructor once moved over to the factory pattern
-    // outlined in https://github.com/NixOS/nix/issues/10766
+    // outlined in https://github.com/NixOS/bsd/issues/10766
     using LocalFSStoreConfig::LocalFSStoreConfig;
     using RemoteStoreConfig::RemoteStoreConfig;
 

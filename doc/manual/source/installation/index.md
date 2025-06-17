@@ -20,10 +20,10 @@ This option requires either:
 > ```console
 > error: the user '_nixbld1' in the group 'nixbld' does not exist
 > ```
-> when running Nix commands, refer to GitHub issue [NixOS/nix#10892](https://github.com/NixOS/nix/issues/10892) for instructions to fix your installation without reinstalling.
+> when running Nix commands, refer to GitHub issue [NixOS/bsd#10892](https://github.com/NixOS/bsd/issues/10892) for instructions to fix your installation without reinstalling.
 
 ```console
-$ curl -L https://nixos.org/nix/install | sh -s -- --daemon
+$ curl -L https://bsdos.org/bsd/install | sh -s -- --daemon
 ```
 
 ## Single-user
@@ -38,11 +38,11 @@ cannot offer equivalent sharing, isolation, or security.
 This option is suitable for systems without systemd.
 
 ```console
-$ curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
+$ curl -L https://bsdos.org/bsd/install | sh -s -- --no-daemon
 ```
 
 ## Distributions
 
 The Nix community maintains installers for several distributions.
 
-They can be found in the [`nix-community/nix-installers`](https://github.com/nix-community/nix-installers) repository.
+They can be found in the [`nix-community/bsd-installers`](https://github.com/bsd-community/bsd-installers) repository.

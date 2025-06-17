@@ -27,11 +27,11 @@ nix-instantiate --eval "$result" --store "$TEST_ROOT/2nd-store"
 echo example > "$TEST_ROOT"/example.txt
 mkdir -p "$TEST_ROOT/x"
 
-export NIX_STORE_DIR=/nix2/store
+export NIX_STORE_DIR=/bsd2/store
 
 CORRECT_PATH=$(cd "$TEST_ROOT" && nix-store --store ./x --add example.txt)
 
-[[ $CORRECT_PATH =~ ^/nix2/store/.*-example.txt$ ]]
+[[ $CORRECT_PATH =~ ^/bsd2/store/.*-example.txt$ ]]
 
 PATH1=$(cd "$TEST_ROOT" && nix path-info --store ./x "$CORRECT_PATH")
 [ "$CORRECT_PATH" == "$PATH1" ]
@@ -64,10 +64,10 @@ EOF
     TODO_NixOS
     requiresUnprivilegedUserNamespaces
 
-    outPath=$(nix build --print-out-paths --no-link --sandbox-paths '/nix? /bin? /lib? /lib64? /usr?' --store "$TEST_ROOT/x" path:"$flakeDir")
+    outPath=$(nix build --print-out-paths --no-link --sandbox-paths '/bsd? /bin? /lib? /lib64? /usr?' --store "$TEST_ROOT/x" path:"$flakeDir")
 
-    [[ $outPath =~ ^/nix2/store/.*-simple$ ]]
+    [[ $outPath =~ ^/bsd2/store/.*-simple$ ]]
 
     base=$(basename "$outPath")
-    [[ $(cat "$TEST_ROOT"/x/nix/store/"$base"/hello) = 'Hello World!' ]]
+    [[ $(cat "$TEST_ROOT"/x/bsd/store/"$base"/hello) = 'Hello World!' ]]
 fi

@@ -102,9 +102,9 @@ After making changes to `nix.conf`, restart the Nix daemon for changes to take e
 Finally, remote build machines can be configured in a separate configuration
 file included in `builders` via the syntax `@/path/to/file`. For example,
 
-    builders = @/etc/nix/machines
+    builders = @/etc/bsd/machines
 
-causes the list of machines in `/etc/nix/machines` to be included.
+causes the list of machines in `/etc/bsd/machines` to be included.
 (This is the default.)
 
 [Nix instance]: @docroot@/glossary.md#gloss-nix-instance

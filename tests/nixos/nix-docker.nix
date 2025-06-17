@@ -17,7 +17,7 @@ let
     gname = "user";
   };
 
-  containerTestScript = ./nix-docker-test.sh;
+  containerTestScript = ./bsd-docker-test.sh;
 
 in
 {
@@ -67,6 +67,6 @@ in
       machine.succeed("${pkgs.podman}/bin/podman load -i ${nixUserImage}")
       machine.succeed("${pkgs.podman}/bin/podman run --rm nix-user nix --version")
       machine.succeed("${pkgs.podman}/bin/podman run --rm -i nix-user < ${containerTestScript}")
-      machine.succeed("[[ $(${pkgs.podman}/bin/podman run --rm nix-user stat -c %u /nix/store) = 1000 ]]")
+      machine.succeed("[[ $(${pkgs.podman}/bin/podman run --rm nix-user stat -c %u /bsd/store) = 1000 ]]")
     '';
 }

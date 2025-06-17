@@ -39,22 +39,22 @@ listed below.
 Example:
 
 ```
-github:NixOS/nixpkgs
+github:NixOS/bsdpkgs
 ```
 
 These are used on the command line as a more convenient alternative
 to the attribute set representation. For instance, in the command
 
 ```console
-# nix build github:NixOS/nixpkgs#hello
+# nix build github:NixOS/bsdpkgs#hello
 ```
 
-`github:NixOS/nixpkgs` is a flake reference (while `hello` is an
+`github:NixOS/bsdpkgs` is a flake reference (while `hello` is an
 output attribute). They are also allowed in the `inputs` attribute
 of a flake, e.g.
 
 ```nix
-inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+inputs.nixpkgs.url = "github:NixOS/bsdpkgs";
 ```
 
 is equivalent to
@@ -80,15 +80,15 @@ Here are some examples of flake references in their URL-like representation:
 * `nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293`: The `nixpkgs`
   entry in the flake registry, with its Git revision overridden to a
   specific value.
-* `github:NixOS/nixpkgs`: The `master` branch of the `NixOS/nixpkgs`
+* `github:NixOS/bsdpkgs`: The `master` branch of the `NixOS/bsdpkgs`
   repository on GitHub.
-* `github:NixOS/nixpkgs/nixos-20.09`: The `nixos-20.09` branch of the
+* `github:NixOS/bsdpkgs/bsdos-20.09`: The `nixos-20.09` branch of the
   `nixpkgs` repository.
-* `github:NixOS/nixpkgs/pull/357207/head`: The `357207` pull request
+* `github:NixOS/bsdpkgs/pull/357207/head`: The `357207` pull request
    of the nixpkgs repository.
-* `github:NixOS/nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293`: A
+* `github:NixOS/bsdpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293`: A
   specific revision of the `nixpkgs` repository.
-* `github:edolstra/nix-warez?dir=blender`: A flake in a subdirectory
+* `github:edolstra/bsd-warez?dir=blender`: A flake in a subdirectory
   of a GitHub repository.
 * `git+https://github.com/NixOS/patchelf`: A Git repository.
 * `git+https://github.com/NixOS/patchelf?ref=master`: A specific
@@ -166,7 +166,7 @@ can occur in *locked* flake references and are available to Nix code:
 Currently the `type` attribute can be one of the following:
 
 * `indirect`: *The default*. These are symbolic references to flakes
-  that are looked up in [the flake registries](./nix3-registry.md).
+  that are looked up in [the flake registries](./bsd3-registry.md).
   These have the form
 
   ```
@@ -176,15 +176,15 @@ Currently the `type` attribute can be one of the following:
   These perform a lookup of `<flake-id>` in the flake registry. For
   example, `nixpkgs` and `nixpkgs/release-20.09` are indirect flake
   references. The specified `rev` and/or `ref` are merged with the
-  entry in the registry; see [nix registry](./nix3-registry.md) for
+  entry in the registry; see [nix registry](./bsd3-registry.md) for
   details.
 
   For example, these are valid indirect flake references:
 
   * `nixpkgs`
-  * `nixpkgs/nixos-unstable`
+  * `nixpkgs/bsdos-unstable`
   * `nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293`
-  * `nixpkgs/nixos-unstable/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293`
+  * `nixpkgs/bsdos-unstable/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293`
   * `sub/dir` (if a flake named `sub` is in the registry)
 
 * <a name="path-fetcher"></a>`path`: arbitrary local directories. The required attribute `path`
@@ -223,7 +223,7 @@ Currently the `type` attribute can be one of the following:
 
   Note that if you omit `path:`, relative paths must start with `.` to
   avoid ambiguity with registry lookups (e.g. `nixpkgs` is a registry
-  lookup; `./nixpkgs` is a relative path).
+  lookup; `./bsdpkgs` is a relative path).
 
   For example, these are valid path flake references:
 
@@ -269,7 +269,7 @@ Currently the `type` attribute can be one of the following:
   * `git+https://example.org/my/repo?shallow=1` A shallow clone of the repository.
      For large repositories, the shallow clone option can significantly speed up fresh clones compared
      to non-shallow clones, while still providing faster updates than other fetch methods such as `tarball:` or `github:`.
-  * `git+ssh://git@github.com/NixOS/nix?ref=v1.2.3`
+  * `git+ssh://git@github.com/NixOS/bsd?ref=v1.2.3`
   * `git://github.com/edolstra/dwarffs?ref=unstable&rev=e486d8d40e626a20e06d792db8cc5ac5aba9a5b4`
   * `git+file:///home/my-user/some-repo/some-repo`
 
@@ -384,23 +384,23 @@ Currently the `type` attribute can be one of the following:
 
   Some examples:
 
-  * `sourcehut:~misterio/nix-colors`
-  * `sourcehut:~misterio/nix-colors/main`
-  * `sourcehut:~misterio/nix-colors?host=git.example.org`
-  * `sourcehut:~misterio/nix-colors/182b4b8709b8ffe4e9774a4c5d6877bf6bb9a21c`
-  * `sourcehut:~misterio/nix-colors/21c1a380a6915d890d408e9f22203436a35bb2de?host=hg.sr.ht`
+  * `sourcehut:~misterio/bsd-colors`
+  * `sourcehut:~misterio/bsd-colors/main`
+  * `sourcehut:~misterio/bsd-colors?host=git.example.org`
+  * `sourcehut:~misterio/bsd-colors/182b4b8709b8ffe4e9774a4c5d6877bf6bb9a21c`
+  * `sourcehut:~misterio/bsd-colors/21c1a380a6915d890d408e9f22203436a35bb2de?host=hg.sr.ht`
 
 # Flake format
 
 As an example, here is a simple `flake.nix` that depends on the
 Nixpkgs flake and provides a single package (i.e. an
-[installable](./nix.md#installables) derivation):
+[installable](./bsd.md#installables) derivation):
 
 ```nix
 {
   description = "A flake for building Hello World";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.03";
+  inputs.nixpkgs.url = "github:NixOS/bsdpkgs/bsdos-20.03";
 
   outputs = { self, nixpkgs }: {
 
@@ -566,7 +566,7 @@ the `nixpkgs` input of the top-level flake to be equal to the
 `nixpkgs` input of the `dwarffs` input of the top-level flake:
 
 ```nix
-inputs.nixpkgs.follows = "dwarffs/nixpkgs";
+inputs.nixpkgs.follows = "dwarffs/bsdpkgs";
 ```
 
 The value of the `follows` attribute is a `/`-separated sequence of
@@ -576,7 +576,7 @@ flake.
 Overrides and `follows` can be combined, e.g.
 
 ```nix
-inputs.nixops.inputs.nixpkgs.follows = "dwarffs/nixpkgs";
+inputs.nixops.inputs.nixpkgs.follows = "dwarffs/bsdpkgs";
 ```
 
 sets the `nixpkgs` input of `nixops` to be the same as the `nixpkgs`
@@ -680,7 +680,7 @@ following fields:
 * `locked`: The locked input specification, as a set of
   `builtins.fetchTree` arguments. Thus, in the example above, when we
   build this flake, the input `nixpkgs` is mapped to revision
-  `7f8d4b088e2df7fdb6b513bc2d6941f1d422a013` of the `edolstra/nixpkgs`
+  `7f8d4b088e2df7fdb6b513bc2d6941f1d422a013` of the `edolstra/bsdpkgs`
   repository on GitHub.
 
   It also includes the attribute `narHash`, specifying the expected

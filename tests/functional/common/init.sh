@@ -20,8 +20,8 @@ EOF
   # When we're doing everything in the same store, we need to bring
   # dependencies into context.
   sed -i "${_NIX_TEST_BUILD_DIR}/config.nix" \
-    -e 's^\(shell\) = "/nix/store/\([^/]*\)/\(.*\)";^\1 = builtins.appendContext "/nix/store/\2" { "/nix/store/\2".path = true; } + "/\3";^' \
-    -e 's^\(path\) = "/nix/store/\([^/]*\)/\(.*\)";^\1 = builtins.appendContext "/nix/store/\2" { "/nix/store/\2".path = true; } + "/\3";^' \
+    -e 's^\(shell\) = "/bsd/store/\([^/]*\)/\(.*\)";^\1 = builtins.appendContext "/bsd/store/\2" { "/bsd/store/\2".path = true; } + "/\3";^' \
+    -e 's^\(path\) = "/bsd/store/\([^/]*\)/\(.*\)";^\1 = builtins.appendContext "/bsd/store/\2" { "/bsd/store/\2".path = true; } + "/\3";^' \
     ;
 
 else
@@ -43,7 +43,7 @@ mkdir -p "$NIX_LOG_DIR/drvs"
 mkdir "$NIX_STATE_DIR"
 mkdir "$NIX_CONF_DIR"
 
-cat > "$NIX_CONF_DIR"/nix.conf <<EOF
+cat > "$NIX_CONF_DIR"/bsd.conf <<EOF
 build-users-group =
 keep-derivations = false
 sandbox = false
@@ -56,7 +56,7 @@ include nix.conf.extra
 trusted-users = $(whoami)
 EOF
 
-cat > "$NIX_CONF_DIR"/nix.conf.extra <<EOF
+cat > "$NIX_CONF_DIR"/bsd.conf.extra <<EOF
 fsync-metadata = false
 extra-experimental-features = flakes
 !include nix.conf.extra.not-there

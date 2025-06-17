@@ -23,7 +23,7 @@ assert baseNameOf "C:a" == "C:a";
 assert baseNameOf "a//b" == "b";
 
 # It's been like this for close to a decade. We ought to commit to it.
-# https://github.com/NixOS/nix/pull/582#issuecomment-121014450
+# https://github.com/NixOS/bsd/pull/582#issuecomment-121014450
 assert baseNameOf "a//" == "";
 
 assert baseNameOf ./foo == "foo";

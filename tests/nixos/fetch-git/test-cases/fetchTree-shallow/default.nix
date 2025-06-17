@@ -2,7 +2,7 @@
   description = "fetchTree fetches git repos shallowly by default";
   script = ''
     # purge nix git cache to make sure we start with a clean slate
-    client.succeed("rm -rf ~/.cache/nix")
+    client.succeed("rm -rf ~/.cache/bsd")
 
     # add two commits to the repo:
     #   - one with a large file (2M)
@@ -36,9 +36,9 @@
       nix eval --impure --raw --expr '({fetchGit_expr}).outPath'
     """)
 
-    # check that the size of ~/.cache/nix is less than 1M
+    # check that the size of ~/.cache/bsd is less than 1M
     cache_size = client.succeed("""
-      du -s ~/.cache/nix
+      du -s ~/.cache/bsd
     """).strip().split()[0]
     assert int(cache_size) < 1024, f"cache size is {cache_size}K which is larger than 1M"
   '';

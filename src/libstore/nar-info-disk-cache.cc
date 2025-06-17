@@ -65,7 +65,7 @@ public:
     /* How often to purge expired entries from the cache. */
     const int purgeInterval = 24 * 3600;
 
-    /* How long to cache binary cache info (i.e. /nix-cache-info) */
+    /* How long to cache binary cache info (i.e. /bsd-cache-info) */
     const int cacheInfoTtl = 7 * 24 * 3600;
 
     struct Cache

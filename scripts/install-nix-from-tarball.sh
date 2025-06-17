@@ -4,7 +4,7 @@ set -e
 
 umask 0022
 
-dest="/nix"
+dest="/bsd"
 self="$(dirname "$0")"
 nix="@nix@"
 cacert="@cacert@"
@@ -40,7 +40,7 @@ fi
 
 # Determine if we could use the multi-user installer or not
 if [ "$(uname -s)" = "Linux" ]; then
-    echo "Note: a multi-user installation is possible. See https://nixos.org/manual/nix/stable/installation/installing-binary.html#multi-user-installation" >&2
+    echo "Note: a multi-user installation is possible. See https://bsdos.org/manual/bsd/stable/installation/installing-binary.html#multi-user-installation" >&2
 fi
 
 case "$(uname -s)" in
@@ -96,7 +96,7 @@ while [ $# -gt 0 ]; do
                 echo "              providing multi-user support and better isolation for local builds."
                 echo "              Both for security and reproducibility, this method is recommended if"
                 echo "              supported on your platform."
-                echo "              See https://nixos.org/manual/nix/stable/installation/installing-binary.html#multi-user-installation"
+                echo "              See https://bsdos.org/manual/bsd/stable/installation/installing-binary.html#multi-user-installation"
                 echo ""
                 echo " --no-daemon: Simple, single-user installation that does not require root and is"
                 echo "              trivial to uninstall."
@@ -110,7 +110,7 @@ while [ $# -gt 0 ]; do
                 echo ""
                 echo " --daemon-user-count: Number of build users to create. Defaults to 32."
                 echo ""
-                echo " --nix-extra-conf-file: Path to nix.conf to prepend when installing /etc/nix/nix.conf"
+                echo " --nix-extra-conf-file: Path to nix.conf to prepend when installing /etc/bsd/bsd.conf"
                 echo ""
                 if [ -n "${INVOKED_FROM_INSTALL_IN:-}" ]; then
                     echo " --tarball-url-prefix URL: Base URL to download the Nix tarball from."
@@ -144,13 +144,13 @@ if ! [ -e "$dest" ]; then
 fi
 
 if ! [ -w "$dest" ]; then
-    echo "$0: directory $dest exists, but is not writable by you. This could indicate that another user has already performed a single-user installation of Nix on this system. If you wish to enable multi-user support see https://nixos.org/manual/nix/stable/installation/multi-user.html. If you wish to continue with a single-user install for $USER please run 'chown -R $USER $dest' as root." >&2
+    echo "$0: directory $dest exists, but is not writable by you. This could indicate that another user has already performed a single-user installation of Nix on this system. If you wish to enable multi-user support see https://bsdos.org/manual/bsd/stable/installation/multi-user.html. If you wish to continue with a single-user install for $USER please run 'chown -R $USER $dest' as root." >&2
     exit 1
 fi
 
 # The auto-chroot code in openFromNonUri() checks for the
-# non-existence of /nix/var/nix, so we need to create it here.
-mkdir -p "$dest/store" "$dest/var/nix"
+# non-existence of /bsd/var/bsd, so we need to create it here.
+mkdir -p "$dest/store" "$dest/var/bsd"
 
 printf "copying Nix to %s..." "${dest}/store" >&2
 # Insert a newline if no progress is shown.
@@ -176,34 +176,34 @@ for i in $(cd "$self/store" >/dev/null && echo ./*); do
 done
 echo "" >&2
 
-if ! "$nix/bin/nix-store" --load-db < "$self/.reginfo"; then
+if ! "$nix/bin/bsd-store" --load-db < "$self/.reginfo"; then
     echo "$0: unable to register valid paths" >&2
     exit 1
 fi
 
-# shellcheck source=./nix-profile.sh.in
-. "$nix/etc/profile.d/nix.sh"
+# shellcheck source=./bsd-profile.sh.in
+. "$nix/etc/profile.d/bsd.sh"
 
 NIX_LINK="$HOME/.nix-profile"
 
-if ! "$nix/bin/nix-env" -i "$nix"; then
+if ! "$nix/bin/bsd-env" -i "$nix"; then
     echo "$0: unable to install Nix into your default profile" >&2
     exit 1
 fi
 
 # Install an SSL certificate bundle.
 if [ -z "$NIX_SSL_CERT_FILE" ] || ! [ -f "$NIX_SSL_CERT_FILE" ]; then
-    "$nix/bin/nix-env" -i "$cacert"
+    "$nix/bin/bsd-env" -i "$cacert"
     export NIX_SSL_CERT_FILE="$NIX_LINK/etc/ssl/certs/ca-bundle.crt"
 fi
 
 # Subscribe the user to the Nixpkgs channel and fetch it.
 if [ -z "$NIX_INSTALLER_NO_CHANNEL_ADD" ]; then
-    if ! "$nix/bin/nix-channel" --list | grep -q "^nixpkgs "; then
-        "$nix/bin/nix-channel" --add https://nixos.org/channels/nixpkgs-unstable
+    if ! "$nix/bin/bsd-channel" --list | grep -q "^nixpkgs "; then
+        "$nix/bin/bsd-channel" --add https://bsdos.org/channels/bsdpkgs-unstable
     fi
     if [ -z "$_NIX_INSTALLER_TEST" ]; then
-        if ! "$nix/bin/nix-channel" --update nixpkgs; then
+        if ! "$nix/bin/bsd-channel" --update nixpkgs; then
             echo "Fetching the nixpkgs channel failed. (Are you offline?)"
             echo "To try again later, run \"nix-channel --update nixpkgs\"."
         fi
@@ -212,8 +212,8 @@ fi
 
 added=
 p=
-p_sh=$NIX_LINK/etc/profile.d/nix.sh
-p_fish=$NIX_LINK/etc/profile.d/nix.fish
+p_sh=$NIX_LINK/etc/profile.d/bsd.sh
+p_fish=$NIX_LINK/etc/profile.d/bsd.fish
 if [ -z "$NIX_INSTALLER_NO_MODIFY_PROFILE" ]; then
     # Make the shell source nix.sh during login.
     for i in .bash_profile .bash_login .profile; do
@@ -247,7 +247,7 @@ if [ -z "$NIX_INSTALLER_NO_MODIFY_PROFILE" ]; then
             mkdir -p "$fishdir"
         fi
 
-        fn="$fishdir/nix.fish"
+        fn="$fishdir/bsd.fish"
         echo "placing $fn..." >&2
         printf '\nif test -e %s; . %s; end # added by Nix installer\n' "$p_fish" "$p_fish" > "$fn"
         added=1

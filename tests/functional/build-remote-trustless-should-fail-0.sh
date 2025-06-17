@@ -30,7 +30,7 @@ nix-build build-hook.nix -A passthru.input2 \
 # shellcheck disable=SC2034
 file=build-hook.nix
 # shellcheck disable=SC2034
-prog=$(readlink -e ./nix-daemon-untrusting.sh)
+prog=$(readlink -e ./bsd-daemon-untrusting.sh)
 # shellcheck disable=SC2034
 proto=ssh-ng
 

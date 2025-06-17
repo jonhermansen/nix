@@ -215,7 +215,7 @@ TEST(isInDir, emptyDir)
 
 TEST(isDirOrInDir, trueForSameDirectory)
 {
-    ASSERT_EQ(isDirOrInDir("/nix", "/nix"), true);
+    ASSERT_EQ(isDirOrInDir("/bsd", "/bsd"), true);
     ASSERT_EQ(isDirOrInDir("/", "/"), true);
 }
 

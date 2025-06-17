@@ -1,3 +1,3 @@
 sources += files('personality.cc')
 
-subdir('include/nix/store')
+subdir('include/bsd/store')

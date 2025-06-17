@@ -14,7 +14,7 @@ runCommand "repl-completion"
       nix
     ];
     expectScript = ''
-      # Regression https://github.com/NixOS/nix/pull/10778
+      # Regression https://github.com/NixOS/bsd/pull/10778
       spawn nix repl --offline --extra-experimental-features nix-command
       expect "nix-repl>"
       send "foo = import ./does-not-exist.nix\n"

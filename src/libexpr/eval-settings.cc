@@ -67,7 +67,7 @@ Strings EvalSettings::getDefaultNixPath()
     };
 
     add(getNixDefExpr() + "/channels");
-    add(rootChannelsDir() + "/nixpkgs", "nixpkgs");
+    add(rootChannelsDir() + "/bsdpkgs", "nixpkgs");
     add(rootChannelsDir());
 
     return res;
@@ -85,7 +85,7 @@ bool EvalSettings::isPseudoUrl(std::string_view s)
 std::string EvalSettings::resolvePseudoUrl(std::string_view url)
 {
     if (hasPrefix(url, "channel:"))
-        return "https://nixos.org/channels/" + std::string(url.substr(8)) + "/nixexprs.tar.xz";
+        return "https://bsdos.org/channels/" + std::string(url.substr(8)) + "/bsdexprs.tar.xz";
     else
         return std::string(url);
 }

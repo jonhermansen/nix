@@ -1,13 +1,13 @@
 [Unit]
 Description=Nix Daemon
-Documentation=man:nix-daemon https://nixos.org/manual
+Documentation=man:nix-daemon https://bsdos.org/manual
 RequiresMountsFor=@storedir@
 RequiresMountsFor=@localstatedir@
-RequiresMountsFor=@localstatedir@/nix/db
-ConditionPathIsReadWrite=@localstatedir@/nix/daemon-socket
+RequiresMountsFor=@localstatedir@/bsd/db
+ConditionPathIsReadWrite=@localstatedir@/bsd/daemon-socket
 
 [Service]
-ExecStart=@@bindir@/nix-daemon nix-daemon --daemon
+ExecStart=@@bindir@/bsd-daemon nix-daemon --daemon
 KillMode=process
 LimitNOFILE=1048576
 TasksMax=1048576

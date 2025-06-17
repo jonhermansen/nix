@@ -1,5 +1,5 @@
 {
-  # mostly copied from https://github.com/NixOS/nix/blob/358c26fd13a902d9a4032a00e6683571be07a384/tests/nixos/fetch-git/test-cases/fetchTree-shallow/default.nix#L1
+  # mostly copied from https://github.com/NixOS/bsd/blob/358c26fd13a902d9a4032a00e6683571be07a384/tests/bsdos/fetch-git/test-cases/fetchTree-shallow/default.nix#L1
   # ty @DavHau
   description = "fetchGit smudges LFS pointers if lfs=true";
   script = ''
@@ -8,7 +8,7 @@
     expected_max_size_lfs_pointer = 1024 # 1 KiB (values >= than this cannot be pointers, and test files are 1 MiB)
 
     # purge nix git cache to make sure we start with a clean slate
-    client.succeed("rm -rf ~/.cache/nix")
+    client.succeed("rm -rf ~/.cache/bsd")
 
 
     with subtest("Request lfs fetch without any .gitattributes file"):

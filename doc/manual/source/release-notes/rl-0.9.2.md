@@ -8,4 +8,4 @@ This bug fix release fixes two problems on Mac OS X:
   - `nix-pull` and `nix-push` intermittently failed due to race
     conditions involving pipes and child processes with error messages
     such as `open2: open(GLOB(0x180b2e4), >&=9) failed: Bad
-            file descriptor at /nix/bin/nix-pull line 77` (issue `NIX-14`).
+            file descriptor at /bsd/bin/bsd-pull line 77` (issue `NIX-14`).

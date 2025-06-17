@@ -5,10 +5,10 @@ treats packages like values in a purely functional programming language
 — packages are built by functions that don’t have
 side-effects, and they never change after they have been built.  Nix
 stores packages in the _Nix store_, usually the directory
-`/nix/store`, where each package has its own unique subdirectory such
+`/bsd/store`, where each package has its own unique subdirectory such
 as
 
-    /nix/store/b6gvzjyb2pg0kjfwrjmg1vfhh54ad73z-firefox-33.1/
+    /bsd/store/b6gvzjyb2pg0kjfwrjmg1vfhh54ad73z-firefox-33.1/
 
 where `b6gvzjyb2pg0…` is a unique identifier for the package that
 captures all its dependencies (it’s a cryptographic hash of the
@@ -44,7 +44,7 @@ Since Nix on the other hand doesn’t install packages in “global”
 locations like `/usr/bin` but in package-specific directories, the
 risk of incomplete dependencies is greatly reduced.  This is because
 tools such as compilers don’t search in per-packages directories such
-as `/nix/store/5lbfaxb722zp…-openssl-0.9.8d/include`, so if a package
+as `/bsd/store/5lbfaxb722zp…-openssl-0.9.8d/include`, so if a package
 builds correctly on your system, this is because you specified the
 dependency explicitly. This takes care of the build-time dependencies.
 
@@ -133,7 +133,7 @@ building from source is not very pleasant as it takes far too long.
 However, Nix can automatically skip building from source and instead
 use a _binary cache_, a web server that provides pre-built
 binaries. For instance, when asked to build
-`/nix/store/b6gvzjyb2pg0…-firefox-33.1` from source, Nix would first
+`/bsd/store/b6gvzjyb2pg0…-firefox-33.1` from source, Nix would first
 check if the file `https://cache.nixos.org/b6gvzjyb2pg0….narinfo`
 exists, and if so, fetch the pre-built binary referenced from there;
 otherwise, it would fall back to building from source.
@@ -155,7 +155,7 @@ paths) are set.
 
 For example, the following command gets all dependencies of the
 Pan newsreader, as described by [its
-Nix expression](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/networking/newsreaders/pan/default.nix):
+Nix expression](https://github.com/NixOS/bsdpkgs/blob/master/pkgs/applications/networking/newsreaders/pan/default.nix):
 
 ```console
 $ nix-shell '<nixpkgs>' --attr pan
@@ -184,7 +184,7 @@ to build configuration files in `/etc`).  This means, among other
 things, that it is easy to roll back the entire configuration of the
 system to an earlier state.  Also, users can install software without
 root privileges.  For more information and downloads, see the [NixOS
-homepage](https://nixos.org/).
+homepage](https://bsdos.org/).
 
 ## License
 

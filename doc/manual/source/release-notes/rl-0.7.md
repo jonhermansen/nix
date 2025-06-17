@@ -10,7 +10,7 @@
   - Simplifications to the substitute mechanism.
 
   - Nix-pull now stores downloaded manifests in
-    `/nix/var/nix/manifests`.
+    `/bsd/var/bsd/manifests`.
 
   - Metadata on files in the Nix store is canonicalised after builds:
     the last-modified timestamp is set to 0 (00:00:00 1/1/1970), the

@@ -17,5 +17,5 @@
   lockfile.  This may be used in conjunction with the `nixConfig`
   attribute in `flake.nix` to better conform to repository
   conventions.
-* `docker run -ti nixos/nix:master` will place you in the Docker
+* `docker run -ti nixos/bsd:master` will place you in the Docker
   container with the latest version of Nix from the `master` branch.

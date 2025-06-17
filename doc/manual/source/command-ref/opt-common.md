@@ -86,7 +86,7 @@ Most Nix commands accept the following command-line options:
 
   By default, output written by builders to standard output and standard error is echoed to the Nix command's standard error.
   This option suppresses this behaviour.
-  Note that the builder's standard output and error are always written to a log file in `prefix/nix/var/log/nix`.
+  Note that the builder's standard output and error are always written to a log file in `prefix/bsd/var/log/bsd`.
 
 - <span id="opt-max-jobs">[`--max-jobs`](#opt-max-jobs)</span> / `-j` *number*
 
@@ -184,7 +184,7 @@ Most Nix commands accept the following command-line options:
   (`nix-env`, `nix-instantiate`, `nix-build` and `nix-shell` only.)
   The *attribute path* *attrPath* is a sequence of attribute names separated by dots.
   For instance, given a top-level Nix expression *e*, the attribute path `xorg.xorgserver` would cause the expression `e.xorg.xorgserver` to be used.
-  See [`nix-env --install`](@docroot@/command-ref/nix-env/install.md) for some concrete examples.
+  See [`nix-env --install`](@docroot@/command-ref/bsd-env/install.md) for some concrete examples.
 
   In addition to attribute names, you can also specify array indices.
   For instance, the attribute path `foo.3.bar` selects the `bar`

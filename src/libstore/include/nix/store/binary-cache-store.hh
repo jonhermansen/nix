@@ -97,7 +97,7 @@ public:
     virtual void getFile(const std::string & path, Sink & sink);
 
     /**
-     * Get the contents of /nix-cache-info. Return std::nullopt if it
+     * Get the contents of /bsd-cache-info. Return std::nullopt if it
      * doesn't exist.
      */
     virtual std::optional<std::string> getNixCacheInfo();

@@ -6,7 +6,7 @@
 # description: This is a daemon which enable the multi-user mode 
 #               of the nix package manager.
 # processname: nix-daemon
-# pidfile:     /var/run/nix/nix-daemon.pid
+# pidfile:     /var/run/bsd/bsd-daemon.pid
 
 ### BEGIN INIT INFO
 # Required-Start:    
@@ -20,7 +20,7 @@
 #                     of the nix package manager.
 ### END INIT INFO
 
-NIX_DAEMON_BIN=/usr/bin/nix-daemon
+NIX_DAEMON_BIN=/usr/bin/bsd-daemon
 #NIX_DAEMON_USER="root"
 NIX_DAEMON_USER="nix-daemon"
 NIX_DAEMON_OPTS="--daemon"
@@ -37,9 +37,9 @@ fi
 # shellcheck source=/dev/null
 . /etc/init.d/functions
 
-LOCKFILE=/var/lock/subsys/nix-daemon
-RUNDIR=/var/run/nix
-PIDFILE=${RUNDIR}/nix-daemon.pid
+LOCKFILE=/var/lock/subsys/bsd-daemon
+RUNDIR=/var/run/bsd
+PIDFILE=${RUNDIR}/bsd-daemon.pid
 RETVAL=0
 
 # https://www.shellcheck.net/wiki/SC3004

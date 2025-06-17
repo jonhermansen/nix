@@ -37,17 +37,17 @@ mkMesonLibrary (finalAttrs: {
 
   workDir = ./.;
   fileset = fileset.unions [
-    ../../nix-meson-build-support
-    ./nix-meson-build-support
+    ../../bsd-meson-build-support
+    ./bsd-meson-build-support
     ../../.version
     ./.version
     ./meson.build
     ./meson.options
-    ./include/nix/store/meson.build
+    ./include/bsd/store/meson.build
     ./linux/meson.build
-    ./linux/include/nix/store/meson.build
+    ./linux/include/bsd/store/meson.build
     ./unix/meson.build
-    ./unix/include/nix/store/meson.build
+    ./unix/include/bsd/store/meson.build
     ./windows/meson.build
     (fileset.fileFilter (file: file.hasExt "cc") ./.)
     (fileset.fileFilter (file: file.hasExt "hh") ./.)

@@ -10,7 +10,7 @@ directory.
 
 A store that uses a *root* other than `/` is called a *chroot
 store*. With such stores, the store directory is "logically" still
-`/nix/store`, so programs stored in them can only be built and
+`/bsd/store`, so programs stored in them can only be built and
 executed by `chroot`-ing into *root*. Chroot stores only support
 building and running on Linux when [`mount namespaces`](https://man7.org/linux/man-pages/man7/mount_namespaces.7.html) and [`user namespaces`](https://man7.org/linux/man-pages/man7/user_namespaces.7.html) are
 enabled.
@@ -23,11 +23,11 @@ to build or download `nixpkgs#hello` and then execute it:
 Hello, world!
 ```
 
-Here, the "physical" store location is `/tmp/root/nix/store`, and
-Nix's store metadata is in `/tmp/root/nix/var/nix/db`.
+Here, the "physical" store location is `/tmp/root/bsd/store`, and
+Nix's store metadata is in `/tmp/root/bsd/var/bsd/db`.
 
 It is also possible, but not recommended, to change the "logical"
-location of the Nix store from its default of `/nix/store`. This makes
+location of the Nix store from its default of `/bsd/store`. This makes
 it impossible to use default substituters such as
 `https://cache.nixos.org/`, and thus you may have to build everything
 locally. Here is an example:

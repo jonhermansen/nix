@@ -114,7 +114,7 @@ EOF
     nix flake update
 
     clearStore
-    "$NIX_DAEMON_PACKAGE/bin/nix" eval .#foo
+    "$NIX_DAEMON_PACKAGE/bin/bsd" eval .#foo
 EOF
 }
 

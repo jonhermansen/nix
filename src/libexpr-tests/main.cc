@@ -18,7 +18,7 @@ int main (int argc, char **argv) {
 
     // When building and testing nix within the host's Nix sandbox, our store dir will be located in the host's sandboxBuildDir, e.g.:
     // Host
-    //   storeDir = /nix/store
+    //   storeDir = /bsd/store
     //   sandboxBuildDir = /build
     // This process
     //   storeDir = /build/foo/bar/store

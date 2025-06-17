@@ -9,7 +9,7 @@ rec {
   };
 
   value =
-    # Test that pathExists can check the existence of /nix/store paths
+    # Test that pathExists can check the existence of /bsd/store paths
     assert builtins.pathExists bar;
     import bar;
 

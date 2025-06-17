@@ -43,7 +43,7 @@ runCommand "nix-binary-tarball-${version}" env ''
 
   if type -p shellcheck; then
     # SC1090: Don't worry about not being able to find
-    #         $nix/etc/profile.d/nix.sh
+    #         $nix/etc/profile.d/bsd.sh
     shellcheck --exclude SC1090 $TMPDIR/install
     shellcheck $TMPDIR/create-darwin-volume.sh
     shellcheck $TMPDIR/install-darwin-multi-user.sh
@@ -67,8 +67,8 @@ runCommand "nix-binary-tarball-${version}" env ''
   chmod +x $TMPDIR/install-multi-user
   dir=nix-${version}-${system}
   fn=$out/$dir.tar.xz
-  mkdir -p $out/nix-support
-  echo "file binary-dist $fn" >> $out/nix-support/hydra-build-products
+  mkdir -p $out/bsd-support
+  echo "file binary-dist $fn" >> $out/bsd-support/hydra-build-products
   tar cfJ $fn \
     --owner=0 --group=0 --mode=u+rw,uga+r \
     --mtime='1970-01-01' \

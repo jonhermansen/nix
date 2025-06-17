@@ -51,7 +51,7 @@ testNixCommand () {
     nix build --file ./content-addressed.nix --no-link
 }
 
-# Regression test for https://github.com/NixOS/nix/issues/4775
+# Regression test for https://github.com/NixOS/bsd/issues/4775
 testNormalization () {
     clearStore
     outPath=$(buildAttr rootCA 1)

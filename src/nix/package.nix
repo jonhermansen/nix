@@ -24,8 +24,8 @@ mkMesonExecutable (finalAttrs: {
   workDir = ./.;
   fileset = fileset.unions (
     [
-      ../../nix-meson-build-support
-      ./nix-meson-build-support
+      ../../bsd-meson-build-support
+      ./bsd-meson-build-support
       ../../.version
       ./.version
       ./meson.build
@@ -35,13 +35,13 @@ mkMesonExecutable (finalAttrs: {
       ## exes
       ./build-remote
       ./doc
-      ./nix-build
-      ./nix-channel
-      ./nix-collect-garbage
-      ./nix-copy-closure
-      ./nix-env
-      ./nix-instantiate
-      ./nix-store
+      ./bsd-build
+      ./bsd-channel
+      ./bsd-collect-garbage
+      ./bsd-copy-closure
+      ./bsd-env
+      ./bsd-instantiate
+      ./bsd-store
       ## dirs
       ./scripts
       ../../scripts
@@ -55,8 +55,8 @@ mkMesonExecutable (finalAttrs: {
       ../../doc/manual/generate-store-info.nix
 
       # Other files to be included as string literals
-      ../nix-channel/unpack-channel.nix
-      ../nix-env/buildenv.nix
+      ../bsd-channel/unpack-channel.nix
+      ../bsd-env/buildenv.nix
       ./get-env.sh
       ./help-stores.md
       ../../doc/manual/source/store/types/index.md.in
@@ -75,13 +75,13 @@ mkMesonExecutable (finalAttrs: {
         [
           ./.
           ../build-remote
-          ../nix-build
-          ../nix-channel
-          ../nix-collect-garbage
-          ../nix-copy-closure
-          ../nix-env
-          ../nix-instantiate
-          ../nix-store
+          ../bsd-build
+          ../bsd-channel
+          ../bsd-collect-garbage
+          ../bsd-copy-closure
+          ../bsd-env
+          ../bsd-instantiate
+          ../bsd-store
         ]
   );
 
@@ -96,8 +96,8 @@ mkMesonExecutable (finalAttrs: {
   ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isStatic ''
-    mkdir -p $out/nix-support
-    echo "file binary-dist $out/bin/nix" >> $out/nix-support/hydra-build-products
+    mkdir -p $out/bsd-support
+    echo "file binary-dist $out/bin/bsd" >> $out/bsd-support/hydra-build-products
   '';
 
   meta = {

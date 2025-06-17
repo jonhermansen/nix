@@ -4,7 +4,7 @@ The following incompatible changes have been made:
 
   - The manifest-based substituter mechanism
     (`download-using-manifests`) has been
-    [removed](https://github.com/NixOS/nix/commit/867967265b80946dfe1db72d40324b4f9af988ed).
+    [removed](https://github.com/NixOS/bsd/commit/867967265b80946dfe1db72d40324b4f9af988ed).
     It has been superseded by the binary cache substituter mechanism
     since several years. As a result, the following programs have been
     removed:
@@ -35,18 +35,18 @@ The following incompatible changes have been made:
     removed.
 
   - OpenSSL-based signing has been
-    [removed](https://github.com/NixOS/nix/commit/f435f8247553656774dd1b2c88e9de5d59cab203).
+    [removed](https://github.com/NixOS/bsd/commit/f435f8247553656774dd1b2c88e9de5d59cab203).
     This feature was never well-supported. A better alternative is
     provided by the `secret-key-files` and `trusted-public-keys`
     options.
 
   - Failed build caching has been
-    [removed](https://github.com/NixOS/nix/commit/8cffec84859cec8b610a2a22ab0c4d462a9351ff).
+    [removed](https://github.com/NixOS/bsd/commit/8cffec84859cec8b610a2a22ab0c4d462a9351ff).
     This feature was introduced to support the Hydra continuous build
     system, but Hydra no longer uses it.
 
   - `nix-mode.el` has been removed from Nix. It is now [a separate
-    repository](https://github.com/NixOS/nix-mode) and can be installed
+    repository](https://github.com/NixOS/bsd-mode) and can be installed
     through the MELPA package repository.
 
 This release has the following new features:
@@ -66,7 +66,7 @@ This release has the following new features:
 
             nix copy --to ssh://machine nixpkgs.hello
 
-            nix copy --to ssh://machine /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10
+            nix copy --to ssh://machine /bsd/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10
 
             nix copy --to ssh://machine '(with import <nixpkgs> {}; hello)'
 
@@ -87,7 +87,7 @@ This release has the following new features:
                                                                         log`.
 
       - It
-        [provides](https://github.com/NixOS/nix/commit/b8283773bd64d7da6859ed520ee19867742a03ba)
+        [provides](https://github.com/NixOS/bsd/commit/b8283773bd64d7da6859ed520ee19867742a03ba)
         all `nix.conf` configuration options as command line flags. For
         example, instead of `--option
                                                                         http-connections 100` you can write `--http-connections 100`.
@@ -115,15 +115,15 @@ This release has the following new features:
 
         It is particularly useful in conjunction with chroot stores,
         allowing Linux users who do not have permission to install Nix
-        in `/nix/store` to still use binary substitutes that assume
-        `/nix/store`. For example,
+        in `/bsd/store` to still use binary substitutes that assume
+        `/bsd/store`. For example,
 
             nix run --store ~/my-nix nixpkgs.hello -c hello --greeting 'Hi everybody!'
 
         downloads (or if not substitutes are available, builds) the GNU
-        Hello package into `~/my-nix/nix/store`, then runs `hello` in a
-        mount namespace where `~/my-nix/nix/store` is mounted onto
-        `/nix/store`.
+        Hello package into `~/my-nix/bsd/store`, then runs `hello` in a
+        mount namespace where `~/my-nix/bsd/store` is mounted onto
+        `/bsd/store`.
 
       - `nix search` replaces `nix-env
                                                                         -qa`. It searches the available packages for occurrences of a
@@ -187,7 +187,7 @@ This release has the following new features:
         former is primarily useful in conjunction with remote stores,
         e.g.
 
-            nix ls-store --store https://cache.nixos.org/ -lR /nix/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10
+            nix ls-store --store https://cache.nixos.org/ -lR /bsd/store/0i2jd68mp5g6h2sa5k9c85rb80sn8hi9-hello-2.10
 
         lists the contents of path in a binary cache.
 
@@ -239,8 +239,8 @@ This release has the following new features:
 
         As noted above, `LocalStore` now supports chroot builds,
         allowing the “physical” location of the Nix store (e.g.
-        `/home/alice/nix/store`) to differ from its “logical” location
-        (typically `/nix/store`). This allows non-root users to use Nix
+        `/home/alice/bsd/store`) to differ from its “logical” location
+        (typically `/bsd/store`). This allows non-root users to use Nix
         while still getting the benefits from prebuilt binaries from
         [cache.nixos.org](https://cache.nixos.org/).
 
@@ -289,12 +289,12 @@ This release has the following new features:
         ultimately trusted, or are content-addressed.
 
       - Substitutions from binary caches
-        [now](https://github.com/NixOS/nix/commit/ecbc3fedd3d5bdc5a0e1a0a51b29062f2874ac8b)
+        [now](https://github.com/NixOS/bsd/commit/ecbc3fedd3d5bdc5a0e1a0a51b29062f2874ac8b)
         require signatures by default. This was already the case on
         NixOS.
 
       - In Linux sandbox builds, we
-        [now](https://github.com/NixOS/nix/commit/eba840c8a13b465ace90172ff76a0db2899ab11b)
+        [now](https://github.com/NixOS/bsd/commit/eba840c8a13b465ace90172ff76a0db2899ab11b)
         use `/build` instead of `/tmp` as the temporary build directory.
         This fixes potential security problems when a build accidentally
         stores its `TMPDIR` in some security-sensitive place, such as an
@@ -324,10 +324,10 @@ This release has the following new features:
     (i.e. to help ensure that multiple builds of the same derivation
     produce exactly the same output). When `enforce-determinism` is set
     to `false`, it’s [no
-    longer](https://github.com/NixOS/nix/commit/8bdf83f936adae6f2c907a6d2541e80d4120f051)
+    longer](https://github.com/NixOS/bsd/commit/8bdf83f936adae6f2c907a6d2541e80d4120f051)
     a fatal error if build rounds produce different output. Also, a hook
     named `diff-hook` is
-    [provided](https://github.com/NixOS/nix/commit/9a313469a4bdea2d1e8df24d16289dc2a172a169)
+    [provided](https://github.com/NixOS/bsd/commit/9a313469a4bdea2d1e8df24d16289dc2a172a169)
     to allow you to run tools such as `diffoscope` when build rounds
     produce different output.
 
@@ -347,7 +347,7 @@ This release has the following new features:
     fixed-output derivation with the correct hash is unnecessary.
 
   - `nix-shell`
-    [now](https://github.com/NixOS/nix/commit/ea59f39326c8e9dc42dfed4bcbf597fbce58797c)
+    [now](https://github.com/NixOS/bsd/commit/ea59f39326c8e9dc42dfed4bcbf597fbce58797c)
     sets the `IN_NIX_SHELL` environment variable during evaluation and
     in the shell itself. This can be used to perform different actions
     depending on whether you’re in a Nix shell or in a regular build.
@@ -358,7 +358,7 @@ This release has the following new features:
     they are needed for evaluation.
 
   - You can now use `channel:` as a short-hand for
-    <https://nixos.org/channels//nixexprs.tar.xz>. For example,
+    <https://bsdos.org/channels//bsdexprs.tar.xz>. For example,
     `nix-build channel:nixos-15.09 -A hello` will build the GNU Hello
     package from the `nixos-15.09` channel. In the future, this may
     use Git to fetch updates more efficiently.
@@ -370,7 +370,7 @@ This release has the following new features:
 
       - HTTP/2 is now supported. This makes binary cache lookups [much
         more
-        efficient](https://github.com/NixOS/nix/commit/90ad02bf626b885a5dd8967894e2eafc953bdf92).
+        efficient](https://github.com/NixOS/bsd/commit/90ad02bf626b885a5dd8967894e2eafc953bdf92).
 
       - We now retry downloads on many HTTP errors, making binary caches
         substituters more resilient to temporary failures.
@@ -379,7 +379,7 @@ This release has the following new features:
         mechanism.
 
       - If S3 support is enabled at compile time, <s3://> URIs are
-        [supported](https://github.com/NixOS/nix/commit/9ff9c3f2f80ba4108e9c945bbfda2c64735f987b)
+        [supported](https://github.com/NixOS/bsd/commit/9ff9c3f2f80ba4108e9c945bbfda2c64735f987b)
         in all places where Nix allows URIs.
 
       - Brotli compression is now supported. In particular,
@@ -387,7 +387,7 @@ This release has the following new features:
         using Brotli.
 
   - `nix-env`
-    [now](https://github.com/NixOS/nix/commit/b0cb11722626e906a73f10dd9a0c9eea29faf43a)
+    [now](https://github.com/NixOS/bsd/commit/b0cb11722626e906a73f10dd9a0c9eea29faf43a)
     ignores packages with bad derivation names (in particular those
     starting with a digit or containing a dot).
 
@@ -398,11 +398,11 @@ This release has the following new features:
     old names are still supported for compatibility.
 
   - The `max-jobs` option can
-    [now](https://github.com/NixOS/nix/commit/7251d048fa812d2551b7003bc9f13a8f5d4c95a5)
+    [now](https://github.com/NixOS/bsd/commit/7251d048fa812d2551b7003bc9f13a8f5d4c95a5)
     be set to `auto` to use the number of CPUs in the system.
 
   - Hashes can
-    [now](https://github.com/NixOS/nix/commit/c0015e87af70f539f24d2aa2bc224a9d8b84276b)
+    [now](https://github.com/NixOS/bsd/commit/c0015e87af70f539f24d2aa2bc224a9d8b84276b)
     be specified in base-64 format, in addition to base-16 and the
     non-standard base-32.
 
@@ -478,7 +478,7 @@ The Nix build environment has the following changes:
 
   - Values such as Booleans, integers, (nested) lists and attribute sets
     can
-    [now](https://github.com/NixOS/nix/commit/6de33a9c675b187437a2e1abbcb290981a89ecb1)
+    [now](https://github.com/NixOS/bsd/commit/6de33a9c675b187437a2e1abbcb290981a89ecb1)
     be passed to builders in a non-lossy way. If the special attribute
     `__structuredAttrs` is set to `true`, the other derivation
     attributes are serialised in JSON format and made available to the
@@ -487,7 +487,7 @@ The Nix build environment has the following changes:
     have no size restrictions, unlike process environments.
 
     [As a convenience to Bash
-    builders](https://github.com/NixOS/nix/commit/2d5b1b24bf70a498e4c0b378704cfdb6471cc699),
+    builders](https://github.com/NixOS/bsd/commit/2d5b1b24bf70a498e4c0b378704cfdb6471cc699),
     Nix writes a script named `.attrs.sh` to the builder’s directory
     that initialises shell variables corresponding to all attributes
     that are representable in Bash. This includes non-nested
@@ -496,23 +496,23 @@ The Nix build environment has the following changes:
     `${hardening[format]}`.
 
   - Builders can
-    [now](https://github.com/NixOS/nix/commit/88e6bb76de5564b3217be9688677d1c89101b2a3)
+    [now](https://github.com/NixOS/bsd/commit/88e6bb76de5564b3217be9688677d1c89101b2a3)
     communicate what build phase they are in by writing messages to the
     file descriptor specified in `NIX_LOG_FD`. The current phase is
     shown by the `nix` progress indicator.
 
   - In Linux sandbox builds, we
-    [now](https://github.com/NixOS/nix/commit/a2d92bb20e82a0957067ede60e91fab256948b41)
+    [now](https://github.com/NixOS/bsd/commit/a2d92bb20e82a0957067ede60e91fab256948b41)
     provide a default `/bin/sh` (namely `ash` from BusyBox).
 
   - In structured attribute mode, `exportReferencesGraph`
-    [exports](https://github.com/NixOS/nix/commit/c2b0d8749f7e77afc1c4b3e8dd36b7ee9720af4a)
+    [exports](https://github.com/NixOS/bsd/commit/c2b0d8749f7e77afc1c4b3e8dd36b7ee9720af4a)
     extended information about closures in JSON format. In particular,
     it includes the sizes and hashes of paths. This is primarily useful
     for NixOS image builders.
 
   - Builds are
-    [now](https://github.com/NixOS/nix/commit/21948deed99a3295e4d5666e027a6ca42dc00b40)
+    [now](https://github.com/NixOS/bsd/commit/21948deed99a3295e4d5666e027a6ca42dc00b40)
     killed as soon as Nix receives EOF on the builder’s stdout or
     stderr. This fixes a bug that allowed builds to hang Nix
     indefinitely, regardless of timeouts.

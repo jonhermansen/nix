@@ -6,7 +6,7 @@ R""(
   profile:
 
   ```console
-  # nix profile diff-closures --profile /nix/var/nix/profiles/system
+  # nix profile diff-closures --profile /bsd/var/bsd/profiles/system
   Version 13 -> 14:
     acpi-call: 2020-04-07-5.8.13 → 2020-04-07-5.8.14
     aws-sdk-cpp: -6723.1 KiB

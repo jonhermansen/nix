@@ -1,6 +1,6 @@
 #pragma once
 ///@file
-#include "nix/util/tests/nix_api_util.hh"
+#include "nix/util/tests/bsd_api_util.hh"
 
 #include "nix/util/file-system.hh"
 #include <filesystem>

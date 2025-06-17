@@ -88,8 +88,8 @@ standard input.
   Look up the given files in Nix’s search path (as specified by the
   `NIX_PATH` environment variable). If found, print the corresponding
   absolute paths on standard output. For instance, if `NIX_PATH` is
-  `nixpkgs=/home/alice/nixpkgs`, then `nix-instantiate --find-file
-  nixpkgs/default.nix` will print `/home/alice/nixpkgs/default.nix`.
+  `nixpkgs=/home/alice/bsdpkgs`, then `nix-instantiate --find-file
+  nixpkgs/default.nix` will print `/home/alice/bsdpkgs/default.nix`.
 
 - `--strict`
 
@@ -137,13 +137,13 @@ Instantiate [store derivation]s from a Nix expression, and build them using `nix
 
 ```console
 $ nix-instantiate test.nix (instantiate)
-/nix/store/cigxbmvy6dzix98dxxh9b6shg7ar5bvs-perl-BerkeleyDB-0.26.drv
+/bsd/store/cigxbmvy6dzix98dxxh9b6shg7ar5bvs-perl-BerkeleyDB-0.26.drv
 
 $ nix-store --realise $(nix-instantiate test.nix) (build)
 ...
-/nix/store/qhqk4n8ci095g3sdp93x7rgwyh9rdvgk-perl-BerkeleyDB-0.26 (output path)
+/bsd/store/qhqk4n8ci095g3sdp93x7rgwyh9rdvgk-perl-BerkeleyDB-0.26 (output path)
 
-$ ls -l /nix/store/qhqk4n8ci095g3sdp93x7rgwyh9rdvgk-perl-BerkeleyDB-0.26
+$ ls -l /bsd/store/qhqk4n8ci095g3sdp93x7rgwyh9rdvgk-perl-BerkeleyDB-0.26
 dr-xr-xr-x    2 eelco    users        4096 1970-01-01 01:00 lib
 ...
 ```
@@ -152,7 +152,7 @@ You can also give a Nix expression on the command line:
 
 ```console
 $ nix-instantiate --expr 'with import <nixpkgs> { }; hello'
-/nix/store/j8s4zyv75a724q38cb0r87rlczaiag4y-hello-2.8.drv
+/bsd/store/j8s4zyv75a724q38cb0r87rlczaiag4y-hello-2.8.drv
 ```
 
 This is equivalent to:

@@ -41,14 +41,14 @@ mkMesonLibrary (finalAttrs: {
 
   workDir = ./.;
   fileset = fileset.unions [
-    ../../nix-meson-build-support
-    ./nix-meson-build-support
+    ../../bsd-meson-build-support
+    ./bsd-meson-build-support
     ../../.version
     ./.version
     ./meson.build
     ./meson.options
     ./primops/meson.build
-    ./include/nix/expr/meson.build
+    ./include/bsd/expr/meson.build
     (fileset.fileFilter (file: file.hasExt "cc") ./.)
     (fileset.fileFilter (file: file.hasExt "hh") ./.)
     ./lexer.l

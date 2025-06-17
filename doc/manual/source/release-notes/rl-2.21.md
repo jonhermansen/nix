@@ -11,14 +11,14 @@
 
   This isn't the case any more.
 
-- CLI options `--arg-from-file` and `--arg-from-stdin` [#10122](https://github.com/NixOS/nix/pull/10122)
+- CLI options `--arg-from-file` and `--arg-from-stdin` [#10122](https://github.com/NixOS/bsd/pull/10122)
 
   The new CLI option `--arg-from-file` *name* *path* passes the contents
   of file *path* as a string value via the function argument *name* to a
   Nix expression. Similarly, the new option `--arg-from-stdin` *name*
   reads the contents of the string from standard input.
 
-- Concise error printing in `nix repl` [#9928](https://github.com/NixOS/nix/pull/9928)
+- Concise error printing in `nix repl` [#9928](https://github.com/NixOS/bsd/pull/9928)
 
   Previously, if an element of a list or attribute set threw an error while
   evaluating, `nix repl` would print the entire error (including source location
@@ -55,20 +55,20 @@
          error: uh oh!
   ```
 
-- `--debugger` can now access bindings from `let` expressions [#8827](https://github.com/NixOS/nix/issues/8827) [#9918](https://github.com/NixOS/nix/pull/9918)
+- `--debugger` can now access bindings from `let` expressions [#8827](https://github.com/NixOS/bsd/issues/8827) [#9918](https://github.com/NixOS/bsd/pull/9918)
 
   Breakpoints and errors in the bindings of a `let` expression can now access
   those bindings in the debugger. Previously, only the body of `let` expressions
   could access those bindings.
 
-- Enter the `--debugger` when `builtins.trace` is called if `debugger-on-trace` is set [#9914](https://github.com/NixOS/nix/pull/9914)
+- Enter the `--debugger` when `builtins.trace` is called if `debugger-on-trace` is set [#9914](https://github.com/NixOS/bsd/pull/9914)
 
   If the `debugger-on-trace` option is set and `--debugger` is given,
   `builtins.trace` calls will behave similarly to `builtins.break` and will enter
   the debug REPL. This is useful for determining where warnings are being emitted
   from.
 
-- Debugger prints source position information [#9913](https://github.com/NixOS/nix/pull/9913)
+- Debugger prints source position information [#9913](https://github.com/NixOS/bsd/pull/9913)
 
   The `--debugger` now prints source location information, instead of the
   pointers of source location information. Before:
@@ -83,7 +83,7 @@
 
   ```
   0: while evaluating the attribute 'python311.pythonForBuild.pkgs'
-  /nix/store/hg65h51xnp74ikahns9hyf3py5mlbbqq-source/overrides/default.nix:132:27
+  /bsd/store/hg65h51xnp74ikahns9hyf3py5mlbbqq-source/overrides/default.nix:132:27
 
      131|
      132|       bootstrappingBase = pkgs.${self.python.pythonAttr}.pythonForBuild.pkgs;
@@ -91,7 +91,7 @@
      133|     in
   ```
 
-- The `--debugger` will start more reliably in `let` expressions and function calls [#6649](https://github.com/NixOS/nix/issues/6649) [#9917](https://github.com/NixOS/nix/pull/9917)
+- The `--debugger` will start more reliably in `let` expressions and function calls [#6649](https://github.com/NixOS/bsd/issues/6649) [#9917](https://github.com/NixOS/bsd/pull/9917)
 
   Previously, if you attempted to evaluate this file with the debugger:
 
@@ -113,7 +113,7 @@
 
   Now, Nix will correctly enter the debugger at both breakpoints.
 
-- Nested debuggers are no longer supported [#9920](https://github.com/NixOS/nix/pull/9920)
+- Nested debuggers are no longer supported [#9920](https://github.com/NixOS/bsd/pull/9920)
 
   Previously, evaluating an expression that throws an error in the debugger would
   enter a second, nested debugger:
@@ -143,27 +143,27 @@
          error: what
   ```
 
-- Consistent order of function arguments in printed expressions [#9874](https://github.com/NixOS/nix/pull/9874)
+- Consistent order of function arguments in printed expressions [#9874](https://github.com/NixOS/bsd/pull/9874)
 
   Function arguments are now printed in lexicographic order rather than the internal, creation-time based symbol order.
 
-- Fix duplicate attribute error positions for `inherit` [#9874](https://github.com/NixOS/nix/pull/9874)
+- Fix duplicate attribute error positions for `inherit` [#9874](https://github.com/NixOS/bsd/pull/9874)
 
   When an `inherit` caused a duplicate attribute error the position of the error was not reported correctly, placing the error with the inherit itself or at the start of the bindings block instead of the offending attribute name.
 
-- `inherit (x) ...` evaluates `x` only once [#9847](https://github.com/NixOS/nix/pull/9847)
+- `inherit (x) ...` evaluates `x` only once [#9847](https://github.com/NixOS/bsd/pull/9847)
 
   `inherit (x) a b ...` now evaluates the expression `x` only once for all inherited attributes rather than once for each inherited attribute.
   This does not usually have a measurable impact, but side-effects (such as `builtins.trace`) would be duplicated and expensive expressions (such as derivations) could cause a measurable slowdown.
 
-- Store paths are allowed to start with `.` [#912](https://github.com/NixOS/nix/issues/912) [#9091](https://github.com/NixOS/nix/pull/9091) [#9095](https://github.com/NixOS/nix/pull/9095) [#9120](https://github.com/NixOS/nix/pull/9120) [#9121](https://github.com/NixOS/nix/pull/9121) [#9122](https://github.com/NixOS/nix/pull/9122) [#9130](https://github.com/NixOS/nix/pull/9130) [#9219](https://github.com/NixOS/nix/pull/9219) [#9224](https://github.com/NixOS/nix/pull/9224) [#9867](https://github.com/NixOS/nix/pull/9867)
+- Store paths are allowed to start with `.` [#912](https://github.com/NixOS/bsd/issues/912) [#9091](https://github.com/NixOS/bsd/pull/9091) [#9095](https://github.com/NixOS/bsd/pull/9095) [#9120](https://github.com/NixOS/bsd/pull/9120) [#9121](https://github.com/NixOS/bsd/pull/9121) [#9122](https://github.com/NixOS/bsd/pull/9122) [#9130](https://github.com/NixOS/bsd/pull/9130) [#9219](https://github.com/NixOS/bsd/pull/9219) [#9224](https://github.com/NixOS/bsd/pull/9224) [#9867](https://github.com/NixOS/bsd/pull/9867)
 
   Leading periods were allowed by accident in Nix 2.4. The Nix team has considered this to be a bug, but this behavior has since been relied on by users, leading to unnecessary difficulties.
   From now on, leading periods are supported. The names `.` and `..` are disallowed, as well as those starting with `.-` or `..-`.
 
-  Nix versions that denied leading periods are documented [in the issue](https://github.com/NixOS/nix/issues/912#issuecomment-1919583286).
+  Nix versions that denied leading periods are documented [in the issue](https://github.com/NixOS/bsd/issues/912#issuecomment-1919583286).
 
-- `nix repl` pretty-prints values [#9931](https://github.com/NixOS/nix/pull/9931)
+- `nix repl` pretty-prints values [#9931](https://github.com/NixOS/bsd/pull/9931)
 
   `nix repl` will now pretty-print values:
 
@@ -185,7 +185,7 @@
   }
   ```
 
-- Introduction of `--regex` and `--all` in `nix profile remove` and `nix profile upgrade` [#10166](https://github.com/NixOS/nix/pull/10166)
+- Introduction of `--regex` and `--all` in `nix profile remove` and `nix profile upgrade` [#10166](https://github.com/NixOS/bsd/pull/10166)
 
   Previously the command-line arguments for `nix profile remove` and `nix profile upgrade` matched the package entries using regular expression.
   For instance:
@@ -218,7 +218,7 @@
   nix profile upgrade --all
   ```
 
-- Visual clutter in `--debugger` is reduced [#9919](https://github.com/NixOS/nix/pull/9919)
+- Visual clutter in `--debugger` is reduced [#9919](https://github.com/NixOS/bsd/pull/9919)
 
   Before:
   ```
@@ -253,7 +253,7 @@
   nix-repl>
   ```
 
-- Cycle detection in `nix repl` is simpler and more reliable [#8672](https://github.com/NixOS/nix/issues/8672) [#9926](https://github.com/NixOS/nix/pull/9926)
+- Cycle detection in `nix repl` is simpler and more reliable [#8672](https://github.com/NixOS/bsd/issues/8672) [#9926](https://github.com/NixOS/bsd/pull/9926)
 
   The cycle detection in `nix repl`, `nix eval`, `builtins.trace`, and everywhere
   else values are printed is now simpler and matches the cycle detection in
@@ -272,7 +272,7 @@
   { self = «repeated»; }
   ```
 
-- In the debugger, `while evaluating the attribute` errors now include position information [#9915](https://github.com/NixOS/nix/pull/9915)
+- In the debugger, `while evaluating the attribute` errors now include position information [#9915](https://github.com/NixOS/bsd/pull/9915)
 
   Before:
 
@@ -285,7 +285,7 @@
 
   ```
   0: while evaluating the attribute 'python311.pythonForBuild.pkgs'
-  /nix/store/hg65h51xnp74ikahns9hyf3py5mlbbqq-source/overrides/default.nix:132:27
+  /bsd/store/hg65h51xnp74ikahns9hyf3py5mlbbqq-source/overrides/default.nix:132:27
 
      131|
      132|       bootstrappingBase = pkgs.${self.python.pythonAttr}.pythonForBuild.pkgs;
@@ -293,7 +293,7 @@
      133|     in
   ```
 
-- Stack size is increased on macOS [#9860](https://github.com/NixOS/nix/pull/9860)
+- Stack size is increased on macOS [#9860](https://github.com/NixOS/bsd/pull/9860)
 
   Previously, Nix would set the stack size to 64MiB on Linux, but would leave the
   stack size set to the default (approximately 8KiB) on macOS. Now, the stack

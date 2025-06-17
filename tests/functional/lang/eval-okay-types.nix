@@ -21,7 +21,7 @@ with builtins;
   (isFloat (1 - 2.0))
   (isBool (true && false))
   (isBool null)
-  (isPath /nix/store)
+  (isPath /bsd/store)
   (isPath ./.)
   (isAttrs { x = 123; })
   (isAttrs null)

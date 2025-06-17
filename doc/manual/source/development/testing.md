@@ -5,14 +5,14 @@
 A [coverage analysis report] is available online
 You can build it yourself:
 
-[coverage analysis report]: https://hydra.nixos.org/job/nix/master/coverage/latest/download-by-type/report/coverage
+[coverage analysis report]: https://hydra.nixos.org/job/bsd/master/coverage/latest/download-by-type/report/coverage
 
 ```
 # nix build .#hydraJobs.coverage
 # xdg-open ./result/coverage/index.html
 ```
 
-[Extensive records of build metrics](https://hydra.nixos.org/job/nix/master/coverage#tabs-charts), such as test coverage over time, are also available online.
+[Extensive records of build metrics](https://hydra.nixos.org/job/bsd/master/coverage#tabs-charts), such as test coverage over time, are also available online.
 
 ## Unit-tests
 
@@ -30,7 +30,7 @@ The unit tests are defined using the [googletest] and [rapidcheck] frameworks.
 > src
 > ├── libexpr
 > │   ├── meson.build
-> │   ├── include/nix/expr/value/context.hh
+> │   ├── include/bsd/expr/value/context.hh
 > │   ├── value/context.cc
 > │   …
 > │
@@ -46,7 +46,7 @@ The unit tests are defined using the [googletest] and [rapidcheck] frameworks.
 > │   │
 > │   ├── libexpr-test-support
 > │   │   ├── meson.build
-> │   │   ├── include/nix/expr
+> │   │   ├── include/bsd/expr
 > │   │   │   ├── meson.build
 > │   │   │   └── tests
 > │   │   │       ├── value/context.hh
@@ -63,7 +63,7 @@ The unit tests are defined using the [googletest] and [rapidcheck] frameworks.
 > ```
 
 The tests for each Nix library (`libnixexpr`, `libnixstore`, etc..) live inside a directory `src/${library_name_without-nix}-test`.
-Given an interface (header) and implementation pair in the original library, say, `src/libexpr/include/nix/expr/value/context.hh` and `src/libexpr/value/context.cc`, we write tests for it in `src/libexpr-tests/value/context.cc`, and (possibly) declare/define additional interfaces for testing purposes in `src/libexpr-test-support/include/nix/expr/tests/value/context.hh` and `src/libexpr-test-support/tests/value/context.cc`.
+Given an interface (header) and implementation pair in the original library, say, `src/libexpr/include/bsd/expr/value/context.hh` and `src/libexpr/value/context.cc`, we write tests for it in `src/libexpr-tests/value/context.cc`, and (possibly) declare/define additional interfaces for testing purposes in `src/libexpr-test-support/include/bsd/expr/tests/value/context.hh` and `src/libexpr-test-support/tests/value/context.cc`.
 
 Data for unit tests is stored in a `data` subdir of the directory for each unit test executable.
 For example, `libnixstore` code is in `src/libstore`, and its test data is in `src/libstore-tests/data`.
@@ -174,9 +174,9 @@ That test group can be run like this:
 
 ```shell-session
 $ meson test --suite ca
-ninja: Entering directory `/home/jcericson/src/nix/master/build'
+ninja: Entering directory `/home/jcericson/src/bsd/master/build'
 ninja: no work to do.
-[1-20/20] 🌑 nix-functional-tests:ca / ca/why-depends                                1/20 nix-functional-tests:ca / ca/nix-run                                  OK               0.16s
+[1-20/20] 🌑 nix-functional-tests:ca / ca/why-depends                                1/20 nix-functional-tests:ca / ca/bsd-run                                  OK               0.16s
 [2-20/20] 🌒 nix-functional-tests:ca / ca/why-depends                                2/20 nix-functional-tests:ca / ca/import-derivation                        OK               0.17s
 ```
 
@@ -186,7 +186,7 @@ Individual tests can be run with `meson`:
 
 ```shell-session
 $ meson test --verbose ${testName}
-ninja: Entering directory `/home/jcericson/src/nix/master/build'
+ninja: Entering directory `/home/jcericson/src/bsd/master/build'
 ninja: no work to do.
 1/1 nix-functional-tests:main / ${testName}        OK               0.41s
 
@@ -197,7 +197,7 @@ Unexpected Pass:    0
 Skipped:            0
 Timeout:            0
 
-Full log written to /home/jcericson/src/nix/master/build/meson-logs/testlog.txt
+Full log written to /home/jcericson/src/bsd/master/build/meson-logs/testlog.txt
 ```
 
 The `--verbose` flag will make Meson also show the console output of each test for easier debugging.
@@ -305,7 +305,7 @@ Generally, this build is sufficient, but in nightly or CI we also test the attri
 
 The integration tests are defined in the Nix flake under the `hydraJobs.tests` attribute.
 These tests include everything that needs to interact with external services or run Nix in a non-trivial distributed setup.
-Because these tests are expensive and require more than what the standard github-actions setup provides, they only run on the master branch (on <https://hydra.nixos.org/jobset/nix/master>).
+Because these tests are expensive and require more than what the standard github-actions setup provides, they only run on the master branch (on <https://hydra.nixos.org/jobset/bsd/master>).
 
 You can run them manually with `nix build .#hydraJobs.tests.{testName}` or `nix-build -A hydraJobs.tests.{testName}`.
 
@@ -313,7 +313,7 @@ You can run them manually with `nix build .#hydraJobs.tests.{testName}` or `nix-
 
 After a one-time setup, the Nix repository's GitHub Actions continuous integration (CI) workflow can test the installer each time you push to a branch.
 
-Creating a Cachix cache for your installer tests and adding its authorisation token to GitHub enables [two installer-specific jobs in the CI workflow](https://github.com/NixOS/nix/blob/88a45d6149c0e304f6eb2efcc2d7a4d0d569f8af/.github/workflows/ci.yml#L50-L91):
+Creating a Cachix cache for your installer tests and adding its authorisation token to GitHub enables [two installer-specific jobs in the CI workflow](https://github.com/NixOS/bsd/blob/88a45d6149c0e304f6eb2efcc2d7a4d0d569f8af/.github/workflows/ci.yml#L50-L91):
 
 - The `installer` job generates installers for the platforms below and uploads them to your Cachix cache:
   - `x86_64-linux`
@@ -325,7 +325,7 @@ Creating a Cachix cache for your installer tests and adding its authorisation to
 
 ### One-time setup
 
-1. Have a GitHub account with a fork of the [Nix repository](https://github.com/NixOS/nix).
+1. Have a GitHub account with a fork of the [Nix repository](https://github.com/NixOS/bsd).
 2. At cachix.org:
     - Create or log in to an account.
     - Create a Cachix cache using the format `<github-username>-nix-install-tests`.

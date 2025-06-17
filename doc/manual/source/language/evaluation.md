@@ -12,7 +12,7 @@ This happens by a number of rules, such as:
 - Applying user-defined functions
   For example the expression `(x: x + 1) 10` can[*](#laziness) be thought of rewriting `x` in the function body to the argument, `10 + 1`, which is then evaluated to `11`.
 
-These rules are applied as needed, driven by the specific use of the expression. For example, this can occur in the Nix command line interface or interactively with the [repl (read-eval-print loop)](@docroot@/command-ref/new-cli/nix3-repl.md), which is a useful tool when learning about evaluation.
+These rules are applied as needed, driven by the specific use of the expression. For example, this can occur in the Nix command line interface or interactively with the [repl (read-eval-print loop)](@docroot@/command-ref/new-cli/bsd3-repl.md), which is a useful tool when learning about evaluation.
 
 # Details
 

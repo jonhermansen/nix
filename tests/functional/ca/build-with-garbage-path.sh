@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Regression test for https://github.com/NixOS/nix/issues/4858
+# Regression test for https://github.com/NixOS/bsd/issues/4858
 
 source common.sh
 

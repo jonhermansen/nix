@@ -57,9 +57,9 @@ firefox-2.0.0.9 (the current one)
 
 $ nix-env --preserve-installed --install firefox-2.0.0.11
 installing `firefox-2.0.0.11'
-building path(s) `/nix/store/myy0y59q3ig70dgq37jqwg1j0rsapzsl-user-environment'
-collision between `/nix/store/...-firefox-2.0.0.11/bin/firefox'
-  and `/nix/store/...-firefox-2.0.0.9/bin/firefox'.
+building path(s) `/bsd/store/myy0y59q3ig70dgq37jqwg1j0rsapzsl-user-environment'
+collision between `/bsd/store/...-firefox-2.0.0.11/bin/firefox'
+  and `/bsd/store/...-firefox-2.0.0.9/bin/firefox'.
 (i.e., can’t have two active at the same time)
 
 $ nix-env --set-flag active false firefox

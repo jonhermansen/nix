@@ -18,7 +18,7 @@ Most Nix commands interpret the following environment variables:
   > **Example**
   >
   > ```bash
-  > $ export NIX_PATH=`/home/eelco/Dev:nixos-config=/etc/nixos
+  > $ export NIX_PATH=`/home/eelco/Dev:nixos-config=/etc/bsdos
   > ```
 
   If `NIX_PATH` is set to an empty string, resolving search paths will always fail.
@@ -32,13 +32,13 @@ Most Nix commands interpret the following environment variables:
 
 - <span id="env-NIX_IGNORE_SYMLINK_STORE">[`NIX_IGNORE_SYMLINK_STORE`](#env-NIX_IGNORE_SYMLINK_STORE)</span>
 
-  Normally, the Nix store directory (typically `/nix/store`) is not
+  Normally, the Nix store directory (typically `/bsd/store`) is not
   allowed to contain any symlink components. This is to prevent
   “impure” builds. Builders sometimes “canonicalise” paths by
   resolving all symlink components. Thus, builds on different machines
-  (with `/nix/store` resolving to different locations) could yield
+  (with `/bsd/store` resolving to different locations) could yield
   different results. This is generally not a problem, except when
-  builds are deployed to machines where `/nix/store` resolves
+  builds are deployed to machines where `/bsd/store` resolves
   differently. If you are sure that you’re not going to do that, you
   can set `NIX_IGNORE_SYMLINK_STORE` to `1`.
 
@@ -47,8 +47,8 @@ Most Nix commands interpret the following environment variables:
   better off using `bind` mount points, e.g.,
 
   ```console
-  $ mkdir /nix
-  $ mount -o bind /mnt/otherdisk/nix /nix
+  $ mkdir /bsd
+  $ mount -o bind /mnt/otherdisk/bsd /bsd
   ```
 
   Consult the mount 8 manual page for details.
@@ -65,17 +65,17 @@ Most Nix commands interpret the following environment variables:
 - <span id="env-NIX_LOG_DIR">[`NIX_LOG_DIR`](#env-NIX_LOG_DIR)</span>
 
   Overrides the location of the Nix log directory (default
-  `prefix/var/log/nix`).
+  `prefix/var/log/bsd`).
 
 - <span id="env-NIX_STATE_DIR">[`NIX_STATE_DIR`](#env-NIX_STATE_DIR)</span>
 
   Overrides the location of the Nix state directory (default
-  `prefix/var/nix`).
+  `prefix/var/bsd`).
 
 - <span id="env-NIX_CONF_DIR">[`NIX_CONF_DIR`](#env-NIX_CONF_DIR)</span>
 
   Overrides the location of the system Nix configuration directory
-  (default `prefix/etc/nix`).
+  (default `prefix/etc/bsd`).
 
 - <span id="env-NIX_CONFIG">[`NIX_CONFIG`](#env-NIX_CONFIG)</span>
 
@@ -130,7 +130,7 @@ Most Nix commands interpret the following environment variables:
 Nix follows the [XDG Base Directory Specification].
 
 For backwards compatibility, Nix commands will follow the standard only when [`use-xdg-base-directories`] is enabled.
-[New Nix commands](@docroot@/command-ref/new-cli/nix.md) (experimental) conform to the standard by default.
+[New Nix commands](@docroot@/command-ref/new-cli/bsd.md) (experimental) conform to the standard by default.
 
 The following environment variables are used to determine locations of various state and configuration files:
 
@@ -143,14 +143,14 @@ The following environment variables are used to determine locations of various s
 
 In addition, setting the following environment variables overrides the XDG base directories:
 
-- [`NIX_CONFIG_HOME`]{#env-NIX_CONFIG_HOME} (default `$XDG_CONFIG_HOME/nix`)
-- [`NIX_STATE_HOME`]{#env-NIX_STATE_HOME} (default `$XDG_STATE_HOME/nix`)
-- [`NIX_CACHE_HOME`]{#env-NIX_CACHE_HOME} (default `$XDG_CACHE_HOME/nix`)
+- [`NIX_CONFIG_HOME`]{#env-NIX_CONFIG_HOME} (default `$XDG_CONFIG_HOME/bsd`)
+- [`NIX_STATE_HOME`]{#env-NIX_STATE_HOME} (default `$XDG_STATE_HOME/bsd`)
+- [`NIX_CACHE_HOME`]{#env-NIX_CACHE_HOME} (default `$XDG_CACHE_HOME/bsd`)
 
 When [`use-xdg-base-directories`] is enabled, the configuration directory is:
 
 1. `$NIX_CONFIG_HOME`, if it is defined
-2. Otherwise, `$XDG_CONFIG_HOME/nix`, if `XDG_CONFIG_HOME` is defined
-3. Otherwise, `~/.config/nix`.
+2. Otherwise, `$XDG_CONFIG_HOME/bsd`, if `XDG_CONFIG_HOME` is defined
+3. Otherwise, `~/.config/bsd`.
 
 Likewise for the state and cache directories.

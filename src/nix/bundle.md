@@ -13,8 +13,8 @@ R""(
 * Bundle a specific version of Nix:
 
   ```console
-  # nix bundle github:NixOS/nix/e3ddffb27e5fc37a209cfd843c6f7f6a9460a8ec
-  # ./nix --version
+  # nix bundle github:NixOS/bsd/e3ddffb27e5fc37a209cfd843c6f7f6a9460a8ec
+  # ./bsd --version
   nix (Nix) 2.4pre20201215_e3ddffb
   ```
 
@@ -29,7 +29,7 @@ R""(
 
 # Description
 
-`nix bundle`, by default, packs the closure of the [*installable*](./nix.md#installables) into a single
+`nix bundle`, by default, packs the closure of the [*installable*](./bsd.md#installables) into a single
 self-extracting executable. See the [`bundlers`
 homepage](https://github.com/NixOS/bundlers) for more details.
 

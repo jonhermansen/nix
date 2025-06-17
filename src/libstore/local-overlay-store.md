@@ -99,9 +99,9 @@ Here is a worked out example of usage, following the concepts in the previous se
 
 Say we have the following paths:
 
-- `/mnt/example/merged-store/nix/store`
+- `/mnt/example/merged-store/bsd/store`
 
-- `/mnt/example/store-a/nix/store`
+- `/mnt/example/store-a/bsd/store`
 
 - `/mnt/example/store-b`
 
@@ -111,16 +111,16 @@ Then the following store URI can be used to access a local-overlay store at `/mn
 local-overlay://?root=/mnt/example/merged-store&lower-store=/mnt/example/store-a&upper-layer=/mnt/example/store-b
 ```
 
-The lower store directory is located at `/mnt/example/store-a/nix/store`, while the upper layer is at `/mnt/example/store-b`.
+The lower store directory is located at `/mnt/example/store-a/bsd/store`, while the upper layer is at `/mnt/example/store-b`.
 
 Before accessing the overlay store you will need to ensure the OverlayFS mount is set up correctly:
 
 ```shell
 mount -t overlay overlay \
-  -o lowerdir="/mnt/example/store-a/nix/store" \
+  -o lowerdir="/mnt/example/store-a/bsd/store" \
   -o upperdir="/mnt/example/store-b" \
   -o workdir="/mnt/example/workdir" \
-  "/mnt/example/merged-store/nix/store"
+  "/mnt/example/merged-store/bsd/store"
 ```
 
 Note that OverlayFS requires `/mnt/example/workdir` to be on the same volume as the `upperdir`.

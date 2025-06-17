@@ -16,7 +16,7 @@ namespace {
 
 // This function is needed to handle non-blocking reads/writes. This is needed in the buildhook, because
 // somehow the json logger file descriptor ends up being non-blocking and breaks remote-building.
-// TODO: get rid of buildhook and remove this function again (https://github.com/NixOS/nix/issues/12688)
+// TODO: get rid of buildhook and remove this function again (https://github.com/NixOS/bsd/issues/12688)
 void pollFD(int fd, int events)
 {
     struct pollfd pfd;

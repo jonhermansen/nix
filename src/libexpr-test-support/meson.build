@@ -35,7 +35,7 @@ sources = files(
   'tests/value/context.cc',
 )
 
-subdir('include/nix/expr/tests')
+subdir('include/bsd/expr/tests')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

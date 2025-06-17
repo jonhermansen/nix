@@ -17,7 +17,7 @@ the build loop.
 
 # Prerequisites
 
-This tutorial assumes you have configured an [S3-compatible binary cache](@docroot@/command-ref/new-cli/nix3-help-stores.md#s3-binary-cache-store) as a [substituter](../command-ref/conf-file.md#conf-substituters),
+This tutorial assumes you have configured an [S3-compatible binary cache](@docroot@/command-ref/new-cli/bsd3-help-stores.md#s3-binary-cache-store) as a [substituter](../command-ref/conf-file.md#conf-substituters),
 and that the `root` user's default AWS profile can upload to the bucket.
 
 # Set up a Signing Key
@@ -27,8 +27,8 @@ private signing keys. We will sign paths with the private key, and
 distribute the public key for verifying the authenticity of the paths.
 
 ```console
-# nix-store --generate-binary-cache-key example-nix-cache-1 /etc/nix/key.private /etc/nix/key.public
-# cat /etc/nix/key.public
+# nix-store --generate-binary-cache-key example-nix-cache-1 /etc/bsd/key.private /etc/bsd/key.public
+# cat /etc/bsd/key.public
 example-nix-cache-1:1/cKDz3QCCOmwcztD2eV6Coggp6rqc9DGjWv7C0G+rM=
 ```
 
@@ -41,13 +41,13 @@ Add the cache URL to [`substituters`](../command-ref/conf-file.md#conf-substitut
 Machines that build for the cache must sign derivations using the private key.
 On those machines, add the path to the key file to the [`secret-key-files`](../command-ref/conf-file.md#conf-secret-key-files) field in their [`nix.conf`](../command-ref/conf-file.md):
 
-    secret-key-files = /etc/nix/key.private
+    secret-key-files = /etc/bsd/key.private
 
 We will restart the Nix daemon in a later step.
 
 # Implementing the build hook
 
-Write the following script to `/etc/nix/upload-to-cache.sh`:
+Write the following script to `/etc/bsd/upload-to-cache.sh`:
 
 ```bash
 #!/bin/sh
@@ -74,15 +74,15 @@ exec nix copy --to "s3://example-nix-cache" $OUT_PATHS
 Then make sure the hook program is executable by the `root` user:
 
 ```console
-# chmod +x /etc/nix/upload-to-cache.sh
+# chmod +x /etc/bsd/upload-to-cache.sh
 ```
 
 # Updating Nix Configuration
 
-Edit `/etc/nix/nix.conf` to run our hook, by adding the following
+Edit `/etc/bsd/bsd.conf` to run our hook, by adding the following
 configuration snippet at the end:
 
-    post-build-hook = /etc/nix/upload-to-cache.sh
+    post-build-hook = /etc/bsd/upload-to-cache.sh
 
 Then, restart the `nix-daemon`.
 
@@ -93,12 +93,12 @@ Build any derivation, for example:
 ```console
 $ nix-build --expr '(import <nixpkgs> {}).writeText "example" (builtins.toString builtins.currentTime)'
 this derivation will be built:
-  /nix/store/s4pnfbkalzy5qz57qs6yybna8wylkig6-example.drv
-building '/nix/store/s4pnfbkalzy5qz57qs6yybna8wylkig6-example.drv'...
-running post-build-hook '/home/grahamc/projects/github.com/NixOS/nix/post-hook.sh'...
-post-build-hook: Signing paths /nix/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
-post-build-hook: Uploading paths /nix/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
-/nix/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
+  /bsd/store/s4pnfbkalzy5qz57qs6yybna8wylkig6-example.drv
+building '/bsd/store/s4pnfbkalzy5qz57qs6yybna8wylkig6-example.drv'...
+running post-build-hook '/home/grahamc/projects/github.com/NixOS/bsd/post-hook.sh'...
+post-build-hook: Signing paths /bsd/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
+post-build-hook: Uploading paths /bsd/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
+/bsd/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
 ```
 
 Then delete the path from the store, and try substituting it from the
@@ -106,16 +106,16 @@ binary cache:
 
 ```console
 $ rm ./result
-$ nix-store --delete /nix/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
+$ nix-store --delete /bsd/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
 ```
 
 Now, copy the path back from the cache:
 
 ```console
-$ nix-store --realise /nix/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
-copying path '/nix/store/m8bmqwrch6l3h8s0k3d673xpmipcdpsa-example from 's3://example-nix-cache'...
+$ nix-store --realise /bsd/store/ibcyipq5gf91838ldx40mjsp0b8w9n18-example
+copying path '/bsd/store/m8bmqwrch6l3h8s0k3d673xpmipcdpsa-example from 's3://example-nix-cache'...
 warning: you did not specify '--add-root'; the result might be removed by the garbage collector
-/nix/store/m8bmqwrch6l3h8s0k3d673xpmipcdpsa-example
+/bsd/store/m8bmqwrch6l3h8s0k3d673xpmipcdpsa-example
 ```
 
 # Conclusion

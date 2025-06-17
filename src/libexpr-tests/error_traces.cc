@@ -463,7 +463,7 @@ namespace nix {
         // ASSERT_TRACE2("filterSource (_: 1) ./.",
         //               TypeError,
         //               HintFmt("attempt to call something which is not a function but %s", "an integer"),
-        //               HintFmt("while adding path '/home/layus/projects/nix'"));
+        //               HintFmt("while adding path '/home/layus/projects/bsd'"));
 
         // ASSERT_TRACE2("filterSource (_: _: 1) ./.",
         //               TypeError,

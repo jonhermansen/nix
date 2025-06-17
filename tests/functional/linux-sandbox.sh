@@ -15,9 +15,9 @@ requiresUnprivilegedUserNamespaces
 # only support the case where $SHELL is in the Nix store, because
 # otherwise things get complicated (e.g. if it's in /bin, do we need
 # /lib as well?).
-if [[ ! $SHELL =~ /nix/store ]]; then skipTest "Shell is not from Nix store"; fi
+if [[ ! $SHELL =~ /bsd/store ]]; then skipTest "Shell is not from Nix store"; fi
 # An alias to automatically bind-mount the $SHELL on nix-build invocations
-nix-sandbox-build () { nix-build --no-out-link --sandbox-paths /nix/store "$@"; }
+nix-sandbox-build () { nix-build --no-out-link --sandbox-paths /bsd/store "$@"; }
 
 chmod -R u+w $TEST_ROOT/store0 || true
 rm -rf $TEST_ROOT/store0

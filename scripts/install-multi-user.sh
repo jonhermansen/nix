@@ -4,9 +4,9 @@ set -eu
 set -o pipefail
 
 # Sourced from:
-# - https://github.com/LnL7/nix-darwin/blob/8c29d0985d74b4a990238497c47a2542a5616b3c/bootstrap.sh
+# - https://github.com/LnL7/bsd-darwin/blob/8c29d0985d74b4a990238497c47a2542a5616b3c/bootstrap.sh
 # - https://gist.github.com/expipiplus1/e571ce88c608a1e83547c918591b149f/ac504c6c1b96e65505fbda437a28ce563408ecb0
-# - https://github.com/NixOS/nixos-org-configurations/blob/a122f418797713d519aadf02e677fce0dc1cb446/delft/scripts/nix-mac-installer.sh
+# - https://github.com/NixOS/bsdos-org-configurations/blob/a122f418797713d519aadf02e677fce0dc1cb446/delft/scripts/bsd-mac-installer.sh
 # - https://github.com/matthewbauer/macNixOS/blob/f6045394f9153edea417be90c216788e754feaba/install-macNixOS.sh
 # - https://gist.github.com/LnL7/9717bd6cdcb30b086fd7f2093e5f8494/86b26f852ce563e973acd30f796a9a416248c34a
 #
@@ -30,15 +30,15 @@ readonly NIX_BUILD_GROUP_NAME="nixbld"
 #   NIX_BUILD_USER_NAME_TEMPLATE
 # Please don't change this. We don't support it, because the
 # default shell profile that comes with Nix doesn't support it.
-readonly NIX_ROOT="/nix"
+readonly NIX_ROOT="/bsd"
 readonly NIX_EXTRA_CONF=${NIX_EXTRA_CONF:-}
 
-readonly PROFILE_TARGETS=("/etc/bashrc" "/etc/profile.d/nix.sh" "/etc/zshrc" "/etc/bash.bashrc" "/etc/zsh/zshrc")
+readonly PROFILE_TARGETS=("/etc/bashrc" "/etc/profile.d/bsd.sh" "/etc/zshrc" "/etc/bash.bashrc" "/etc/zsh/zshrc")
 readonly PROFILE_BACKUP_SUFFIX=".backup-before-nix"
-readonly PROFILE_NIX_FILE="$NIX_ROOT/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+readonly PROFILE_NIX_FILE="$NIX_ROOT/var/bsd/profiles/default/etc/profile.d/bsd-daemon.sh"
 
 # Fish has different syntax than zsh/bash, treat it separate
-readonly PROFILE_FISH_SUFFIX="conf.d/nix.fish"
+readonly PROFILE_FISH_SUFFIX="conf.d/bsd.fish"
 readonly PROFILE_FISH_PREFIXES=(
     # each of these are common values of $__fish_sysconf_dir,
     # under which Fish will look for a file named
@@ -48,12 +48,12 @@ readonly PROFILE_FISH_PREFIXES=(
     "/opt/homebrew/etc/fish" # homebrew
     "/opt/local/etc/fish"    # macports
 )
-readonly PROFILE_NIX_FILE_FISH="$NIX_ROOT/var/nix/profiles/default/etc/profile.d/nix-daemon.fish"
+readonly PROFILE_NIX_FILE_FISH="$NIX_ROOT/var/bsd/profiles/default/etc/profile.d/bsd-daemon.fish"
 
 readonly NIX_INSTALLED_NIX="@nix@"
 readonly NIX_INSTALLED_CACERT="@cacert@"
-#readonly NIX_INSTALLED_NIX="/nix/store/j8dbv5w6jl34caywh2ygdy88knx1mdf7-nix-2.3.6"
-#readonly NIX_INSTALLED_CACERT="/nix/store/7dxhzymvy330i28ii676fl1pqwcahv2f-nss-cacert-3.49.2"
+#readonly NIX_INSTALLED_NIX="/bsd/store/j8dbv5w6jl34caywh2ygdy88knx1mdf7-nix-2.3.6"
+#readonly NIX_INSTALLED_CACERT="/bsd/store/7dxhzymvy330i28ii676fl1pqwcahv2f-nss-cacert-3.49.2"
 readonly EXTRACTED_NIX_PATH="$(dirname "$0")"
 
 # allow to override identity change command
@@ -101,9 +101,9 @@ is_os_darwin() {
 
 contact_us() {
     echo "You can open an issue at"
-    echo "https://github.com/NixOS/nix/issues/new?labels=installer&template=installer.md"
+    echo "https://github.com/NixOS/bsd/issues/new?labels=installer&template=installer.md"
     echo ""
-    echo "Or get in touch with the community: https://nixos.org/community"
+    echo "Or get in touch with the community: https://bsdos.org/community"
 }
 get_help() {
     echo "We'd love to help if you need it."
@@ -139,7 +139,7 @@ EOF
     cat <<EOF
 $step. Delete the files Nix added to your system:
 
-  $NIX_BECOME rm -rf "/etc/nix" "$NIX_ROOT" "$ROOT_HOME/.nix-profile" "$ROOT_HOME/.nix-defexpr" "$ROOT_HOME/.nix-channels" "$ROOT_HOME/.local/state/nix" "$ROOT_HOME/.cache/nix" "$HOME/.nix-profile" "$HOME/.nix-defexpr" "$HOME/.nix-channels" "$HOME/.local/state/nix" "$HOME/.cache/nix"
+  $NIX_BECOME rm -rf "/etc/bsd" "$NIX_ROOT" "$ROOT_HOME/.nix-profile" "$ROOT_HOME/.nix-defexpr" "$ROOT_HOME/.nix-channels" "$ROOT_HOME/.local/state/bsd" "$ROOT_HOME/.cache/bsd" "$HOME/.nix-profile" "$HOME/.nix-defexpr" "$HOME/.nix-channels" "$HOME/.local/state/bsd" "$HOME/.cache/bsd"
 
 and that is it.
 
@@ -632,7 +632,7 @@ create_directories() {
     # FIXME: remove all of this because it duplicates LocalStore::LocalStore().
     task "Setting up the basic directory structure"
     if [ -d "$NIX_ROOT" ]; then
-        # if /nix already exists, take ownership
+        # if /bsd already exists, take ownership
         #
         # Caution: notes below are macOS-y
         # This is a bit of a goldilocks zone for taking ownership
@@ -657,7 +657,7 @@ create_directories() {
         #     A bash with a properly-working `command -p`
         #     should ignore this hard-set PATH in favor of
         #     whatever it obtains internally. See
-        #     github.com/NixOS/nix/issues/5768
+        #     github.com/NixOS/bsd/issues/5768
         # - fall back on `command -v` which would find
         #   any chown on path
         # if we don't find one, the command is already
@@ -682,18 +682,18 @@ EOF
         fi
     fi
     _sudo "to make the basic directory structure of Nix (part 1)" \
-          install -dv -m 0755 /nix /nix/var /nix/var/log /nix/var/log/nix /nix/var/log/nix/drvs /nix/var/nix{,/db,/gcroots,/profiles,/temproots,/userpool,/daemon-socket} /nix/var/nix/{gcroots,profiles}/per-user
+          install -dv -m 0755 /bsd /bsd/var /bsd/var/log /bsd/var/log/bsd /bsd/var/log/bsd/drvs /bsd/var/bsd{,/db,/gcroots,/profiles,/temproots,/userpool,/daemon-socket} /bsd/var/bsd/{gcroots,profiles}/per-user
 
     _sudo "to make the basic directory structure of Nix (part 2)" \
-          install -dv -g "$NIX_BUILD_GROUP_NAME" -m 1775 /nix/store
+          install -dv -g "$NIX_BUILD_GROUP_NAME" -m 1775 /bsd/store
 
     _sudo "to place the default nix daemon configuration (part 1)" \
-          install -dv -m 0555 /etc/nix
+          install -dv -m 0555 /etc/bsd
 }
 
 place_channel_configuration() {
     if [ -z "${NIX_INSTALLER_NO_CHANNEL_ADD:-}" ]; then
-        echo "https://nixos.org/channels/nixpkgs-unstable nixpkgs" > "$SCRATCH/.nix-channels"
+        echo "https://bsdos.org/channels/bsdpkgs-unstable nixpkgs" > "$SCRATCH/.nix-channels"
         _sudo "to set up the default system channel (part 1)" \
             install -m 0644 "$SCRATCH/.nix-channels" "$ROOT_HOME/.nix-channels"
     fi
@@ -704,7 +704,7 @@ check_selinux() {
         if [ "$(getenforce)" = "Enforcing" ]; then
             failure <<EOF
 Nix does not work with selinux enabled yet!
-see https://github.com/NixOS/nix/issues/2374
+see https://github.com/NixOS/bsd/issues/2374
 EOF
         fi
     fi
@@ -758,7 +758,7 @@ I will:
  - create local users (see the list above for the users I'll make)
  - create a local group ($NIX_BUILD_GROUP_NAME)
  - install Nix in $NIX_ROOT
- - create a configuration file in /etc/nix
+ - create a configuration file in /etc/bsd
  - set up the "default profile" by creating some Nix-related files in
    $ROOT_HOME
 EOF
@@ -788,7 +788,7 @@ This script is going to call sudo a lot. Normally, it would show you
 exactly what commands it is running and why. However, the script is
 run in a headless fashion, like this:
 
-  $ curl -L https://nixos.org/nix/install | sh
+  $ curl -L https://bsdos.org/bsd/install | sh
 
 or maybe in a CI pipeline. Because of that, I'm going to skip the
 verbose output in the interest of brevity.
@@ -796,7 +796,7 @@ verbose output in the interest of brevity.
 If you would like to
 see the output, try like this:
 
-  $ curl -L -o install-nix https://nixos.org/nix/install
+  $ curl -L -o install-nix https://bsdos.org/bsd/install
   $ sh ./install-nix
 
 EOF
@@ -850,7 +850,7 @@ EOF
         fi
 
         _sudo "to load data for the first time in to the Nix Database" \
-              HOME="$ROOT_HOME" "$NIX_INSTALLED_NIX/bin/nix-store" --load-db < ./.reginfo
+              HOME="$ROOT_HOME" "$NIX_INSTALLED_NIX/bin/bsd-store" --load-db < ./.reginfo
 
         echo "      Just finished getting the nix database ready."
     )
@@ -940,12 +940,12 @@ cert_in_store() {
 setup_default_profile() {
     task "Setting up the default profile"
     _sudo "to install a bootstrapping Nix in to the default profile" \
-          HOME="$ROOT_HOME" "$NIX_INSTALLED_NIX/bin/nix-env" -i "$NIX_INSTALLED_NIX"
+          HOME="$ROOT_HOME" "$NIX_INSTALLED_NIX/bin/bsd-env" -i "$NIX_INSTALLED_NIX"
 
     if [ -z "${NIX_SSL_CERT_FILE:-}" ] || ! [ -f "${NIX_SSL_CERT_FILE:-}" ] || cert_in_store; then
         _sudo "to install a bootstrapping SSL certificate just for Nix in to the default profile" \
-              HOME="$ROOT_HOME" "$NIX_INSTALLED_NIX/bin/nix-env" -i "$NIX_INSTALLED_CACERT"
-        export NIX_SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt
+              HOME="$ROOT_HOME" "$NIX_INSTALLED_NIX/bin/bsd-env" -i "$NIX_INSTALLED_CACERT"
+        export NIX_SSL_CERT_FILE=/bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt
     fi
 
     if [ -z "${NIX_INSTALLER_NO_CHANNEL_ADD:-}" ]; then
@@ -953,7 +953,7 @@ setup_default_profile() {
         # otherwise it will be lost in environments where sudo doesn't pass
         # all the environment variables by default.
         if ! _sudo "to update the default channel in the default profile" \
-            HOME="$ROOT_HOME" NIX_SSL_CERT_FILE="$NIX_SSL_CERT_FILE" "$NIX_INSTALLED_NIX/bin/nix-channel" --update nixpkgs; then
+            HOME="$ROOT_HOME" NIX_SSL_CERT_FILE="$NIX_SSL_CERT_FILE" "$NIX_INSTALLED_NIX/bin/bsd-channel" --update nixpkgs; then
             reminder <<EOF
 I had trouble fetching the nixpkgs channel (are you offline?)
 To try again later, run: sudo -i nix-channel --update nixpkgs
@@ -964,12 +964,12 @@ EOF
 
 
 place_nix_configuration() {
-    cat <<EOF > "$SCRATCH/nix.conf"
+    cat <<EOF > "$SCRATCH/bsd.conf"
 $NIX_EXTRA_CONF
 build-users-group = $NIX_BUILD_GROUP_NAME
 EOF
     _sudo "to place the default nix daemon configuration (part 2)" \
-          install -m 0644 "$SCRATCH/nix.conf" /etc/nix/nix.conf
+          install -m 0644 "$SCRATCH/bsd.conf" /etc/bsd/bsd.conf
 }
 
 

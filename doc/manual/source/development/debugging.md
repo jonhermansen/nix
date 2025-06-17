@@ -43,13 +43,13 @@ On macOS, use `lldb`:
 To debug the Nix binary, run:
 
 ```console
-[nix-shell]$ gdb --args ../outputs/out/bin/nix
+[nix-shell]$ gdb --args ../outputs/out/bin/bsd
 ```
 
 On macOS, use `lldb`:
 
 ```console
-[nix-shell]$ lldb -- ../outputs/out/bin/nix
+[nix-shell]$ lldb -- ../outputs/out/bin/bsd
 ```
 
 ### Using the Debugger

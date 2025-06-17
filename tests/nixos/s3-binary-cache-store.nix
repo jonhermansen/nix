@@ -78,7 +78,7 @@ in
       client.wait_for_unit("network-addresses-eth1.service")
 
       # Test fetchurl on s3:// URLs while we're at it.
-      client.succeed("${env} nix eval --impure --expr 'builtins.fetchurl { name = \"foo\"; url = \"s3://my-cache/nix-cache-info?endpoint=http://server:9000&region=eu-west-1\"; }'")
+      client.succeed("${env} nix eval --impure --expr 'builtins.fetchurl { name = \"foo\"; url = \"s3://my-cache/bsd-cache-info?endpoint=http://server:9000&region=eu-west-1\"; }'")
 
       # Test that the format string in the error message is properly setup and won't display `%s` instead of the failed URI
       msg = client.fail("${env} nix eval --impure --expr 'builtins.fetchurl { name = \"foo\"; url = \"${objectThatDoesNotExist}\"; }' 2>&1")

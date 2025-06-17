@@ -1,3 +1,3 @@
 sources += files('cgroup.cc', 'linux-namespaces.cc')
 
-subdir('include/nix/util')
+subdir('include/bsd/util')

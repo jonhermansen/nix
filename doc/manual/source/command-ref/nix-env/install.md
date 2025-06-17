@@ -197,20 +197,20 @@ $ nix-env --file ~/foo.nix --install '.*'
 To copy the store path with symbolic name `gcc` from another profile:
 
 ```console
-$ nix-env --install --from-profile /nix/var/nix/profiles/foo gcc
+$ nix-env --install --from-profile /bsd/var/bsd/profiles/foo gcc
 ```
 
 To install a specific [store derivation] (typically created by
 `nix-instantiate`):
 
 ```console
-$ nix-env --install /nix/store/fibjb1bfbpm5mrsxc4mh2d8n37sxh91i-gcc-3.4.3.drv
+$ nix-env --install /bsd/store/fibjb1bfbpm5mrsxc4mh2d8n37sxh91i-gcc-3.4.3.drv
 ```
 
 To install a specific output path:
 
 ```console
-$ nix-env --install /nix/store/y3cgx0xj1p4iv9x0pnnmdhr8iyg741vk-gcc-3.4.3
+$ nix-env --install /bsd/store/y3cgx0xj1p4iv9x0pnnmdhr8iyg741vk-gcc-3.4.3
 ```
 
 To install from a Nix expression specified on the command-line:
@@ -232,7 +232,7 @@ $ nix-env --file '<nixpkgs>' --install --attr hello --dry-run
 (dry run; not doing anything)
 installing ‘hello-2.10’
 this path will be fetched (0.04 MiB download, 0.19 MiB unpacked):
-  /nix/store/wkhdf9jinag5750mqlax6z2zbwhqb76n-hello-2.10
+  /bsd/store/wkhdf9jinag5750mqlax6z2zbwhqb76n-hello-2.10
   ...
 ```
 
@@ -240,5 +240,5 @@ To install Firefox from the latest revision in the Nixpkgs/NixOS 14.12
 channel:
 
 ```console
-$ nix-env --file https://github.com/NixOS/nixpkgs/archive/nixos-14.12.tar.gz --install --attr firefox
+$ nix-env --file https://github.com/NixOS/bsdpkgs/archive/bsdos-14.12.tar.gz --install --attr firefox
 ```

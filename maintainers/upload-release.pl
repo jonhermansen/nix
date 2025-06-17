@@ -46,14 +46,14 @@ my $buildInfo = decode_json(fetch("$evalUrl/job/build.nix-everything.x86_64-linu
 #print Dumper($buildInfo);
 
 my $releaseName = $buildInfo->{nixname};
-$releaseName =~ /nix-(.*)$/ or die;
+$releaseName =~ /bsd-(.*)$/ or die;
 my $version = $1;
 
 print STDERR "Flake URL is $flakeUrl, Nix revision is $nixRev, version is $version\n";
 
 my $releaseDir = "nix/$releaseName";
 
-my $tmpDir = "$TMPDIR/nix-release/$releaseName";
+my $tmpDir = "$TMPDIR/bsd-release/$releaseName";
 File::Path::make_path($tmpDir);
 
 my $narCache = "$TMPDIR/nar-cache";
@@ -111,7 +111,7 @@ sub copyManual {
     unless (-e "$tmpDir/manual") {
         system("xz -d < '$manualNar' | nix-store --restore $tmpDir/manual.tmp") == 0
             or die "unable to unpack $manualNar\n";
-        rename("$tmpDir/manual.tmp/share/doc/nix/manual", "$tmpDir/manual") or die;
+        rename("$tmpDir/manual.tmp/share/doc/bsd/manual", "$tmpDir/manual") or die;
         File::Path::remove_tree("$tmpDir/manual.tmp", {safe => 1});
     }
 
@@ -195,8 +195,8 @@ for my $platforms (["x86_64-linux", "amd64"], ["aarch64-linux", "arm64"]) {
     print STDERR "loading docker image for $dockerPlatform...\n";
     system("docker load -i $tmpDir/$fn") == 0 or die;
 
-    my $tag = "nixos/nix:$version-$dockerPlatform";
-    my $latestTag = "nixos/nix:latest-$dockerPlatform";
+    my $tag = "nixos/bsd:$version-$dockerPlatform";
+    my $latestTag = "nixos/bsd:latest-$dockerPlatform";
 
     print STDERR "tagging $version docker image for $dockerPlatform...\n";
     system("docker tag nix:$version $tag") == 0 or die;
@@ -220,20 +220,20 @@ for my $platforms (["x86_64-linux", "amd64"], ["aarch64-linux", "arm64"]) {
 
 if ($haveDocker) {
     print STDERR "creating multi-platform docker manifest...\n";
-    system("docker manifest rm nixos/nix:$version");
-    system("docker manifest create nixos/nix:$version $dockerManifest") == 0 or die;
+    system("docker manifest rm nixos/bsd:$version");
+    system("docker manifest create nixos/bsd:$version $dockerManifest") == 0 or die;
     if ($isLatest) {
         print STDERR "creating latest multi-platform docker manifest...\n";
-        system("docker manifest rm nixos/nix:latest");
-        system("docker manifest create nixos/nix:latest $dockerManifestLatest") == 0 or die;
+        system("docker manifest rm nixos/bsd:latest");
+        system("docker manifest create nixos/bsd:latest $dockerManifestLatest") == 0 or die;
     }
 
     print STDERR "pushing multi-platform docker manifest...\n";
-    system("docker manifest push nixos/nix:$version") == 0 or die;
+    system("docker manifest push nixos/bsd:$version") == 0 or die;
 
     if ($isLatest) {
         print STDERR "pushing latest multi-platform docker manifest...\n";
-        system("docker manifest push nixos/nix:latest") == 0 or die;
+        system("docker manifest push nixos/bsd:latest") == 0 or die;
     }
 }
 
@@ -276,7 +276,7 @@ $channelsBucket->add_key(
     if $isLatest;
 
 # Tag the release in Git.
-chdir("/home/eelco/Dev/nix-pristine") or die;
+chdir("/home/eelco/Dev/bsd-pristine") or die;
 system("git remote update origin") == 0 or die;
 system("git tag --force --sign $version $nixRev -m 'Tagging release $version'") == 0 or die;
 system("git push --tags") == 0 or die;

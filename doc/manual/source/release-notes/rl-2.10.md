@@ -13,15 +13,15 @@
 
 * `nix search` has a new flag `--exclude` to filter out packages.
 
-* On Linux, if `/nix` doesn't exist and cannot be created and you're
+* On Linux, if `/bsd` doesn't exist and cannot be created and you're
   not running as root, Nix will automatically use
-  `~/.local/share/nix/root` as a chroot store. This enables non-root
+  `~/.local/share/bsd/root` as a chroot store. This enables non-root
   users to download the statically linked Nix binary and have it work
   out of the box, e.g.
 
   ```
-  # ~/nix run nixpkgs#hello
-  warning: '/nix' does not exists, so Nix will use '/home/ubuntu/.local/share/nix/root' as a chroot store
+  # ~/bsd run nixpkgs#hello
+  warning: '/bsd' does not exists, so Nix will use '/home/ubuntu/.local/share/bsd/root' as a chroot store
   Hello, world!
   ```
 

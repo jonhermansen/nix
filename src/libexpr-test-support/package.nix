@@ -23,13 +23,13 @@ mkMesonLibrary (finalAttrs: {
 
   workDir = ./.;
   fileset = fileset.unions [
-    ../../nix-meson-build-support
-    ./nix-meson-build-support
+    ../../bsd-meson-build-support
+    ./bsd-meson-build-support
     ../../.version
     ./.version
     ./meson.build
     # ./meson.options
-    ./include/nix/expr/tests/meson.build
+    ./include/bsd/expr/tests/meson.build
     (fileset.fileFilter (file: file.hasExt "cc") ./.)
     (fileset.fileFilter (file: file.hasExt "hh") ./.)
   ];

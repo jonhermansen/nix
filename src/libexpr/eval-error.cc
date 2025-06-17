@@ -96,7 +96,7 @@ template<class T>
 void EvalErrorBuilder<T>::panic()
 {
     logError(error.info());
-    printError("This is a bug! An unexpected condition occurred, causing the Nix evaluator to have to stop. If you could share a reproducible example or a core dump, please open an issue at https://github.com/NixOS/nix/issues");
+    printError("This is a bug! An unexpected condition occurred, causing the Nix evaluator to have to stop. If you could share a reproducible example or a core dump, please open an issue at https://github.com/NixOS/bsd/issues");
     abort();
 }
 

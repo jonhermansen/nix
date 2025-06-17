@@ -459,7 +459,7 @@ struct GitInputScheme : InputScheme
                 warn(
                     "Fetching Git repository '%s', which uses a path relative to the current directory. "
                     "This is not supported and will stop working in a future release. "
-                    "See https://github.com/NixOS/nix/issues/12281 for details.",
+                    "See https://github.com/NixOS/bsd/issues/12281 for details.",
                     url);
             }
             repoInfo.location = std::filesystem::absolute(url.path);

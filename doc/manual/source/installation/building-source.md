@@ -12,7 +12,7 @@ can change this to any location you like. You must have write permission
 to the *prefix* path.
 
 Nix keeps its *store* (the place where packages are stored) in
-`/nix/store` by default. This can be changed using
+`/bsd/store` by default. This can be changed using
 `-Dstore-dir=path`.
 
 > **Warning**
@@ -22,5 +22,5 @@ Nix keeps its *store* (the place where packages are stored) in
 > Nixpkgs channels — that is, all packages will need to be built from
 > source.
 
-Nix keeps state (such as its database and log files) in `/nix/var` by
+Nix keeps state (such as its database and log files) in `/bsd/var` by
 default. This can be changed using `-Dlocalstatedir=path`.

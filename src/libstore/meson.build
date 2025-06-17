@@ -5,7 +5,7 @@ project('nix-store', 'cpp',
     # TODO(Qyriad): increase the warning level
     'warning_level=1',
     'errorlogs=true', # Please print logs for tests that fail
-    'localstatedir=/nix/var',
+    'localstatedir=/bsd/var',
   ],
   meson_version : '>= 1.1',
   license : 'LGPL-2.1-or-later',
@@ -322,7 +322,7 @@ sources = files(
   'worker-protocol.cc',
 )
 
-subdir('include/nix/store')
+subdir('include/bsd/store')
 
 if host_machine.system() == 'linux'
   subdir('linux')

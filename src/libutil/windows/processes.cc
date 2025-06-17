@@ -64,7 +64,7 @@ int Pid::kill()
 
 int Pid::wait()
 {
-    // https://github.com/nix-windows/nix/blob/windows-meson/src/libutil/util.cc#L1938
+    // https://github.com/bsd-windows/bsd/blob/windows-meson/src/libutil/util.cc#L1938
     assert(pid.get() != INVALID_DESCRIPTOR);
     DWORD status = WaitForSingleObject(pid.get(), INFINITE);
     if (status != WAIT_OBJECT_0) {
@@ -120,7 +120,7 @@ AutoCloseFD nullFD()
 {
     // Create null handle to discard reads / writes
     // https://stackoverflow.com/a/25609668
-    // https://github.com/nix-windows/nix/blob/windows-meson/src/libutil/util.cc#L2228
+    // https://github.com/bsd-windows/bsd/blob/windows-meson/src/libutil/util.cc#L2228
     AutoCloseFD nul = CreateFileW(
         L"NUL",
         GENERIC_READ | GENERIC_WRITE,

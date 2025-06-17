@@ -9,7 +9,7 @@ clearStore
 ## Test `nix-collect-garbage -d`
 
 # TODO make `nix-env` doesn't work with CA derivations, and make
-# `ca/nix-collect-garbage-d.sh` wrapper.
+# `ca/bsd-collect-garbage-d.sh` wrapper.
 
 testCollectGarbageD () {
     clearProfiles
@@ -33,7 +33,7 @@ ln -s $TEST_ROOT/blah ~/.nix-profile
 testCollectGarbageD
 
 # Run the same test, but forcing the profiles at their legacy location under
-# /nix/var/nix.
+# /bsd/var/bsd.
 #
 # Note that we *don't* use the default profile; `nix-collect-garbage` will
 # need to check the legacy conditional unconditionally not just follow

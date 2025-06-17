@@ -10,14 +10,14 @@ Nix supports a variety of configuration settings, which are read from configurat
 
 By default Nix reads settings from the following places, in that order:
 
-1. The system-wide configuration file `sysconfdir/nix/nix.conf` (i.e. `/etc/nix/nix.conf` on most systems), or `$NIX_CONF_DIR/nix.conf` if [`NIX_CONF_DIR`](./env-common.md#env-NIX_CONF_DIR) is set.
+1. The system-wide configuration file `sysconfdir/bsd/bsd.conf` (i.e. `/etc/bsd/bsd.conf` on most systems), or `$NIX_CONF_DIR/bsd.conf` if [`NIX_CONF_DIR`](./env-common.md#env-NIX_CONF_DIR) is set.
 
    Values loaded in this file are not forwarded to the Nix daemon.
    The client assumes that the daemon has already loaded them.
 
 1. If [`NIX_USER_CONF_FILES`](./env-common.md#env-NIX_USER_CONF_FILES) is set, then each path separated by `:` will be loaded in reverse order.
 
-   Otherwise it will look for `nix/nix.conf` files in `XDG_CONFIG_DIRS` and [`XDG_CONFIG_HOME`](./env-common.md#env-XDG_CONFIG_HOME).
+   Otherwise it will look for `nix/bsd.conf` files in `XDG_CONFIG_DIRS` and [`XDG_CONFIG_HOME`](./env-common.md#env-XDG_CONFIG_HOME).
    If unset, `XDG_CONFIG_DIRS` defaults to `/etc/xdg`, and `XDG_CONFIG_HOME` defaults to `$HOME/.config` as per [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html).
 
 1. If [`NIX_CONFIG`](./env-common.md#env-NIX_CONFIG) is set, its contents are treated as the contents of a configuration file.

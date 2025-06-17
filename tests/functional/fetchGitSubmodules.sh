@@ -11,7 +11,7 @@ clearStoreIfPossible
 rootRepo=$TEST_ROOT/gitSubmodulesRoot
 subRepo=$TEST_ROOT/gitSubmodulesSub
 
-rm -rf ${rootRepo} ${subRepo} $TEST_HOME/.cache/nix
+rm -rf ${rootRepo} ${subRepo} $TEST_HOME/.cache/bsd
 
 # Submodules can't be fetched locally by default, which can cause
 # information leakage vulnerabilities, but for these tests our
@@ -126,7 +126,7 @@ r=$(nix eval --raw --expr "builtins.fetchGit { url = file://$rootRepo; rev = \"$
 [[ ! -e $r/missing ]]
 
 # Test relative submodule URLs.
-rm $TEST_HOME/.cache/nix/fetcher-cache*
+rm $TEST_HOME/.cache/bsd/fetcher-cache*
 rm -rf $rootRepo/.git $rootRepo/.gitmodules $rootRepo/sub
 initGitRepo $rootRepo
 git -C $rootRepo submodule add ../gitSubmodulesSub sub
@@ -136,7 +136,7 @@ pathWithRelative=$(nix eval --raw --expr "(builtins.fetchGit { url = file://$roo
 diff -r -x .gitmodules $pathWithSubmodules $pathWithRelative
 
 # Test clones that have an upstream with relative submodule URLs.
-rm $TEST_HOME/.cache/nix/fetcher-cache*
+rm $TEST_HOME/.cache/bsd/fetcher-cache*
 cloneRepo=$TEST_ROOT/a/b/gitSubmodulesClone # NB /a/b to make the relative path not work relative to $cloneRepo
 git clone $rootRepo $cloneRepo
 pathIndirect=$(nix eval --raw --expr "(builtins.fetchGit { url = file://$cloneRepo; rev = \"$rev2\"; submodules = true; }).outPath")
@@ -199,7 +199,7 @@ test_submodule_nested() {
   local repoB=$TEST_ROOT/submodule_nested/b
   local repoC=$TEST_ROOT/submodule_nested/c
 
-  rm -rf $repoA $repoB $repoC $TEST_HOME/.cache/nix
+  rm -rf $repoA $repoB $repoC $TEST_HOME/.cache/bsd
 
   initGitRepo $repoC
   touch $repoC/inside-c

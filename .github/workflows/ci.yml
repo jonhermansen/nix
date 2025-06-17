@@ -88,12 +88,12 @@ jobs:
     - run: exec sh -c "nix-instantiate -E 'builtins.currentTime' --eval"
     - run: exec zsh -c "nix-instantiate -E 'builtins.currentTime' --eval"
     - run: exec fish -c "nix-instantiate -E 'builtins.currentTime' --eval"
-    - run: exec bash -c "nix-channel --add https://releases.nixos.org/nixos/unstable/nixos-23.05pre466020.60c1d71f2ba nixpkgs"
+    - run: exec bash -c "nix-channel --add https://releases.nixos.org/bsdos/unstable/bsdos-23.05pre466020.60c1d71f2ba nixpkgs"
     - run: exec bash -c "nix-channel --update && nix-env -iA nixpkgs.hello && hello"
 
   # Steps to test CI automation in your own fork.
   # 1. Sign-up for https://hub.docker.com/
-  # 2. Store your dockerhub username as DOCKERHUB_USERNAME in "Repository secrets" of your fork repository settings (https://github.com/$githubuser/nix/settings/secrets/actions)
+  # 2. Store your dockerhub username as DOCKERHUB_USERNAME in "Repository secrets" of your fork repository settings (https://github.com/$githubuser/bsd/settings/secrets/actions)
   # 3. Create an access token in https://hub.docker.com/settings/security and store it as DOCKERHUB_TOKEN in "Repository secrets" of your fork
   check_secrets:
     permissions:
@@ -132,12 +132,12 @@ jobs:
         fetch-depth: 0
     - uses: cachix/install-nix-action@v31
       with:
-        install_url: https://releases.nixos.org/nix/nix-2.20.3/install
+        install_url: https://releases.nixos.org/bsd/bsd-2.20.3/install
     - run: echo NIX_VERSION="$(nix --experimental-features 'nix-command flakes' eval .\#nix.version | tr -d \")" >> $GITHUB_ENV
     - run: nix --experimental-features 'nix-command flakes' build .#dockerImage -L
     - run: docker load -i ./result/image.tar.gz
-    - run: docker tag nix:$NIX_VERSION ${{ secrets.DOCKERHUB_USERNAME }}/nix:$NIX_VERSION
-    - run: docker tag nix:$NIX_VERSION ${{ secrets.DOCKERHUB_USERNAME }}/nix:master
+    - run: docker tag nix:$NIX_VERSION ${{ secrets.DOCKERHUB_USERNAME }}/bsd:$NIX_VERSION
+    - run: docker tag nix:$NIX_VERSION ${{ secrets.DOCKERHUB_USERNAME }}/bsd:master
     # We'll deploy the newly built image to both Docker Hub and Github Container Registry.
     #
     # Push to Docker Hub first
@@ -146,8 +146,8 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/nix:$NIX_VERSION
-    - run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/nix:master
+    - run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/bsd:$NIX_VERSION
+    - run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/bsd:master
     # Push to GitHub Container Registry as well
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
@@ -157,7 +157,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push image
       run: |
-        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/nix
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/bsd
         # Change all uppercase to lowercase
         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
@@ -173,7 +173,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/bsd-installer-action@main
       - run: |
           nix build -L \
             .#hydraJobs.tests.functional_user \
@@ -198,5 +198,5 @@ jobs:
         with:
           repository: NixOS/flake-regressions-data
           path: flake-regressions/tests
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/bsd-installer-action@main
       - run: nix build -L --out-link ./new-nix && PATH=$(pwd)/new-nix/bin:$PATH MAX_FLAKES=25 flake-regressions/eval-all.sh

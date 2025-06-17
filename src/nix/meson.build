@@ -5,7 +5,7 @@ project('nix', 'cpp',
     # TODO(Qyriad): increase the warning level
     'warning_level=1',
     'errorlogs=true', # Please print logs for tests that fail
-    'localstatedir=/nix/var',
+    'localstatedir=/bsd/var',
   ],
   meson_version : '>= 1.4',
   license : 'LGPL-2.1-or-later',
@@ -131,30 +131,30 @@ build_remote_sources = files(
   'build-remote/build-remote.cc',
 )
 nix_build_sources = files(
-  'nix-build/nix-build.cc',
+  'nix-build/bsd-build.cc',
 )
 nix_channel_sources = files(
-  'nix-channel/nix-channel.cc',
+  'nix-channel/bsd-channel.cc',
 )
 unpack_channel_gen = gen_header.process('nix-channel/unpack-channel.nix')
 nix_collect_garbage_sources = files(
-  'nix-collect-garbage/nix-collect-garbage.cc',
+  'nix-collect-garbage/bsd-collect-garbage.cc',
 )
 nix_copy_closure_sources = files(
-  'nix-copy-closure/nix-copy-closure.cc',
+  'nix-copy-closure/bsd-copy-closure.cc',
 )
 nix_env_buildenv_gen = gen_header.process('nix-env/buildenv.nix')
 nix_env_sources = files(
-  'nix-env/nix-env.cc',
+  'nix-env/bsd-env.cc',
   'nix-env/user-env.cc',
 )
 nix_instantiate_sources = files(
-  'nix-instantiate/nix-instantiate.cc',
+  'nix-instantiate/bsd-instantiate.cc',
 )
 nix_store_sources = files(
   'nix-store/dotgraph.cc',
   'nix-store/graphml.cc',
-  'nix-store/nix-store.cc',
+  'nix-store/bsd-store.cc',
 )
 
 # Hurray for Meson list flattening!

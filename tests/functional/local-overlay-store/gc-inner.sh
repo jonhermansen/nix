@@ -15,7 +15,7 @@ initLowerStore
 mountOverlayfs
 
 export NIX_REMOTE="$storeB"
-stateB="$storeBRoot/nix/var/nix"
+stateB="$storeBRoot/bsd/var/bsd"
 outPath=$(nix-build ../hermetic.nix --no-out-link --arg busybox "$busybox" --arg seed 2)
 
 # Set a GC root.

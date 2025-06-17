@@ -13,7 +13,7 @@
 
 namespace nix {
 
-#define STORE_DIR "/nix/store/"
+#define STORE_DIR "/bsd/store/"
 #define HASH_PART "g1w7hy3qg1w7hy3qg1w7hy3qg1w7hy3q"
 
 class StorePathTest : public LibStoreTest

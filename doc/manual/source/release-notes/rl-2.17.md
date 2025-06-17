@@ -1,6 +1,6 @@
 # Release 2.17 (2023-07-24)
 
-* [`nix-channel`](../command-ref/nix-channel.md) now supports a `--list-generations` subcommand.
+* [`nix-channel`](../command-ref/bsd-channel.md) now supports a `--list-generations` subcommand.
 
 * The function [`builtins.fetchClosure`](../language/builtins.md#builtins-fetchClosure) can now fetch input-addressed paths in [pure evaluation mode](../command-ref/conf-file.md#conf-pure-eval), as those are not impure.
 

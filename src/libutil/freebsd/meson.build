@@ -1,3 +1,3 @@
 sources += files('freebsd-jail.cc')
 
-subdir('include/nix/util')
+subdir('include/bsd/util')

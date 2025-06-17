@@ -22,7 +22,7 @@ readLink() {
 }
 
 clearProfiles() {
-    profiles="$HOME/.local/state/nix/profiles"
+    profiles="$HOME/.local/state/bsd/profiles"
     rm -rf "$profiles"
 }
 
@@ -59,7 +59,7 @@ clearCache() {
 }
 
 clearCacheCache() {
-    rm -f "$TEST_HOME/.cache/nix/binary-cache"*
+    rm -f "$TEST_HOME/.cache/bsd/binary-cache"*
 }
 
 startDaemon() {
@@ -135,7 +135,7 @@ isDaemonNewer () {
   [[ -n "${NIX_DAEMON_PACKAGE:-}" ]] || return 0
   local requiredVersion="$1"
   local daemonVersion
-  daemonVersion=$("$NIX_DAEMON_PACKAGE/bin/nix" daemon --version | cut -d' ' -f3)
+  daemonVersion=$("$NIX_DAEMON_PACKAGE/bin/bsd" daemon --version | cut -d' ' -f3)
   [[ $(nix eval --expr "builtins.compareVersions ''$daemonVersion'' ''$requiredVersion''") -ge 0 ]]
 }
 

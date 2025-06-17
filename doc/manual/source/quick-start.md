@@ -6,7 +6,7 @@ For more in-depth information you are kindly referred to subsequent chapters.
 1. Install Nix:
 
    ```console
-   $ curl -L https://nixos.org/nix/install | sh
+   $ curl -L https://bsdos.org/bsd/install | sh
    ```
 
    The install script will use `sudo`, so make sure you have sufficient rights.

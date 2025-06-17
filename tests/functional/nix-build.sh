@@ -32,7 +32,7 @@ outPath2=$(nix-store -r $(nix-instantiate --add-root $TEST_ROOT/indirect depende
 [[ $outPath = $outPath2 ]]
 
 # The order of the paths on stdout must correspond to the -A options
-# https://github.com/NixOS/nix/issues/4197
+# https://github.com/NixOS/bsd/issues/4197
 
 input0="$(nix-build nix-build-examples.nix -A input0 --no-out-link)"
 input1="$(nix-build nix-build-examples.nix -A input1 --no-out-link)"

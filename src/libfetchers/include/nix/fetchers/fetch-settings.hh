@@ -45,7 +45,7 @@ struct Settings : public Config
             `type` is either `OAuth2` or `PAT` to indicate which type
             of token is being specified.
 
-          Example `~/.config/nix/nix.conf`:
+          Example `~/.config/bsd/bsd.conf`:
 
           ```
           access-tokens = github.com=23ac...b289 gitlab.mycompany.com=PAT:A123Bp_Cd..EfG gitlab.com=OAuth2:1jklw3jk

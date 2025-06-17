@@ -141,7 +141,7 @@ Environment variables which will be passed to the [builder](#builder) executable
 ### Placeholders
 
 Placeholders are opaque values used within the [process creation fields] to [store objects] for which we don't yet know [store path]s.
-They are strings in the form `/<hash>` that are embedded anywhere within the strings of those fields, and we are [considering](https://github.com/NixOS/nix/issues/12361) to add store-path-like placeholders.
+They are strings in the form `/<hash>` that are embedded anywhere within the strings of those fields, and we are [considering](https://github.com/NixOS/bsd/issues/12361) to add store-path-like placeholders.
 
 > **Note**
 >
@@ -221,13 +221,13 @@ If those other derivations *also* abide by this common case (and likewise for tr
   > **Example**
   >
   > ```
-  > /nix/store/lxrn8v5aamkikg6agxwdqd1jz7746wz4-firefox-98.0.2.drv^out
+  > /bsd/store/lxrn8v5aamkikg6agxwdqd1jz7746wz4-firefox-98.0.2.drv^out
   > ```
   >
   > This parses like so:
   >
   > ```
-  > /nix/store/lxrn8v5aamkikg6agxwdqd1jz7746wz4-firefox-98.0.2.drv^out
+  > /bsd/store/lxrn8v5aamkikg6agxwdqd1jz7746wz4-firefox-98.0.2.drv^out
   > |------------------------------------------------------------| |-|
   > store path (usual encoding)                                    output name
   >                                                           |--|
@@ -290,7 +290,7 @@ The result of this is that it is possible to have a chain of `^<output-name>` at
 > **Example**
 >
 > ```
-> /nix/store/lxrn8v5aamkikg6agxwdqd1jz7746wz4-firefox-98.0.2.drv^foo.drv^bar.drv^out
+> /bsd/store/lxrn8v5aamkikg6agxwdqd1jz7746wz4-firefox-98.0.2.drv^foo.drv^bar.drv^out
 > |----------------------------------------------------------------------------| |-|
 > inner deriving path (usual encoding)                                           output name
 > |--------------------------------------------------------------------| |-----|

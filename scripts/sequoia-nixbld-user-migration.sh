@@ -81,7 +81,7 @@ change_nixbld_uids(){
 	((next_id=NEW_NIX_FIRST_BUILD_UID))
 	((user_n=1))
 	name="$(nix_user_n "$user_n")"
-	existing_gid="$(dsclattr "/Groups/nixbld" "PrimaryGroupID")"
+	existing_gid="$(dsclattr "/Groups/bsdbld" "PrimaryGroupID")"
 
 	# we know that we have *some* nixbld users, but macOS may have
 	# already clobbered the first few users if this system has been

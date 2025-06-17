@@ -29,8 +29,8 @@ It outputs an attribute set, and produces a [store derivation] as a side effect 
   > }
   > ```
   >
-  > The derivation's path will be `/nix/store/<hash>-hello.drv`.
-  > The [output](#attr-outputs) paths will be of the form `/nix/store/<hash>-hello[-<output>]`
+  > The derivation's path will be `/bsd/store/<hash>-hello.drv`.
+  > The [output](#attr-outputs) paths will be of the form `/bsd/store/<hash>-hello[-<output>]`
 
 - [`system`]{#attr-system} ([String](@docroot@/language/types.md#type-string))
 
@@ -178,12 +178,12 @@ It outputs an attribute set, and produces a [store derivation] as a side effect 
   > }
   > ```
   >
-  > The store derivation path will be `/nix/store/<hash>-example.drv`.
+  > The store derivation path will be `/bsd/store/<hash>-example.drv`.
   > The output paths will be
-  > - `/nix/store/<hash>-example-lib`
-  > - `/nix/store/<hash>-example-dev`
-  > - `/nix/store/<hash>-example-doc`
-  > - `/nix/store/<hash>-example`
+  > - `/bsd/store/<hash>-example-lib`
+  > - `/bsd/store/<hash>-example-dev`
+  > - `/bsd/store/<hash>-example-doc`
+  > - `/bsd/store/<hash>-example`
 
   You can refer to each output of a derivation by selecting it as an attribute.
   The first element of `outputs` determines the *default output* and ends up at the top-level.

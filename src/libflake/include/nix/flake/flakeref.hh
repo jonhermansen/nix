@@ -83,7 +83,7 @@ struct FlakeRef
 std::ostream & operator << (std::ostream & str, const FlakeRef & flakeRef);
 
 /**
- * @param baseDir Optional [base directory](https://nixos.org/manual/nix/unstable/glossary#gloss-base-directory)
+ * @param baseDir Optional [base directory](https://bsdos.org/manual/bsd/unstable/glossary#gloss-base-directory)
  */
 FlakeRef parseFlakeRef(
     const fetchers::Settings & fetchSettings,
@@ -94,7 +94,7 @@ FlakeRef parseFlakeRef(
     bool preserveRelativePaths = false);
 
 /**
- * @param baseDir Optional [base directory](https://nixos.org/manual/nix/unstable/glossary#gloss-base-directory)
+ * @param baseDir Optional [base directory](https://bsdos.org/manual/bsd/unstable/glossary#gloss-base-directory)
  */
 std::optional<FlakeRef> maybeParseFlake(
     const fetchers::Settings & fetchSettings,
@@ -102,7 +102,7 @@ std::optional<FlakeRef> maybeParseFlake(
     const std::optional<Path> & baseDir = {});
 
 /**
- * @param baseDir Optional [base directory](https://nixos.org/manual/nix/unstable/glossary#gloss-base-directory)
+ * @param baseDir Optional [base directory](https://bsdos.org/manual/bsd/unstable/glossary#gloss-base-directory)
  */
 std::pair<FlakeRef, std::string> parseFlakeRefWithFragment(
     const fetchers::Settings & fetchSettings,
@@ -113,7 +113,7 @@ std::pair<FlakeRef, std::string> parseFlakeRefWithFragment(
     bool preserveRelativePaths = false);
 
 /**
- * @param baseDir Optional [base directory](https://nixos.org/manual/nix/unstable/glossary#gloss-base-directory)
+ * @param baseDir Optional [base directory](https://bsdos.org/manual/bsd/unstable/glossary#gloss-base-directory)
  */
 std::optional<std::pair<FlakeRef, std::string>> maybeParseFlakeRefWithFragment(
     const fetchers::Settings & fetchSettings,
@@ -121,7 +121,7 @@ std::optional<std::pair<FlakeRef, std::string>> maybeParseFlakeRefWithFragment(
     const std::optional<Path> & baseDir = {});
 
 /**
- * @param baseDir Optional [base directory](https://nixos.org/manual/nix/unstable/glossary#gloss-base-directory)
+ * @param baseDir Optional [base directory](https://bsdos.org/manual/bsd/unstable/glossary#gloss-base-directory)
  */
 std::tuple<FlakeRef, std::string, ExtendedOutputsSpec> parseFlakeRefWithFragmentAndExtendedOutputsSpec(
     const fetchers::Settings & fetchSettings,

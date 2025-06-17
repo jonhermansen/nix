@@ -52,8 +52,8 @@ test_custom_build_dir() {
   nix-build check.nix -A failed --argstr checkBuildId "$checkBuildId" \
       --no-out-link --keep-failed --option build-dir "$TEST_ROOT/custom-build-dir" 2> "$TEST_ROOT/log" || status=$?
   [ "$status" = "100" ]
-  [[ 1 == "$(count "$customBuildDir/nix-build-"*)" ]]
-  local buildDir=("$customBuildDir/nix-build-"*)
+  [[ 1 == "$(count "$customBuildDir/bsd-build-"*)" ]]
+  local buildDir=("$customBuildDir/bsd-build-"*)
   if [[ "${#buildDir[@]}" -ne 1 ]]; then
     echo "expected one nix-build-* directory, got: ${buildDir[*]}" >&2
     exit 1

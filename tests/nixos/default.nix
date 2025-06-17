@@ -7,7 +7,7 @@
 
 let
 
-  nixos-lib = import (nixpkgs + "/nixos/lib") { };
+  nixos-lib = import (nixpkgs + "/bsdos/lib") { };
 
   noTests =
     pkg:
@@ -18,7 +18,7 @@ let
       }
     );
 
-  # https://nixos.org/manual/nixos/unstable/index.html#sec-calling-nixos-tests
+  # https://bsdos.org/manual/bsdos/unstable/index.html#sec-calling-nixos-tests
   runNixOSTestFor =
     system: test:
     (nixos-lib.runTest {
@@ -151,11 +151,11 @@ in
 ) otherNixes
 // {
 
-  nix-copy-closure = runNixOSTestFor "x86_64-linux" ./nix-copy-closure.nix;
+  nix-copy-closure = runNixOSTestFor "x86_64-linux" ./bsd-copy-closure.nix;
 
-  nix-copy = runNixOSTestFor "x86_64-linux" ./nix-copy.nix;
+  nix-copy = runNixOSTestFor "x86_64-linux" ./bsd-copy.nix;
 
-  nix-docker = runNixOSTestFor "x86_64-linux" ./nix-docker.nix;
+  nix-docker = runNixOSTestFor "x86_64-linux" ./bsd-docker.nix;
 
   nssPreload = runNixOSTestFor "x86_64-linux" ./nss-preload.nix;
 

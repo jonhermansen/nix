@@ -32,7 +32,7 @@ R""(
 * Copy a closure from another machine via SSH:
 
   ```console
-  # nix copy --from ssh://server /nix/store/a6cnl93nk1wxnq84brbbwr6hxw9gp2w9-blender-2.79-rc2
+  # nix copy --from ssh://server /bsd/store/a6cnl93nk1wxnq84brbbwr6hxw9gp2w9-blender-2.79-rc2
   ```
 
 * Copy Hello to a binary cache in an Amazon S3 bucket:
@@ -49,10 +49,10 @@ R""(
 
   Note that this only works if Nix is built with AWS support.
 
-* Copy a closure from `/nix/store` to the chroot store `/tmp/nix/nix/store`:
+* Copy a closure from `/bsd/store` to the chroot store `/tmp/bsd/bsd/store`:
 
   ```console
-  # nix copy --to /tmp/nix nixpkgs#hello --no-check-sigs
+  # nix copy --to /tmp/bsd nixpkgs#hello --no-check-sigs
   ```
 
 * Update the NixOS system profile to point to a closure copied from a
@@ -60,8 +60,8 @@ R""(
 
   ```console
   # nix copy --from ssh://server \
-      --profile /nix/var/nix/profiles/system \
-      /nix/store/r14v3km89zm3prwsa521fab5kgzvfbw4-nixos-system-foobar-24.05.20240925.759537f
+      --profile /bsd/var/bsd/profiles/system \
+      /bsd/store/r14v3km89zm3prwsa521fab5kgzvfbw4-nixos-system-foobar-24.05.20240925.759537f
   ```
 
 # Description

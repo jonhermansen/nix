@@ -52,7 +52,7 @@ sources = files(
   'tarball.cc',
 )
 
-subdir('include/nix/fetchers')
+subdir('include/bsd/fetchers')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

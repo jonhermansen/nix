@@ -49,7 +49,7 @@ struct PrintOptions
 
     /**
      * If true and `force` is set, print derivations as
-     * `«derivation /nix/store/...»` instead of as attribute sets.
+     * `«derivation /bsd/store/...»` instead of as attribute sets.
      */
     bool derivationPaths = false;
 

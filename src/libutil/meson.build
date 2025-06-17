@@ -158,7 +158,7 @@ sources = [config_priv_h] + files(
   'xml-writer.cc',
 )
 
-subdir('include/nix/util')
+subdir('include/bsd/util')
 
 if not cxx.has_header('widechar_width.h', required : false)
   # use vendored widechar_width.h

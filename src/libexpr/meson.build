@@ -159,7 +159,7 @@ sources = files(
   'value/context.cc',
 )
 
-subdir('include/nix/expr')
+subdir('include/bsd/expr')
 
 subdir('primops')
 

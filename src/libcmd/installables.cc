@@ -56,7 +56,7 @@ MixFlakeOptions::MixFlakeOptions()
 
     > **DEPRECATED**
     >
-    > Use [`nix flake update`](@docroot@/command-ref/new-cli/nix3-flake-update.md) instead.
+    > Use [`nix flake update`](@docroot@/command-ref/new-cli/bsd3-flake-update.md) instead.
         )",
         .category = category,
         .handler = {[&]() {
@@ -109,7 +109,7 @@ MixFlakeOptions::MixFlakeOptions()
 
     > **DEPRECATED**
     >
-    > Use [`nix flake update`](@docroot@/command-ref/new-cli/nix3-flake-update.md) instead.
+    > Use [`nix flake update`](@docroot@/command-ref/new-cli/bsd3-flake-update.md) instead.
         )",
         .category = category,
         .labels = {"input-path"},
@@ -124,7 +124,7 @@ MixFlakeOptions::MixFlakeOptions()
 
     addFlag({
         .longName = "override-input",
-        .description = "Override a specific flake input (e.g. `dwarffs/nixpkgs`). This implies `--no-write-lock-file`.",
+        .description = "Override a specific flake input (e.g. `dwarffs/bsdpkgs`). This implies `--no-write-lock-file`.",
         .category = category,
         .labels = {"input-path", "flake-url"},
         .handler = {[&](std::string inputAttrPath, std::string flakeRef) {
@@ -198,7 +198,7 @@ SourceExprCommand::SourceExprCommand()
         .longName = "file",
         .shortName = 'f',
         .description =
-            "Interpret [*installables*](@docroot@/command-ref/new-cli/nix.md#installables) as attribute paths relative to the Nix expression stored in *file*. "
+            "Interpret [*installables*](@docroot@/command-ref/new-cli/bsd.md#installables) as attribute paths relative to the Nix expression stored in *file*. "
             "If *file* is the character -, then a Nix expression will be read from standard input. "
             "Implies `--impure`.",
         .category = installablesCategory,
@@ -209,7 +209,7 @@ SourceExprCommand::SourceExprCommand()
 
     addFlag({
         .longName = "expr",
-        .description = "Interpret [*installables*](@docroot@/command-ref/new-cli/nix.md#installables) as attribute paths relative to the Nix expression *expr*.",
+        .description = "Interpret [*installables*](@docroot@/command-ref/new-cli/bsd.md#installables) as attribute paths relative to the Nix expression *expr*.",
         .category = installablesCategory,
         .labels = {"expr"},
         .handler = {&expr},

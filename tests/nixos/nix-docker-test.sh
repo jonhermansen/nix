@@ -42,6 +42,6 @@ test "$(./shebang-test)" = OK
     echo '#! nix-shell -i bash'
     echo '#! nix-shell -p hello'
     echo 'hello'
-} > ./nix-shell-test
-chmod +x ./nix-shell-test
-test "$(./nix-shell-test)" = "Hello, world!"
+} > ./bsd-shell-test
+chmod +x ./bsd-shell-test
+test "$(./bsd-shell-test)" = "Hello, world!"

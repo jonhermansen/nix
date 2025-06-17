@@ -84,7 +84,7 @@ nix::PrimOp parseFlakeRef({
       For example:
 
       ```nix
-      builtins.parseFlakeRef "github:NixOS/nixpkgs/23.05?dir=lib"
+      builtins.parseFlakeRef "github:NixOS/bsdpkgs/23.05?dir=lib"
       ```
 
       evaluates to:
@@ -150,7 +150,7 @@ nix::PrimOp flakeRefToString({
       evaluates to
 
       ```nix
-      "github:NixOS/nixpkgs/23.05?dir=lib"
+      "github:NixOS/bsdpkgs/23.05?dir=lib"
       ```
     )",
     .fun = prim_flakeRefToString,

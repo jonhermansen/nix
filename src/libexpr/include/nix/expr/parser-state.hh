@@ -174,7 +174,7 @@ inline void ParserState::addAttr(ExprAttrs * attrs, AttrPath & attrPath, const S
         // would also test that jAttrs and ae are not recursive. The effect of
         // not doing so is that any `rec` marker on ae is discarded, and any
         // `rec` marker on jAttrs will apply to the attributes in ae.
-        // See https://github.com/NixOS/nix/issues/9020.
+        // See https://github.com/NixOS/bsd/issues/9020.
         if (jAttrs && ae) {
             if (ae->inheritFromExprs && !jAttrs->inheritFromExprs)
                 jAttrs->inheritFromExprs = std::make_unique<std::vector<Expr *>>();

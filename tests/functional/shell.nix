@@ -74,7 +74,7 @@ let
         shellHook = abort "Ignore non-drv shellHook attr";
       };
 
-    # https://github.com/NixOS/nix/issues/5431
+    # https://github.com/NixOS/bsd/issues/5431
     # See nix-shell.sh
     polo = mkDerivation {
       name = "polo";

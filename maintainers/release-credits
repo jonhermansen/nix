@@ -76,7 +76,7 @@ samples = commits_to_first_commit_by_email(get_commits())
 
 # Query the GitHub API to get handle
 def get_github_commit(commit):
-    url = f"https://api.github.com/repos/NixOS/nix/commits/{commit['hash']}"
+    url = f"https://api.github.com/repos/NixOS/bsd/commits/{commit['hash']}"
     headers = {'Authorization': f'token {github_token}'}
     response = requests.get(url, headers=headers)
     response.raise_for_status()

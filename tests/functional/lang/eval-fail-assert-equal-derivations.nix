@@ -2,13 +2,13 @@ assert
   {
     foo = {
       type = "derivation";
-      outPath = "/nix/store/0";
+      outPath = "/bsd/store/0";
       ignored = abort "not ignored";
     };
   } == {
     foo = {
       type = "derivation";
-      outPath = "/nix/store/1";
+      outPath = "/bsd/store/1";
       ignored = abort "not ignored";
     };
   };

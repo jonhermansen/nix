@@ -7,7 +7,7 @@
 #include "nix_api_value.h"
 #include "nix_api_external.h"
 
-#include "nix/expr/tests/nix_api_expr.hh"
+#include "nix/expr/tests/bsd_api_expr.hh"
 #include "nix/util/tests/string_callback.hh"
 
 #include <gtest/gtest.h>

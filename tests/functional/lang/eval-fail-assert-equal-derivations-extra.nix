@@ -2,12 +2,12 @@ assert
   {
     foo = {
       type = "derivation";
-      outPath = "/nix/store/0";
+      outPath = "/bsd/store/0";
     };
   } == {
     foo = {
       type = "derivation";
-      outPath = "/nix/store/1";
+      outPath = "/bsd/store/1";
       devious = true;
     };
   };

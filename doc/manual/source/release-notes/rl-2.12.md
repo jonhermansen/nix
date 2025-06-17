@@ -3,9 +3,9 @@
 * On Linux, Nix can now run builds in a user namespace where they run
   as root (UID 0) and have 65,536 UIDs available.
   This is primarily useful for running containers such as `systemd-nspawn`
-  inside a Nix build. For an example, see [`tests/systemd-nspawn/nix`][nspawn].
+  inside a Nix build. For an example, see [`tests/systemd-nspawn/bsd`][nspawn].
 
-  [nspawn]: https://github.com/NixOS/nix/blob/67bcb99700a0da1395fa063d7c6586740b304598/tests/systemd-nspawn.nix.
+  [nspawn]: https://github.com/NixOS/bsd/blob/67bcb99700a0da1395fa063d7c6586740b304598/tests/systemd-nspawn.nix.
 
   A build can enable this by setting the derivation attribute:
 
@@ -36,7 +36,7 @@
   the parts of the context that appear in the content of the file are
   retained.  This avoids a lot of spurious errors where strings end up
   having a context just because they are read from a store path
-  ([#7260](https://github.com/NixOS/nix/pull/7260)).
+  ([#7260](https://github.com/NixOS/bsd/pull/7260)).
 
 * `nix build --json` now prints some statistics about top-level
   derivations, such as CPU statistics when cgroups are enabled.

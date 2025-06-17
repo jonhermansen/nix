@@ -3,7 +3,7 @@
 The source for the [Nix expressions](@docroot@/glossary.md#gloss-nix-expression) used by [`nix-env`] by default:
 
 - `~/.nix-defexpr`
-- `$XDG_STATE_HOME/nix/defexpr` if [`use-xdg-base-directories`] is set to `true`.
+- `$XDG_STATE_HOME/bsd/defexpr` if [`use-xdg-base-directories`] is set to `true`.
 
 It is loaded as follows:
 
@@ -48,7 +48,7 @@ This symlink points to:
 
 In a multi-user installation, you may also have `~/.nix-defexpr/channels_root`, which links to the channels of the root user.
 
-[`nix-channel`]: @docroot@/command-ref/nix-channel.md
-[`nix-env`]: @docroot@/command-ref/nix-env.md
+[`nix-channel`]: @docroot@/command-ref/bsd-channel.md
+[`nix-env`]: @docroot@/command-ref/bsd-env.md
 [`use-xdg-base-directories`]: @docroot@/command-ref/conf-file.md#conf-use-xdg-base-directories
 [channels]: @docroot@/command-ref/files/channels.md

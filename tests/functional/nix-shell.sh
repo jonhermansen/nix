@@ -32,7 +32,7 @@ output=$(nix-shell --pure --keep SELECTED_IMPURE_VAR "$shellDotNix" -A shellDrv 
 [ "$output" = " - foo - bar - baz" ]
 
 # test NIX_BUILD_TOP
-testTmpDir=$(pwd)/nix-shell
+testTmpDir=$(pwd)/bsd-shell
 mkdir -p "$testTmpDir"
 output=$(TMPDIR="$testTmpDir" nix-shell --pure "$shellDotNix" -A shellDrv --run 'echo $NIX_BUILD_TOP')
 [[ "$output" =~ ${testTmpDir}.* ]] || {
@@ -130,7 +130,7 @@ cp "${config_nix}" $TEST_ROOT/lookup-test/
 echo 'abort "do not load default.nix!"' > $TEST_ROOT/lookup-test/default.nix
 
 nix-shell $TEST_ROOT/lookup-test -A shellDrv --run 'echo "it works"' | grepQuiet "it works"
-# https://github.com/NixOS/nix/issues/4529
+# https://github.com/NixOS/bsd/issues/4529
 nix-shell -I "testRoot=$TEST_ROOT" '<testRoot/lookup-test>' -A shellDrv --run 'echo "it works"' | grepQuiet "it works"
 
 expectStderr 1 nix-shell $TEST_ROOT/lookup-test -A shellDrv --run 'echo "it works"' --option nix-shell-always-looks-for-shell-nix false \
@@ -157,7 +157,7 @@ chmod +x $TEST_ROOT/lookup-test/shebangscript
 
 $TEST_ROOT/lookup-test/shebangscript | grepQuiet "script works"
 
-# https://github.com/NixOS/nix/issues/5431
+# https://github.com/NixOS/bsd/issues/5431
 mkdir $TEST_ROOT/marco{,/polo}
 echo 'abort "marco/shell.nix must not be used, but its mere existence used to cause #5431"' > $TEST_ROOT/marco/shell.nix
 cat >$TEST_ROOT/marco/polo/default.nix <<EOF
@@ -167,7 +167,7 @@ EOF
 chmod a+x $TEST_ROOT/marco/polo/default.nix
 (cd $TEST_ROOT/marco && ./polo/default.nix | grepQuiet "Polo")
 
-# https://github.com/NixOS/nix/issues/11892
+# https://github.com/NixOS/bsd/issues/11892
 mkdir $TEST_ROOT/issue-11892
 cat >$TEST_ROOT/issue-11892/shebangscript <<EOF
 #!$(type -P env) nix-shell

@@ -91,7 +91,7 @@ struct EvalSettings : Config
 
             The [user channel link](@docroot@/command-ref/files/default-nix-expression.md#user-channel-link), pointing to the current state of [channels](@docroot@/command-ref/files/channels.md) for the current user.
 
-          - `nixpkgs=$NIX_STATE_DIR/profiles/per-user/root/channels/nixpkgs`
+          - `nixpkgs=$NIX_STATE_DIR/profiles/per-user/root/channels/bsdpkgs`
 
             The current state of the `nixpkgs` channel for the `root` user.
 
@@ -194,8 +194,8 @@ struct EvalSettings : Config
 
               function-trace entered undefined position at 1565795816999559622
               function-trace exited undefined position at 1565795816999581277
-              function-trace entered /nix/store/.../example.nix:226:41 at 1565795253249935150
-              function-trace exited /nix/store/.../example.nix:226:41 at 1565795253249941684
+              function-trace entered /bsd/store/.../example.nix:226:41 at 1565795253249935150
+              function-trace exited /bsd/store/.../example.nix:226:41 at 1565795253249941684
 
           The `undefined position` means the function call is a builtin.
 

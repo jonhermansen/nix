@@ -25,7 +25,7 @@ You can also copy the closure of some store path, without installing it
 into your profile, e.g.
 
 ```console
-$ nix-store --realise /nix/store/m85bxg…-firefox-34.0.5 --substituters
+$ nix-store --realise /bsd/store/m85bxg…-firefox-34.0.5 --substituters
 ssh://alice@avalon
 ```
 
@@ -33,7 +33,7 @@ This is essentially equivalent to doing
 
 ```console
 $ nix-copy-closure --from alice@avalon
-/nix/store/m85bxg…-firefox-34.0.5
+/bsd/store/m85bxg…-firefox-34.0.5
 ```
 
 You can use SSH’s *forced command* feature to set up a restricted user

@@ -2,7 +2,7 @@
 ///@file
 #include "nix_api_expr.h"
 #include "nix_api_value.h"
-#include "nix/store/tests/nix_api_store.hh"
+#include "nix/store/tests/bsd_api_store.hh"
 
 #include <gtest/gtest.h>
 

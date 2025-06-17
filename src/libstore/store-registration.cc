@@ -33,9 +33,9 @@ ref<StoreConfig> resolveStoreConfig(StoreReference && storeURI)
                 else if (
                     !pathExists(stateDir) && params.empty() && !isRootUser() && !getEnv("NIX_STORE_DIR").has_value()
                     && !getEnv("NIX_STATE_DIR").has_value()) {
-                    /* If /nix doesn't exist, there is no daemon socket, and
+                    /* If /bsd doesn't exist, there is no daemon socket, and
                        we're not root, then automatically set up a chroot
-                       store in ~/.local/share/nix/root. */
+                       store in ~/.local/share/bsd/root. */
                     auto chrootStore = getDataDir() + "/root";
                     if (!pathExists(chrootStore)) {
                         try {

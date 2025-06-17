@@ -92,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     have been provided directly by the constituent component that provides it.
 
     This is because not all tooling handles packages composed of arbitrary
-    outputs yet. This includes nix itself, https://github.com/NixOS/nix/issues/6507.
+    outputs yet. This includes nix itself, https://github.com/NixOS/bsd/issues/6507.
 
     `devdoc` is also available, but not listed here, because this attribute is
     not an output of the same derivation that provides `out`, `dev`, etc.
@@ -156,11 +156,11 @@ stdenv.mkDerivation (finalAttrs: {
       devPaths = lib.mapAttrsToList (_k: lib.getDev) finalAttrs.finalPackage.libs;
     in
     ''
-      mkdir -p $out $dev/nix-support
+      mkdir -p $out $dev/bsd-support
 
       # Custom files
-      echo $libs >> $dev/nix-support/propagated-build-inputs
-      echo ${nix-cli} ${lib.escapeShellArgs devPaths} >> $dev/nix-support/propagated-build-inputs
+      echo $libs >> $dev/bsd-support/propagated-build-inputs
+      echo ${nix-cli} ${lib.escapeShellArgs devPaths} >> $dev/bsd-support/propagated-build-inputs
 
       # Merged outputs
       lndir ${nix-cli} $out
@@ -198,7 +198,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit libs;
 
     /**
-      Developer documentation for `nix`, in `share/doc/nix/{internal,external}-api/`.
+      Developer documentation for `nix`, in `share/doc/bsd/{internal,external}-api/`.
 
       This is not a proper output; see `outputs` for context.
     */
@@ -206,7 +206,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     /**
       Extra tests that test this package, but do not run as part of the build.
-      See <https://nixos.org/manual/nixpkgs/stable/index.html#var-passthru-tests>
+      See <https://bsdos.org/manual/bsdpkgs/stable/index.html#var-passthru-tests>
     */
     tests = {
       pkg-config = testers.hasPkgConfigModules {

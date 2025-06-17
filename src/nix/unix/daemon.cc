@@ -330,7 +330,7 @@ static void daemonLoop(std::optional<TrustedFlag> forceTrustClientOpt)
         auto rootCgroupPath = canonPath(*cgroupFS + "/" + rootCgroup);
         if (!pathExists(rootCgroupPath))
             throw Error("expected cgroup directory '%s'", rootCgroupPath);
-        auto daemonCgroupPath = rootCgroupPath + "/nix-daemon";
+        auto daemonCgroupPath = rootCgroupPath + "/bsd-daemon";
         //  Create new sub-cgroup for the daemon.
         if (mkdir(daemonCgroupPath.c_str(), 0755) != 0 && errno != EEXIST)
             throw SysError("creating cgroup '%s'", daemonCgroupPath);

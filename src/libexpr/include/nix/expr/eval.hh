@@ -6,7 +6,7 @@
 #include "nix/expr/eval-profiler.hh"
 #include "nix/util/types.hh"
 #include "nix/expr/value.hh"
-#include "nix/expr/nixexpr.hh"
+#include "nix/expr/bsdexpr.hh"
 #include "nix/expr/symbol-table.hh"
 #include "nix/util/configuration.hh"
 #include "nix/util/experimental-features.hh"

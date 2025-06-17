@@ -34,14 +34,14 @@ nix-store --store "$storeB" --verify --check-contents
 # Make a backup so we can repair later
 backupStore="$storeVolume/backup"
 mkdir "$backupStore"
-cp -ar "$storeBRoot/nix" "$backupStore"
+cp -ar "$storeBRoot/bsd" "$backupStore"
 
 
 ## Deliberately corrupt store paths
 
 # Delete one of the derivation inputs in the lower store
 inputDrvFullPath=$(find "$storeA" -name "*-hermetic-input-1.drv")
-inputDrvPath=${inputDrvFullPath/*\/nix\/store\///nix/store/}
+inputDrvPath=${inputDrvFullPath/*\/bsd\/store\///bsd/store/}
 rm -v "$inputDrvFullPath"
 
 # Truncate the contents of dummy file in lower store

@@ -8,14 +8,14 @@ export NIX_FIRST_BUILD_UID="${NIX_FIRST_BUILD_UID:-30001}"
 export NIX_BUILD_GROUP_ID="${NIX_BUILD_GROUP_ID:-30000}"
 export NIX_BUILD_USER_NAME_TEMPLATE="nixbld%d"
 
-readonly SERVICE_SRC=/lib/systemd/system/nix-daemon.service
-readonly SERVICE_DEST=/etc/systemd/system/nix-daemon.service
+readonly SERVICE_SRC=/lib/systemd/system/bsd-daemon.service
+readonly SERVICE_DEST=/etc/systemd/system/bsd-daemon.service
 
-readonly SOCKET_SRC=/lib/systemd/system/nix-daemon.socket
-readonly SOCKET_DEST=/etc/systemd/system/nix-daemon.socket
+readonly SOCKET_SRC=/lib/systemd/system/bsd-daemon.socket
+readonly SOCKET_DEST=/etc/systemd/system/bsd-daemon.socket
 
-readonly TMPFILES_SRC=/lib/tmpfiles.d/nix-daemon.conf
-readonly TMPFILES_DEST=/etc/tmpfiles.d/nix-daemon.conf
+readonly TMPFILES_SRC=/lib/tmpfiles.d/bsd-daemon.conf
+readonly TMPFILES_DEST=/etc/tmpfiles.d/bsd-daemon.conf
 
 # Path for the systemd override unit file to contain the proxy settings
 readonly SERVICE_OVERRIDE=${SERVICE_DEST}.d/override.conf
@@ -100,16 +100,16 @@ poly_configure_nix_daemon_service() {
               mkdir -p "$(dirname "$TMPFILES_DEST")"
 
         _sudo "to create the nix-daemon tmpfiles config" \
-              ln -sfn "/nix/var/nix/profiles/default$TMPFILES_SRC" "$TMPFILES_DEST"
+              ln -sfn "/bsd/var/bsd/profiles/default$TMPFILES_SRC" "$TMPFILES_DEST"
 
         _sudo "to run systemd-tmpfiles once to pick that path up" \
-             systemd-tmpfiles --create --prefix=/nix/var/nix
+             systemd-tmpfiles --create --prefix=/bsd/var/bsd
 
         _sudo "to set up the nix-daemon service" \
-              systemctl link "/nix/var/nix/profiles/default$SERVICE_SRC"
+              systemctl link "/bsd/var/bsd/profiles/default$SERVICE_SRC"
 
         _sudo "to set up the nix-daemon socket service" \
-              systemctl enable "/nix/var/nix/profiles/default$SOCKET_SRC"
+              systemctl enable "/bsd/var/bsd/profiles/default$SOCKET_SRC"
 
         handle_network_proxy
 

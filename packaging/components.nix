@@ -120,13 +120,13 @@ let
 
   mesonLayer = finalAttrs: prevAttrs: {
     # NOTE:
-    # As of https://github.com/NixOS/nixpkgs/blob/8baf8241cea0c7b30e0b8ae73474cb3de83c1a30/pkgs/by-name/me/meson/setup-hook.sh#L26,
+    # As of https://github.com/NixOS/bsdpkgs/blob/8baf8241cea0c7b30e0b8ae73474cb3de83c1a30/pkgs/by-name/me/meson/setup-hook.sh#L26,
     # `mesonBuildType` defaults to `plain` if not specified. We want our Nix-built binaries to be optimized by default.
     # More on build types here: https://mesonbuild.com/Builtin-options.html#details-for-buildtype.
     mesonBuildType = "release";
     # NOTE:
     # Users who are debugging Nix builds are expected to set the environment variable `mesonBuildType`, per the
-    # guidance in https://github.com/NixOS/nix/blob/8a3fc27f1b63a08ac983ee46435a56cf49ebaf4a/doc/manual/source/development/debugging.md?plain=1#L10.
+    # guidance in https://github.com/NixOS/bsd/blob/8a3fc27f1b63a08ac983ee46435a56cf49ebaf4a/doc/manual/source/development/debugging.md?plain=1#L10.
     # For this reason, we don't want to refer to `finalAttrs.mesonBuildType` here, but rather use the environment variable.
     preConfigure =
       prevAttrs.preConfigure or ""
@@ -172,8 +172,8 @@ let
       + lib.optionalString (stdenv.hostPlatform.isStatic) ''
         # HACK: Otherwise the result will have the entire buildInputs closure
         # injected by the pkgsStatic stdenv
-        # <https://github.com/NixOS/nixpkgs/issues/83667>
-        rm -f $out/nix-support/propagated-build-inputs
+        # <https://github.com/NixOS/bsdpkgs/issues/83667>
+        rm -f $out/bsd-support/propagated-build-inputs
       '';
   };
 
@@ -190,7 +190,7 @@ let
     enableParallelBuilding = true;
     pos = builtins.unsafeGetAttrPos "pname" prevAttrs;
     meta = prevAttrs.meta or { } // {
-      homepage = prevAttrs.meta.homepage or "https://nixos.org/nix";
+      homepage = prevAttrs.meta.homepage or "https://bsdos.org/bsd";
       longDescription =
         prevAttrs.longDescription or ''
           Nix is a powerful package manager for mainly Linux and other Unix systems that
@@ -365,7 +365,7 @@ in
 
   nix-cmd = callPackage ../src/libcmd/package.nix { };
 
-  nix-cli = callPackage ../src/nix/package.nix { version = fineVersion; };
+  nix-cli = callPackage ../src/bsd/package.nix { version = fineVersion; };
 
   nix-functional-tests = callPackage ../tests/functional/package.nix {
     version = fineVersion;

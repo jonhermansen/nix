@@ -11,7 +11,7 @@
 Channels are a mechanism for referencing remote Nix expressions and conveniently retrieving their latest version.
 
 The moving parts of channels are:
-- The official channels listed at <https://nixos.org/channels>
+- The official channels listed at <https://bsdos.org/channels>
 - The user-specific list of [subscribed channels](#subscribed-channels)
 - The [downloaded channel contents](#channels)
 - The [Nix expression search path](@docroot@/command-ref/conf-file.md#conf-nix-path), set with the [`-I` option](#opt-i) or the [`NIX_PATH` environment variable](#env-NIX_PATH)
@@ -65,7 +65,7 @@ This command has the following operations:
 
   Works the same way as
   ```
-  nix-env --profile /nix/var/nix/profiles/per-user/$USER/channels --list-generations
+  nix-env --profile /bsd/var/bsd/profiles/per-user/$USER/channels --list-generations
   ```
 
 - `--rollback` \[*generation*\]
@@ -88,9 +88,9 @@ This command has the following operations:
 Subscribe to the Nixpkgs channel and run `hello` from the GNU Hello package:
 
 ```console
-$ nix-channel --add https://nixos.org/channels/nixpkgs-unstable
+$ nix-channel --add https://bsdos.org/channels/bsdpkgs-unstable
 $ nix-channel --list
-nixpkgs https://nixos.org/channels/nixpkgs
+nixpkgs https://bsdos.org/channels/bsdpkgs
 $ nix-channel --update
 $ nix-shell -p hello --run hello
 hello

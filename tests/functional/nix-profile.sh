@@ -65,7 +65,7 @@ nix profile diff-closures | grep 'env-manifest.nix: ε → ∅'
 export NIX_CONFIG="use-xdg-base-directories = true"
 nix profile remove flake1 2>&1 | grep 'removed 1 packages'
 nix profile add $flake1Dir
-[[ $($TEST_HOME/.local/state/nix/profile/bin/hello) = "Hello World" ]]
+[[ $($TEST_HOME/.local/state/bsd/profile/bin/hello) = "Hello World" ]]
 unset NIX_CONFIG
 
 # Test conflicting package add.
@@ -235,7 +235,7 @@ nix profile add $flake2Dir --priority 0
 
 # Ensure that conflicts are handled properly even when the installables aren't
 # flake references.
-# Regression test for https://github.com/NixOS/nix/issues/8284
+# Regression test for https://github.com/NixOS/bsd/issues/8284
 clearProfiles
 nix profile add $(nix build $flake1Dir --no-link --print-out-paths)
 expect 1 nix profile add --impure --expr "(builtins.getFlake ''$flake2Dir'').packages.$system.default"
@@ -244,7 +244,7 @@ expect 1 nix profile add --impure --expr "(builtins.getFlake ''$flake2Dir'').pac
 clearProfiles
 mkdir -p $TEST_ROOT/import-profile
 outPath=$(nix build --no-link --print-out-paths $flake1Dir/flake.nix^out)
-printf '{ "version": 2, "elements": [ { "active": true, "attrPath": "legacyPackages.x86_64-linux.hello", "originalUrl": "flake:nixpkgs", "outputs": null, "priority": 5, "storePaths": [ "%s" ], "url": "github:NixOS/nixpkgs/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" } ] }' "$outPath" > $TEST_ROOT/import-profile/manifest.json
+printf '{ "version": 2, "elements": [ { "active": true, "attrPath": "legacyPackages.x86_64-linux.hello", "originalUrl": "flake:nixpkgs", "outputs": null, "priority": 5, "storePaths": [ "%s" ], "url": "github:NixOS/bsdpkgs/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" } ] }' "$outPath" > $TEST_ROOT/import-profile/manifest.json
 nix build --profile $TEST_HOME/.nix-profile $(nix store add-path $TEST_ROOT/import-profile) --no-link
 nix profile list | grep -A4 'Name:.*hello' | grep "Store paths:.*$outPath"
 nix profile remove hello 2>&1 | grep 'removed 1 packages, kept 0 packages'

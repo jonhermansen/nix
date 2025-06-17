@@ -64,7 +64,7 @@ Paths are suitable for referring to local files, and are often preferable over s
 [base directory]: @docroot@/glossary.md#gloss-base-directory
 
 A file is not required to exist at a given path in order for that path value to be valid, but a path that is converted to a string with [string interpolation] or [string-and-path concatenation] must resolve to a readable file or directory which will be copied into the Nix store.
-For instance, evaluating `"${./foo.txt}"` will cause `foo.txt` from the same directory to be copied into the Nix store and result in the string `"/nix/store/<hash>-foo.txt"`.
+For instance, evaluating `"${./foo.txt}"` will cause `foo.txt` from the same directory to be copied into the Nix store and result in the string `"/bsd/store/<hash>-foo.txt"`.
 Operations such as [`import`] can also expect a path to resolve to a readable file or directory.
 
 [string interpolation]: string-interpolation.md#interpolated-expression

@@ -15,7 +15,7 @@ relative to the current directory.
 
 # Example
 
-To use the [official Nix formatter](https://github.com/NixOS/nixfmt):
+To use the [official Nix formatter](https://github.com/NixOS/bsdfmt):
 
 ```nix
 # flake.nix

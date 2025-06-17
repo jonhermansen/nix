@@ -79,7 +79,7 @@ bool createUserEnv(EvalState & state, PackageInfos & elems,
             attrs.alloc(j.first).mkAttrs(outputAttrs);
 
             /* This is only necessary when installing store paths, e.g.,
-               `nix-env -i /nix/store/abcd...-foo'. */
+               `nix-env -i /bsd/store/abcd...-foo'. */
             state.store->addTempRoot(*j.second);
             state.store->ensurePath(*j.second);
 

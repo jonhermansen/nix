@@ -12,7 +12,7 @@ more than 2800 commits from 195 contributors since release 2.3.
   $ nix build
   error: undefined variable 'bzip3'
 
-         at /nix/store/449lv242z0zsgwv95a8124xi11sp419f-source/flake.nix:88:13:
+         at /bsd/store/449lv242z0zsgwv95a8124xi11sp419f-source/flake.nix:88:13:
 
              87|           [ curl
              88|             bzip3 xz brotli editline
@@ -40,7 +40,7 @@ more than 2800 commits from 195 contributors since release 2.3.
   see [this blog
   post](https://www.tweag.io/blog/2020-05-25-flakes/). For detailed
   information about flake syntax and semantics, see the [`nix flake`
-  manual page](../command-ref/new-cli/nix3-flake.md).
+  manual page](../command-ref/new-cli/bsd3-flake.md).
 
 * Nix's store can now be **content-addressed**, meaning that the hash
   component of a store path is the hash of the path's
@@ -127,7 +127,7 @@ more than 2800 commits from 195 contributors since release 2.3.
     stores without requiring signatures.
 
   - `nix bundle` uses the [`nix-bundle`
-    program](https://github.com/matthewbauer/nix-bundle) to convert a
+    program](https://github.com/matthewbauer/bsd-bundle) to convert a
     closure into a self-extracting executable.
 
   - Various other replacements for the old CLI, e.g. `nix store gc`,
@@ -198,7 +198,7 @@ more than 2800 commits from 195 contributors since release 2.3.
 * Experimental support for recursive Nix. This means that Nix
   derivations can now call Nix to build other derivations. This is not
   in a stable state yet and not well
-  [documented](https://github.com/NixOS/nix/commit/c4d7c76b641d82b2696fef73ce0ac160043c18da).
+  [documented](https://github.com/NixOS/bsd/commit/c4d7c76b641d82b2696fef73ce0ac160043c18da).
 
 * The new experimental feature `no-url-literals` disables URL
   literals. This helps to implement [RFC

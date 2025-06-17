@@ -5,7 +5,7 @@
 
 namespace nix {
 
-// See: https://github.com/NixOS/nix/issues/9730
+// See: https://github.com/NixOS/bsd/issues/9730
 void printAmbiguous(
     Value &v,
     const SymbolTable &symbols,

@@ -5,19 +5,19 @@ R""(
 * Repair a store path, after determining that it is corrupt:
 
   ```console
-  # nix store verify /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
-  path '/nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10' was
+  # nix store verify /bsd/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
+  path '/bsd/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10' was
   modified! expected hash
   'sha256:1hd5vnh6xjk388gdk841vflicy8qv7qzj2hb7xlyh8lpb43j921l', got
   'sha256:1a25lf78x5wi6pfkrxalf0n13kdaca0bqmjqnp7wfjza2qz5ssgl'
 
-  # nix store repair /nix/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
+  # nix store repair /bsd/store/yb5q57zxv6hgqql42d5r8b5k5mcq6kay-hello-2.10
   ```
 
 # Description
 
 This command attempts to "repair" the store paths specified by
-[*installables*](./nix.md#installables) by redownloading them using the available
+[*installables*](./bsd.md#installables) by redownloading them using the available
 substituters. If no substitutes are available, then repair is not
 possible.
 

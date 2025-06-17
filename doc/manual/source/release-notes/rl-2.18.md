@@ -9,7 +9,7 @@
 
 - [`builtins.toJSON`](@docroot@/language/builtins.md#builtins-parseFlakeRef) now prints [--show-trace](@docroot@/command-ref/conf-file.html#conf-show-trace) items for the path in which it finds an evaluation error.
 
-- Error messages regarding malformed input to [`nix derivation add`](@docroot@/command-ref/new-cli/nix3-derivation-add.md) are now clearer and more detailed.
+- Error messages regarding malformed input to [`nix derivation add`](@docroot@/command-ref/new-cli/bsd3-derivation-add.md) are now clearer and more detailed.
 
 - The `discard-references` feature has been stabilized.
   This means that the
@@ -25,4 +25,4 @@
 
 - Flake follow paths at depths greater than 2 are now handled correctly, preventing "follows a non-existent input" errors.
 
-- [`nix-store --query`](@docroot@/command-ref/nix-store/query.md) gained a new type of query: `--valid-derivers`. It returns all `.drv` files in the local store that *can be* used to build the output passed in argument. This is in contrast to `--deriver`, which returns the single `.drv` file that *was actually* used to build the output passed in argument. In case the output was substituted from a binary cache, this `.drv` file may only exist on said binary cache and not locally.
+- [`nix-store --query`](@docroot@/command-ref/bsd-store/query.md) gained a new type of query: `--valid-derivers`. It returns all `.drv` files in the local store that *can be* used to build the output passed in argument. This is in contrast to `--deriver`, which returns the single `.drv` file that *was actually* used to build the output passed in argument. In case the output was substituted from a binary cache, this `.drv` file may only exist on said binary cache and not locally.

@@ -127,7 +127,7 @@ manual_md = manual[1]
 
 install_subdir(
   manual_html.full_path(),
-  install_dir : get_option('datadir') / 'doc/nix',
+  install_dir : get_option('datadir') / 'doc/bsd',
 )
 
 nix_nested_manpages = [

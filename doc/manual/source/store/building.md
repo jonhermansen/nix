@@ -39,7 +39,7 @@ The [`builder`](./derivation/index.md#builder) is executed as follows:
     it points to a non-existent path.
 
   - `NIX_STORE` is set to the path of the top-level Nix store
-    directory (typically, `/nix/store`).
+    directory (typically, `/bsd/store`).
 
   - `NIX_ATTRS_JSON_FILE` & `NIX_ATTRS_SH_FILE` if `__structuredAttrs`
     is set to `true` for the derivation. A detailed explanation of this
@@ -58,7 +58,7 @@ The [`builder`](./derivation/index.md#builder) is executed as follows:
   build at the same time.
 
 - A log of the combined standard output and error is written to
-  `/nix/var/log/nix`.
+  `/bsd/var/log/bsd`.
 
 - The builder is executed with the arguments specified by the
   attribute `args`. If it exits with exit code 0, it is considered to

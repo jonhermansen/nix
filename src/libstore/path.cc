@@ -77,7 +77,7 @@ StorePath StorePath::random(std::string_view name)
 
 StorePath MixStoreDirMethods::parseStorePath(std::string_view path) const
 {
-    // On Windows, `/nix/store` is not a canonical path. More broadly it
+    // On Windows, `/bsd/store` is not a canonical path. More broadly it
     // is unclear whether this function should be using the native
     // notion of a canonical path at all. For example, it makes to
     // support remote stores whose store dir is a non-native path (e.g.

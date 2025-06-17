@@ -5,7 +5,7 @@ R""(
 `nix registry` provides subcommands for managing *flake
 registries*. Flake registries are a convenience feature that allows
 you to refer to flakes using symbolic identifiers such as `nixpkgs`,
-rather than full URLs such as `git://github.com/NixOS/nixpkgs`. You
+rather than full URLs such as `git://github.com/NixOS/bsdpkgs`. You
 can use these identifiers on the command line (e.g. when you do `nix
 run nixpkgs#hello`) or in flake input specifications in `flake.nix`
 files. The latter are automatically resolved to full URLs and recorded
@@ -25,10 +25,10 @@ highest precedence:
   repository](https://github.com/NixOS/flake-registry).
 
 * The system registry, which is shared by all users. The default
-  location is `/etc/nix/registry.json`. On NixOS, the system registry
+  location is `/etc/bsd/registry.json`. On NixOS, the system registry
   can be specified using the NixOS option `nix.registry`.
 
-* The user registry `~/.config/nix/registry.json`. This registry can
+* The user registry `~/.config/bsd/registry.json`. This registry can
   be modified by commands such as `nix registry pin`.
 
 * Overrides specified on the command line using the option
@@ -65,7 +65,7 @@ That is, it contains a list of objects with attributes `from` and
 representation. (For example, `{"type": "indirect", "id": "nixpkgs"}`
 is the attribute representation of `nixpkgs`, while `{"type":
 "github", "owner": "NixOS", "repo": "nixpkgs"}` is the attribute
-representation of `github:NixOS/nixpkgs`.)
+representation of `github:NixOS/bsdpkgs`.)
 
 Given some flake reference *R*, a registry entry is used if its
 `from` flake reference *matches* *R*. *R* is then replaced by the
@@ -79,9 +79,9 @@ attributes in `R`. For example:
 
 * `nixpkgs` matches with `nixpkgs`.
 
-* `nixpkgs` matches with `nixpkgs/nixos-20.09`.
+* `nixpkgs` matches with `nixpkgs/bsdos-20.09`.
 
-* `nixpkgs/nixos-20.09` does not match with `nixpkgs`.
+* `nixpkgs/bsdos-20.09` does not match with `nixpkgs`.
 
 * `nixpkgs` does not match with `git://github.com/NixOS/patchelf`.
 
@@ -91,10 +91,10 @@ The `to` flake reference in a registry entry is *unified* with some flake
 reference *R* by taking `to` and applying the `rev` and `ref`
 attributes from *R*, if specified. For example:
 
-* `github:NixOS/nixpkgs` unified with `nixpkgs` produces `github:NixOS/nixpkgs`.
+* `github:NixOS/bsdpkgs` unified with `nixpkgs` produces `github:NixOS/bsdpkgs`.
 
-* `github:NixOS/nixpkgs` unified with `nixpkgs/nixos-20.09` produces `github:NixOS/nixpkgs/nixos-20.09`.
+* `github:NixOS/bsdpkgs` unified with `nixpkgs/bsdos-20.09` produces `github:NixOS/bsdpkgs/bsdos-20.09`.
 
-* `github:NixOS/nixpkgs/master` unified with `nixpkgs/nixos-20.09` produces `github:NixOS/nixpkgs/nixos-20.09`.
+* `github:NixOS/bsdpkgs/master` unified with `nixpkgs/bsdos-20.09` produces `github:NixOS/bsdpkgs/bsdos-20.09`.
 
 )""

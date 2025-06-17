@@ -7,12 +7,12 @@ requireGit
 clearStoreIfPossible
 
 # Intentionally not in a canonical form
-# See https://github.com/NixOS/nix/issues/6195
+# See https://github.com/NixOS/bsd/issues/6195
 repo=$TEST_ROOT/./git
 
 export _NIX_FORCE_HTTP=1
 
-rm -rf $repo ${repo}-tmp $TEST_HOME/.cache/nix $TEST_ROOT/worktree $TEST_ROOT/minimal
+rm -rf $repo ${repo}-tmp $TEST_HOME/.cache/bsd $TEST_ROOT/worktree $TEST_ROOT/minimal
 
 git init $repo
 git -C $repo config user.email "foobar@example.com"
@@ -47,7 +47,7 @@ export _NIX_FORCE_HTTP=1
 [[ $(tail -n 1 $path0/hello) = "hello" ]]
 
 # Nuke the cache
-rm -rf $TEST_HOME/.cache/nix
+rm -rf $TEST_HOME/.cache/bsd
 
 # Fetch the default branch.
 path=$(nix eval --impure --raw --expr "(builtins.fetchGit file://$repo).outPath")
@@ -55,7 +55,7 @@ path=$(nix eval --impure --raw --expr "(builtins.fetchGit file://$repo).outPath"
 
 # Fetch when the cache has packed-refs
 # Regression test of #8822
-git -C $TEST_HOME/.cache/nix/gitv3/*/ pack-refs --all
+git -C $TEST_HOME/.cache/bsd/gitv3/*/ pack-refs --all
 path=$(nix eval --impure --raw --expr "(builtins.fetchGit file://$repo).outPath")
 
 # Fetch a rev from another branch
@@ -202,7 +202,7 @@ path5=$(nix eval --impure --raw --expr "(builtins.fetchGit { url = $repo; ref = 
 
 
 # Nuke the cache
-rm -rf $TEST_HOME/.cache/nix
+rm -rf $TEST_HOME/.cache/bsd
 
 # Try again. This should work.
 path5=$(nix eval --impure --raw --expr "(builtins.fetchGit { url = $repo; ref = \"dev\"; }).outPath")
@@ -254,7 +254,7 @@ path12=$(nix eval --raw --expr "(builtins.fetchGit { url = file://$repo; rev = \
 
 # should fail if there is no repo
 rm -rf $repo/.git
-rm -rf $TEST_HOME/.cache/nix
+rm -rf $TEST_HOME/.cache/bsd
 (! nix eval --impure --raw --expr "(builtins.fetchGit \"file://$repo\").outPath")
 
 # should succeed for a repo without commits

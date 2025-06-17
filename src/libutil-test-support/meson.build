@@ -32,7 +32,7 @@ sources = files(
   'string_callback.cc',
 )
 
-subdir('include/nix/util/tests')
+subdir('include/bsd/util/tests')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

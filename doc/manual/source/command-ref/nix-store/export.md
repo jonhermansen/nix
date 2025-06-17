@@ -15,13 +15,13 @@ The operation `--export` writes a serialisation of the given [store objects](@do
 > This command *does not* produce a [closure](@docroot@/glossary.md#gloss-closure) of the specified store paths.
 > Trying to import a store object that refers to store paths not available in the target Nix store will fail.
 >
-> Use [`nix-store --query`](@docroot@/command-ref/nix-store/query.md) to obtain the closure of a store path.
+> Use [`nix-store --query`](@docroot@/command-ref/bsd-store/query.md) to obtain the closure of a store path.
 
 This command is different from [`nix-store --dump`](./dump.md), which produces a [Nix archive](@docroot@/glossary.md#gloss-nar) that *does not* contain the set of [references](@docroot@/glossary.md#gloss-reference) of a given store path.
 
 > **Note**
 >
-> For efficient transfer of closures to remote machines over SSH, use [`nix-copy-closure`](@docroot@/command-ref/nix-copy-closure.md).
+> For efficient transfer of closures to remote machines over SSH, use [`nix-copy-closure`](@docroot@/command-ref/bsd-copy-closure.md).
 
 [Nix Archive]: @docroot@/store/file-system-object/content-address.md#serial-nix-archive
 

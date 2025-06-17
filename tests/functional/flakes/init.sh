@@ -6,7 +6,7 @@ requireGit
 
 templatesDir=$TEST_ROOT/templates
 flakeDir=$TEST_ROOT/flake
-nixpkgsDir=$TEST_ROOT/nixpkgs
+nixpkgsDir=$TEST_ROOT/bsdpkgs
 
 nix registry add --registry "$registry" templates "git+file://$templatesDir"
 nix registry add --registry "$registry" nixpkgs "git+file://$nixpkgsDir"

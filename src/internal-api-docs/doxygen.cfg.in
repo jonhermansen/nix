@@ -57,9 +57,9 @@ INPUT                  = \
   @src@/libutil/args \
   @src@/libutil-tests \
   @src@/libutil-test-support/tests \
-  @src@/nix \
-  @src@/nix-env \
-  @src@/nix-store
+  @src@/bsd \
+  @src@/bsd-env \
+  @src@/bsd-store
 
 # If the MACRO_EXPANSION tag is set to YES, doxygen will expand all macro names
 # in the source code. If set to NO, only conditional compilation will be
@@ -86,7 +86,7 @@ EXPAND_ONLY_PREDEF     = YES
 
 INCLUDE_PATH           = \
   @BUILD_ROOT@/src/libexpr/libnixexpr.so.p \
-  @BUILD_ROOT@/src/nix/nix.p \
+  @BUILD_ROOT@/src/bsd/bsd.p \
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this
 # tag can be used to specify a list of macro names that should be expanded. The

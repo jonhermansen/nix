@@ -124,7 +124,7 @@ in
           sslServerCert = "${cert}/server.crt";
           servedDirs = [
             {
-              urlPath = "/repos/NixOS/nixpkgs";
+              urlPath = "/repos/NixOS/bsdpkgs";
               dir = nixpkgs-api;
             }
             {
@@ -139,7 +139,7 @@ in
           sslServerCert = "${cert}/server.crt";
           servedDirs = [
             {
-              urlPath = "/NixOS/nixpkgs";
+              urlPath = "/NixOS/bsdpkgs";
               dir = archive;
             }
           ];
@@ -193,7 +193,7 @@ in
       client.succeed("curl -v https://github.com/ >&2")
       out = client.succeed("nix registry list")
       print(out)
-      assert "github:NixOS/nixpkgs" in out, "nixpkgs flake not found"
+      assert "github:NixOS/bsdpkgs" in out, "nixpkgs flake not found"
       assert "github:fancy-enterprise/private-flake" in out, "private flake not found"
       cat_log()
 

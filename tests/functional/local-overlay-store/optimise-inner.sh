@@ -29,10 +29,10 @@ nix-store --store "$storeA" --add "$dupFilePath"
 # Ensure overlayfs and layers and synchronised
 remountOverlayfs
 
-dupFilename="${dupFileStorePath#/nix/store}"
+dupFilename="${dupFileStorePath#/bsd/store}"
 lowerPath="$storeA/$dupFileStorePath"
 upperPath="$storeBTop/$dupFilename"
-overlayPath="$storeBRoot/nix/store/$dupFilename"
+overlayPath="$storeBRoot/bsd/store/$dupFilename"
 
 # Check store path exists in both layers and overlay
 lowerInode=$(stat -c %i "$lowerPath")

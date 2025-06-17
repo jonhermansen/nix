@@ -10,7 +10,7 @@ This is primarily a bug fix release. Changes of interest are:
     Thus it neither checked whether *expr* could be coerced to a string,
     nor applied such coercions. This meant that `"${123}"` evaluatued to
     `123`, and `"${./foo}"` evaluated to `./foo` (even though `"${./foo}
-    "` evaluates to `"/nix/store/hash-foo "`). Nix now checks the type
+    "` evaluates to `"/bsd/store/hash-foo "`). Nix now checks the type
     of antiquoted expressions and applies coercions.
 
   - Nix now shows the exact position of undefined variables. In

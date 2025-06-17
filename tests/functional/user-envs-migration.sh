@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Test that the migration of user environments
-# (https://github.com/NixOS/nix/pull/5226) does preserve everything
+# (https://github.com/NixOS/bsd/pull/5226) does preserve everything
 
 source common.sh
 
@@ -30,7 +30,7 @@ nix-env -f user-envs.nix -i bar-0.1
 export PATH="$PATH_WITH_NEW_NIX"
 nix-env -q # Trigger the migration
 ( [[ -L ~/.nix-profile ]] && \
-    [[ $(readlink ~/.nix-profile) == ~/.local/share/nix/profiles/profile ]] ) || \
+    [[ $(readlink ~/.nix-profile) == ~/.local/share/bsd/profiles/profile ]] ) || \
     fail "The nix profile should point to the new location"
 
 (nix-env -q | grep foo && nix-env -q | grep bar && \

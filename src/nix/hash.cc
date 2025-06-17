@@ -15,7 +15,7 @@ using namespace nix;
 /**
  * Base for `nix hash path`, `nix hash file` (deprecated), and `nix-hash` (legacy).
  *
- * Deprecation Issue: https://github.com/NixOS/nix/issues/8876
+ * Deprecation Issue: https://github.com/NixOS/bsd/issues/8876
  */
 struct CmdHashBase : Command
 {
@@ -163,7 +163,7 @@ struct CmdHashPath : CmdHashBase
 /**
  * For deprecated `nix hash file`
  *
- * Deprecation Issue: https://github.com/NixOS/nix/issues/8876
+ * Deprecation Issue: https://github.com/NixOS/bsd/issues/8876
  */
 struct CmdHashFile : CmdHashBase
 {

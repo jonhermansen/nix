@@ -21,7 +21,7 @@
 #include "nix/util/util.hh"
 #include "nix/util/users.hh"
 
-#include "nix/expr/nixexpr.hh"
+#include "nix/expr/bsdexpr.hh"
 #include "nix/expr/eval.hh"
 #include "nix/expr/eval-settings.hh"
 #include "nix/expr/parser-state.hh"
@@ -284,7 +284,7 @@ expr_select
     { $$ = new ExprSelect(CUR_POS, $1, std::move(*$3), $5); delete $3; $5->warnIfCursedOr(state->symbols, state->positions); }
   | /* Backwards compatibility: because Nixpkgs has a function named ‘or’,
        allow stuff like ‘map or [...]’. This production is problematic (see
-       https://github.com/NixOS/nix/issues/11118) and will be refactored in the
+       https://github.com/NixOS/bsd/issues/11118) and will be refactored in the
        future by treating `or` as a regular identifier. The refactor will (in
        very rare cases, we think) change the meaning of expressions, so we mark
        the ExprCall with data (establishing that it is a ‘cursed or’) that can

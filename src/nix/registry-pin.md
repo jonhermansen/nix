@@ -12,15 +12,15 @@ R""(
 
   ```console
   nix registry list | grep '^user '
-  user   flake:nixpkgs github:NixOS/nixpkgs/925b70cd964ceaedee26fde9b19cc4c4f081196a
+  user   flake:nixpkgs github:NixOS/bsdpkgs/925b70cd964ceaedee26fde9b19cc4c4f081196a
   ```
 
   and `nix flake metadata` will say:
 
   ```console
   # nix flake metadata nixpkgs
-  Resolved URL:  github:NixOS/nixpkgs/925b70cd964ceaedee26fde9b19cc4c4f081196a
-  Locked URL:    github:NixOS/nixpkgs/925b70cd964ceaedee26fde9b19cc4c4f081196a
+  Resolved URL:  github:NixOS/bsdpkgs/925b70cd964ceaedee26fde9b19cc4c4f081196a
+  Locked URL:    github:NixOS/bsdpkgs/925b70cd964ceaedee26fde9b19cc4c4f081196a
   …
   ```
 
@@ -40,6 +40,6 @@ hash. This ensures that until this registry entry is removed, all uses
 of *url* will resolve to exactly the same flake.
 
 Entries can be removed using [`nix registry
-remove`](./nix3-registry-remove.md).
+remove`](./bsd3-registry-remove.md).
 
 )""

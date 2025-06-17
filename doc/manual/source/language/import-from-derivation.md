@@ -49,7 +49,7 @@ nix-instantiate IFD.nix --eval --read-write-mode
 ```
 
 ```
-building '/nix/store/348q1cal6sdgfxs8zqi9v8llrsn4kqkq-hello.drv'...
+building '/bsd/store/348q1cal6sdgfxs8zqi9v8llrsn4kqkq-hello.drv'...
 "hello world"
 ```
 
@@ -108,10 +108,10 @@ In more detail, the following sequence diagram shows how the expression is evalu
     |                |                                    |
     |   evaluate `drv` as string                          |
     |                |                                    |
-    |                |instantiate /nix/store/...-hello.drv|
+    |                |instantiate /bsd/store/...-hello.drv|
     |                |----------------------------------->|
     |                :                                    |
-    |                :  realise /nix/store/...-hello.drv  |
+    |                :  realise /bsd/store/...-hello.drv  |
     |                :----------------------------------->|
     |                :                                    |
     |                                                     |--------.
@@ -119,12 +119,12 @@ In more detail, the following sequence diagram shows how the expression is evalu
     |      (evaluation blocked)                           |  echo hello > $out
     |                :                                    |        |
     |                                                     |<-------'
-    |                :        /nix/store/...-hello        |
+    |                :        /bsd/store/...-hello        |
     |                |<-----------------------------------|
     |                |                                    |
-    |  resume `readFile /nix/store/...-hello`             |
+    |  resume `readFile /bsd/store/...-hello`             |
     |                |                                    |
-    |                |   readFile /nix/store/...-hello    |
+    |                |   readFile /bsd/store/...-hello    |
     |                |----------------------------------->|
     |                |                                    |
     |                |               hello                |

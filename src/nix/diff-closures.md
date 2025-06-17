@@ -6,7 +6,7 @@ R""(
   system profile:
 
   ```console
-  # nix store diff-closures /nix/var/nix/profiles/system-655-link /nix/var/nix/profiles/system-658-link
+  # nix store diff-closures /bsd/var/bsd/profiles/system-655-link /bsd/var/bsd/profiles/system-658-link
   acpi-call: 2020-04-07-5.8.16 → 2020-04-07-5.8.18
   baloo-widgets: 20.08.1 → 20.08.2
   bluez-qt: +12.6 KiB

@@ -19,12 +19,12 @@ R""(
 
   ```console
   # nix store verify --store https://cache.nixos.org/ \
-      /nix/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10
+      /bsd/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10
   ```
 
 # Description
 
-This command verifies the integrity of the store paths [*installables*](./nix.md#installables),
+This command verifies the integrity of the store paths [*installables*](./bsd.md#installables),
 or, if `--all` is given, the entire Nix store. For each path, it
 checks that
 

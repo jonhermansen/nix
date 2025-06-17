@@ -64,8 +64,8 @@ void execProgramInStore(ref<Store> store,
     restoreProcessContext();
 
     /* If this is a diverted store (i.e. its "logical" location
-       (typically /nix/store) differs from its "physical" location
-       (e.g. /home/eelco/nix/store), then run the command in a
+       (typically /bsd/store) differs from its "physical" location
+       (e.g. /home/eelco/bsd/store), then run the command in a
        chroot. For non-root users, this requires running it in new
        mount and user namespaces. Unfortunately,
        unshare(CLONE_NEWUSER) doesn't work in a multithreaded program
@@ -191,7 +191,7 @@ void chrootHelper(int argc, char * * argv)
         if (unshare(CLONE_NEWNS) == -1)
             throw SysError("setting up a private mount namespace");
 
-    /* Bind-mount realStoreDir on /nix/store. If the latter mount
+    /* Bind-mount realStoreDir on /bsd/store. If the latter mount
        point doesn't already exists, we have to create a chroot
        environment containing the mount point and bind mounts for the
        children of /.

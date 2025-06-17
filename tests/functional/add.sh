@@ -30,7 +30,7 @@ echo "$hash2"
 test "$hash1" = "sha256:$hash2"
 
 # The contents can be accessed through a symlink, and this symlink has no effect on the hash
-# https://github.com/NixOS/nix/issues/11941
+# https://github.com/NixOS/bsd/issues/11941
 test_issue_11941() {
     local expected actual
     mkdir -p "$TEST_ROOT/foo/bar" && ln -s "$TEST_ROOT/foo" "$TEST_ROOT/foo-link"

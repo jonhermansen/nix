@@ -132,7 +132,7 @@ All options not listed here are passed to `nix-store
   > ```nix
   > #!/usr/bin/env -S nix-shell --pure
   > let
-  >   pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/854fdc68881791812eddd33b2fed94b954979a8e.tar.gz") {};
+  >   pkgs = import (fetchTarball "https://github.com/NixOS/bsdpkgs/archive/854fdc68881791812eddd33b2fed94b954979a8e.tar.gz") {};
   > in
   > pkgs.mkShell {
   >   buildInputs = pkgs.bashInteractive;
@@ -183,7 +183,7 @@ A shorter way to do the same is:
 ```console
 $ nix-shell --packages sqlite xorg.libX11
 [nix-shell]$ echo $NIX_LDFLAGS
-… -L/nix/store/j1zg5v…-sqlite-3.8.0.2/lib -L/nix/store/0gmcz9…-libX11-1.6.1/lib …
+… -L/bsd/store/j1zg5v…-sqlite-3.8.0.2/lib -L/bsd/store/0gmcz9…-libX11-1.6.1/lib …
 ```
 
 Note that `-p` accepts multiple full nix expressions that are valid in
@@ -200,7 +200,7 @@ gives you a shell containing the Pan package from a specific revision of
 Nixpkgs:
 
 ```console
-$ nix-shell --packages pan -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/8a3eea054838b55aca962c3fbde9c83c102b8bf2.tar.gz
+$ nix-shell --packages pan -I nixpkgs=https://github.com/NixOS/bsdpkgs/archive/8a3eea054838b55aca962c3fbde9c83c102b8bf2.tar.gz
 
 [nix-shell:~]$ pan --version
 Pan 0.139
@@ -256,7 +256,7 @@ requires Perl and the `HTML::TokeParser::Simple`, `LWP` and
 use HTML::TokeParser::Simple;
 
 # Fetch nixos.org and print all hrefs.
-my $p = HTML::TokeParser::Simple->new(url => 'https://nixos.org/');
+my $p = HTML::TokeParser::Simple->new(url => 'https://bsdos.org/');
 
 while (my $token = $p->get_tag("a")) {
     my $href = $token->get_attr("href");
@@ -286,7 +286,7 @@ branch):
 ```haskell
 #! /usr/bin/env nix-shell
 #! nix-shell -i runghc --packages 'haskellPackages.ghcWithPackages (ps: [ps.download-curl ps.tagsoup])'
-#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-20.03.tar.gz
+#! nix-shell -I nixpkgs=https://github.com/NixOS/bsdpkgs/archive/bsdos-20.03.tar.gz
 
 import Network.Curl.Download
 import Text.HTML.TagSoup
@@ -295,7 +295,7 @@ import Data.ByteString.Char8 (unpack)
 
 -- Fetch nixos.org and print all hrefs.
 main = do
-  resp <- openURI "https://nixos.org/"
+  resp <- openURI "https://bsdos.org/"
   let tags = filter (isTagOpenName "a") $ parseTags $ unpack $ fromRight undefined resp
   let tags' = map (fromAttrib "href") tags
   mapM_ putStrLn $ filter (/= "") tags'
@@ -304,7 +304,7 @@ main = do
 If you want to be even more precise, you can specify a specific revision
 of Nixpkgs:
 
-    #! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/0672315759b3e15e2121365f067c1c8c56bb4722.tar.gz
+    #! nix-shell -I nixpkgs=https://github.com/NixOS/bsdpkgs/archive/0672315759b3e15e2121365f067c1c8c56bb4722.tar.gz
 
 The examples above all used `-p` to get dependencies from Nixpkgs. You
 can also use a Nix expression to build your own dependencies. For

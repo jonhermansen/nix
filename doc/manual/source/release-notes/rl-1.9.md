@@ -27,14 +27,14 @@ features:
     
       - In `nix-env`:
         
-            $ nix-env -f https://github.com/NixOS/nixpkgs-channels/archive/nixos-14.12.tar.gz -iA firefox
+            $ nix-env -f https://github.com/NixOS/bsdpkgs-channels/archive/bsdos-14.12.tar.gz -iA firefox
         
         This installs Firefox from the latest tested and built revision
         of the NixOS 14.12 channel.
     
       - In `nix-build` and `nix-shell`:
         
-            $ nix-build https://github.com/NixOS/nixpkgs/archive/master.tar.gz -A hello
+            $ nix-build https://github.com/NixOS/bsdpkgs/archive/master.tar.gz -A hello
         
         This builds GNU Hello from the latest revision of the Nixpkgs
         master branch.
@@ -43,15 +43,15 @@ features:
         For example, to start a shell containing the Pan package from a
         specific version of Nixpkgs:
         
-            $ nix-shell -p pan -I nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/8a3eea054838b55aca962c3fbde9c83c102b8bf2.tar.gz
+            $ nix-shell -p pan -I nixpkgs=https://github.com/NixOS/bsdpkgs-channels/archive/8a3eea054838b55aca962c3fbde9c83c102b8bf2.tar.gz
     
       - In `nixos-rebuild` (on NixOS):
         
-            $ nixos-rebuild test -I nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz
+            $ nixos-rebuild test -I nixpkgs=https://github.com/NixOS/bsdpkgs-channels/archive/bsdos-unstable.tar.gz
     
       - In Nix expressions, via the new builtin function `fetchTarball`:
         
-            with import (fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-14.12.tar.gz) {}; …
+            with import (fetchTarball https://github.com/NixOS/bsdpkgs-channels/archive/bsdos-14.12.tar.gz) {}; …
         
         (This is not allowed in restricted mode.)
 
@@ -75,7 +75,7 @@ features:
             import Network.HTTP
             
             main = do
-              resp <- Network.HTTP.simpleHTTP (getRequest "http://nixos.org/")
+              resp <- Network.HTTP.simpleHTTP (getRequest "http://bsdos.org/")
               body <- getResponseBody resp
               print (take 100 body)
         
@@ -99,9 +99,9 @@ features:
     
       - Store paths listed in `build-chroot-dirs` are now automatically
         expanded to their closure. For instance, if you want
-        `/nix/store/…-bash/bin/sh` mounted in your chroot as `/bin/sh`,
+        `/bsd/store/…-bash/bin/sh` mounted in your chroot as `/bin/sh`,
         you only need to say `build-chroot-dirs =
-                                                        /bin/sh=/nix/store/…-bash/bin/sh`; it is no longer necessary to
+                                                        /bin/sh=/bsd/store/…-bash/bin/sh`; it is no longer necessary to
         specify the dependencies of Bash.
 
   - The new derivation attribute `passAsFile` allows you to specify that
@@ -122,7 +122,7 @@ features:
     refers to its declared inputs (and is therefore reproducible).
 
   - `nix-env` now only creates a new “generation” symlink in
-    `/nix/var/nix/profiles` if something actually changed.
+    `/bsd/var/bsd/profiles` if something actually changed.
 
   - The environment variable `NIX_PAGER` can now be set to override
     `PAGER`. You can set it to `cat` to disable paging for Nix commands

@@ -67,8 +67,8 @@ struct MixStoreDirMethods
     bool isStorePath(std::string_view path) const;
 
     /**
-     * Split a path like `/nix/store/<hash>-<name>/<bla>` into
-     * `/nix/store/<hash>-<name>` and `/<bla>`.
+     * Split a path like `/bsd/store/<hash>-<name>/<bla>` into
+     * `/bsd/store/<hash>-<name>` and `/<bla>`.
      */
     std::pair<StorePath, Path> toStorePath(PathView path) const;
 
@@ -112,7 +112,7 @@ struct StoreDirConfigBase : Config
         "store",
         R"(
           Logical location of the Nix store, usually
-          `/nix/store`. Note that you can only copy store paths
+          `/bsd/store`. Note that you can only copy store paths
           between stores if they have the same `store` setting.
         )"};
 };

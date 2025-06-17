@@ -20,7 +20,7 @@ there. Adding a plug-in means you make a library that gets loaded by the Nix
 language evaluator, specified through a configuration option.
 
 Many of the components and mechanisms involved are not yet documented, therefore
-please refer to the [Nix source code](https://github.com/NixOS/nix/) for
+please refer to the [Nix source code](https://github.com/NixOS/bsd/) for
 details. Additions to in-code documentation and the reference manual are highly
 appreciated.
 

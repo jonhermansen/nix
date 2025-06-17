@@ -4,7 +4,7 @@ source common.sh
 
 clearStoreIfPossible
 
-# https://github.com/NixOS/nix/issues/6572
+# https://github.com/NixOS/bsd/issues/6572
 issue_6572_independent_outputs() {
     nix build -f multiple-outputs.nix --json independent --no-link > "$TEST_ROOT"/independent.json
 
@@ -33,7 +33,7 @@ EOF
 issue_6572_independent_outputs
 
 
-# https://github.com/NixOS/nix/issues/6572
+# https://github.com/NixOS/bsd/issues/6572
 issue_6572_dependent_outputs() {
 
     nix build -f multiple-outputs.nix --json a --no-link > "$TEST_ROOT"/a.json

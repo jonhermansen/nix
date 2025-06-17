@@ -5,7 +5,7 @@ The Nix language is designed for conveniently creating and composing [derivation
 > **Tip**
 >
 > These pages are written as a reference.
-> If you are learning Nix, nix.dev has a good [introduction to the Nix language](https://nix.dev/tutorials/nix-language).
+> If you are learning Nix, nix.dev has a good [introduction to the Nix language](https://bsd.dev/tutorials/bsd-language).
 
 The language is:
 
@@ -125,7 +125,7 @@ This is an incomplete overview of language features, by example.
   </td>
   <td>
 
-   [String interpolation](@docroot@/language/string-interpolation.md) (expands to `"hello world"`, `"1 2 3"`, `"/nix/store/<hash>-bash-<version>/bin/sh"`)
+   [String interpolation](@docroot@/language/string-interpolation.md) (expands to `"hello world"`, `"1 2 3"`, `"/bsd/store/<hash>-bash-<version>/bin/sh"`)
 
   </td>
  </tr>

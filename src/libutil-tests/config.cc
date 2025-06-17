@@ -283,7 +283,7 @@ namespace nix {
         ASSERT_THROW(config.applyConfig(
             "name-of-the-setting = value-from-file\n"
             "# name-of-the-setting = foo\n"
-            "include /nix/store/does/not/exist.nix"
+            "include /bsd/store/does/not/exist.nix"
         ), Error);
     }
 

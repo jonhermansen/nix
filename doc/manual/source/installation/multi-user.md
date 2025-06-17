@@ -41,7 +41,7 @@ expect to do many builds at the same time.
 
 ## Running the daemon
 
-The [Nix daemon](../command-ref/nix-daemon.md) should be started as
+The [Nix daemon](../command-ref/bsd-daemon.md) should be started as
 follows (as `root`):
 
 ```console
@@ -63,15 +63,15 @@ into the users’ login scripts.
 ## Restricting access
 
 To limit which users can perform Nix operations, you can use the
-permissions on the directory `/nix/var/nix/daemon-socket`. For instance,
+permissions on the directory `/bsd/var/bsd/daemon-socket`. For instance,
 if you want to restrict the use of Nix to the members of a group called
 `nix-users`, do
 
 ```console
-$ chgrp nix-users /nix/var/nix/daemon-socket
-$ chmod ug=rwx,o= /nix/var/nix/daemon-socket
+$ chgrp nix-users /bsd/var/bsd/daemon-socket
+$ chmod ug=rwx,o= /bsd/var/bsd/daemon-socket
 ```
 
 This way, users who are not in the `nix-users` group cannot connect to
-the Unix domain socket `/nix/var/nix/daemon-socket/socket`, so they
+the Unix domain socket `/bsd/var/bsd/daemon-socket/socket`, so they
 cannot perform Nix operations.

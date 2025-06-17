@@ -11,7 +11,7 @@ R""(
 * Get the build log of a specific store path:
 
   ```console
-  # nix log /nix/store/lmngj4wcm9rkv3w4dfhzhcyij3195hiq-thunderbird-52.2.1
+  # nix log /bsd/store/lmngj4wcm9rkv3w4dfhzhcyij3195hiq-thunderbird-52.2.1
   ```
 
 * Get a build log from a specific binary cache:
@@ -22,11 +22,11 @@ R""(
 
 # Description
 
-This command prints the log of a previous build of the [*installable*](./nix.md#installables) on standard output.
+This command prints the log of a previous build of the [*installable*](./bsd.md#installables) on standard output.
 
 Nix looks for build logs in two places:
 
-* In the directory `/nix/var/log/nix/drvs`, which contains logs for
+* In the directory `/bsd/var/log/bsd/drvs`, which contains logs for
   locally built derivations.
 
 * In the binary caches listed in the `substituters` setting. Logs

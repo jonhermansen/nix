@@ -3,7 +3,7 @@
 #include "nix_api_store.h"
 #include "nix_api_store_internal.h"
 
-#include "nix/store/tests/nix_api_store.hh"
+#include "nix/store/tests/bsd_api_store.hh"
 #include "nix/util/tests/string_callback.hh"
 
 #include "store-tests-config.hh"
@@ -29,7 +29,7 @@ TEST_F(nix_api_store_test, nix_store_get_uri)
 TEST_F(nix_api_util_context, nix_store_get_storedir_default)
 {
     if (nix::getEnv("HOME").value_or("") == "/homeless-shelter") {
-        // skipping test in sandbox because nix_store_open tries to create /nix/var/nix/profiles
+        // skipping test in sandbox because nix_store_open tries to create /bsd/var/bsd/profiles
         GTEST_SKIP();
     }
     nix_libstore_init(ctx);

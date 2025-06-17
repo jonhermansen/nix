@@ -51,11 +51,11 @@ features:
     investigate the non-determinism using tools like `diffoscope`, e.g.,
     
         $ nix-build pkgs/stdenv/linux -A stage1.pkgs.zlib --check -K
-        error: derivation ‘/nix/store/l54i8wlw2265…-zlib-1.2.8.drv’ may not
-        be deterministic: output ‘/nix/store/11a27shh6n2i…-zlib-1.2.8’
-        differs from ‘/nix/store/11a27shh6n2i…-zlib-1.2.8-check’
+        error: derivation ‘/bsd/store/l54i8wlw2265…-zlib-1.2.8.drv’ may not
+        be deterministic: output ‘/bsd/store/11a27shh6n2i…-zlib-1.2.8’
+        differs from ‘/bsd/store/11a27shh6n2i…-zlib-1.2.8-check’
         
-        $ diffoscope /nix/store/11a27shh6n2i…-zlib-1.2.8 /nix/store/11a27shh6n2i…-zlib-1.2.8-check
+        $ diffoscope /bsd/store/11a27shh6n2i…-zlib-1.2.8 /bsd/store/11a27shh6n2i…-zlib-1.2.8-check
         …
         ├── lib/libz.a
         │   ├── metadata

@@ -55,7 +55,7 @@ Derivations can declare some infrequently used optional attributes.
     If the special attribute `__structuredAttrs` is set to `true`, the other derivation
     attributes are serialised into a file in JSON format. The environment variable
     `NIX_ATTRS_JSON_FILE` points to the exact location of that file both in a build
-    and a [`nix-shell`](../command-ref/nix-shell.md). This obviates the need for
+    and a [`nix-shell`](../command-ref/bsd-shell.md). This obviates the need for
     [`passAsFile`](#adv-attr-passAsFile) since JSON files have no size restrictions,
     unlike process environments.
 
@@ -67,7 +67,7 @@ Derivations can declare some infrequently used optional attributes.
     corresponding to all attributes that are representable in Bash. The
     environment variable `NIX_ATTRS_SH_FILE` points to the exact
     location of the script, both in a build and a
-    [`nix-shell`](../command-ref/nix-shell.md). This includes non-nested
+    [`nix-shell`](../command-ref/bsd-shell.md). This includes non-nested
     (associative) arrays. For example, the attribute `hardening.format = true`
     ends up as the Bash associative array element `${hardening[format]}`.
 
@@ -355,7 +355,7 @@ Here is more information on the `output*` attributes, and what values they may b
     > **Note**
     >
     > The [`convertHash`](@docroot@/language/builtins.md#builtins-convertHash) function shows how to convert between different encodings.
-    > The [`nix-hash` command](../command-ref/nix-hash.md) has information about obtaining the hash for some contents, as well as converting to and from encodings.
+    > The [`nix-hash` command](../command-ref/bsd-hash.md) has information about obtaining the hash for some contents, as well as converting to and from encodings.
 
   - [`__contentAddressed`]{#adv-attr-__contentAddressed}
 

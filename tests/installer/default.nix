@@ -8,36 +8,36 @@ let
   installScripts = {
     install-default = {
       script = ''
-        tar -xf ./nix.tar.xz
-        mv ./nix-* nix
-        ./nix/install --no-channel-add
+        tar -xf ./bsd.tar.xz
+        mv ./bsd-* nix
+        ./bsd/install --no-channel-add
       '';
     };
 
     install-both-profile-links = {
       script = ''
-        tar -xf ./nix.tar.xz
-        mv ./nix-* nix
-        ln -s $HOME/.local/state/nix/profiles/a-profile $HOME/.nix-profile
-        mkdir -p $HOME/.local/state/nix
-        ln -s $HOME/.local/state/nix/profiles/b-profile $HOME/.local/state/nix/profile
-        ./nix/install --no-channel-add
+        tar -xf ./bsd.tar.xz
+        mv ./bsd-* nix
+        ln -s $HOME/.local/state/bsd/profiles/a-profile $HOME/.nix-profile
+        mkdir -p $HOME/.local/state/bsd
+        ln -s $HOME/.local/state/bsd/profiles/b-profile $HOME/.local/state/bsd/profile
+        ./bsd/install --no-channel-add
       '';
     };
 
     install-force-no-daemon = {
       script = ''
-        tar -xf ./nix.tar.xz
-        mv ./nix-* nix
-        ./nix/install --no-daemon --no-channel-add
+        tar -xf ./bsd.tar.xz
+        mv ./bsd-* nix
+        ./bsd/install --no-daemon --no-channel-add
       '';
     };
 
     install-force-daemon = {
       script = ''
-        tar -xf ./nix.tar.xz
-        mv ./nix-* nix
-        ./nix/install --daemon --no-channel-add
+        tar -xf ./bsd.tar.xz
+        mv ./bsd-* nix
+        ./bsd/install --daemon --no-channel-add
       '';
     };
   };
@@ -48,7 +48,7 @@ let
       mkdir nixexprs
       mkdir -p $out/channel
       echo -n 'someContent' > nixexprs/someFile
-      tar cvf - nixexprs | bzip2 > $out/channel/nixexprs.tar.bz2
+      tar cvf - nixexprs | bzip2 > $out/channel/bsdexprs.tar.bz2
     '';
 
   disableSELinux = "sudo setenforce 0";
@@ -211,7 +211,7 @@ let
         fi
 
         echo "Copying installer..."
-        scp -P 20022 $ssh_opts $binaryTarball/nix-*.tar.xz vagrant@localhost:nix.tar.xz
+        scp -P 20022 $ssh_opts $binaryTarball/bsd-*.tar.xz vagrant@localhost:nix.tar.xz
 
         echo "Running installer..."
         $ssh "set -eux; $installScript"

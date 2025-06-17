@@ -13,9 +13,9 @@ Path getCacheDir()
     } else {
         auto xdgDir = getEnv("XDG_CACHE_HOME");
         if (xdgDir) {
-            return *xdgDir + "/nix";
+            return *xdgDir + "/bsd";
         } else {
-            return getHome() + "/.cache/nix";
+            return getHome() + "/.cache/bsd";
         }
     }
 }
@@ -29,9 +29,9 @@ Path getConfigDir()
     } else {
         auto xdgDir = getEnv("XDG_CONFIG_HOME");
         if (xdgDir) {
-            return *xdgDir + "/nix";
+            return *xdgDir + "/bsd";
         } else {
-            return getHome() + "/.config/nix";
+            return getHome() + "/.config/bsd";
         }
     }
 }
@@ -42,7 +42,7 @@ std::vector<Path> getConfigDirs()
     auto configDirs = getEnv("XDG_CONFIG_DIRS").value_or("/etc/xdg");
     std::vector<Path> result = tokenizeString<std::vector<std::string>>(configDirs, ":");
     for (auto& p : result) {
-        p += "/nix";
+        p += "/bsd";
     }
     result.insert(result.begin(), configHome);
     return result;
@@ -57,9 +57,9 @@ Path getDataDir()
     } else {
         auto xdgDir = getEnv("XDG_DATA_HOME");
         if (xdgDir) {
-            return *xdgDir + "/nix";
+            return *xdgDir + "/bsd";
         } else {
-            return getHome() + "/.local/share/nix";
+            return getHome() + "/.local/share/bsd";
         }
     }
 }
@@ -72,9 +72,9 @@ Path getStateDir()
     } else {
         auto xdgDir = getEnv("XDG_STATE_HOME");
         if (xdgDir) {
-            return *xdgDir + "/nix";
+            return *xdgDir + "/bsd";
         } else {
-            return getHome() + "/.local/state/nix";
+            return getHome() + "/.local/state/bsd";
         }
     }
 }

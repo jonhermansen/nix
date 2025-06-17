@@ -41,8 +41,8 @@
 
 /installation/installation /installation 301!
 
-/package-management/basic-package-mgmt /command-ref/nix-env 301!
-/package-management/channels /command-ref/nix-channel 301!
+/package-management/basic-package-mgmt /command-ref/bsd-env 301!
+/package-management/channels /command-ref/bsd-channel 301!
 /package-management/package-management /package-management 301!
 /package-management/s3-substituter /store/types/s3-binary-cache-store 301!
 
@@ -51,4 +51,4 @@
 
 /release-notes/release-notes /release-notes 301!
 
-/package-management/copy-closure /command-ref/nix-copy-closure 301!
+/package-management/copy-closure /command-ref/bsd-copy-closure 301!

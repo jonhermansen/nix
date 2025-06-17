@@ -21,7 +21,7 @@ mountOverlayfs
 path=$(nix-build ../hermetic.nix --arg busybox $busybox --arg seed 2 --store "$storeB" --no-out-link)
 
 # Checking for path in lower layer (should fail)
-expect 1 stat $(toRealPath "$storeA/nix/store" "$path")
+expect 1 stat $(toRealPath "$storeA/bsd/store" "$path")
 
 # Checking for path in upper layer
 stat $(toRealPath "$storeBTop" "$path")

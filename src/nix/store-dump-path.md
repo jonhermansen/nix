@@ -12,13 +12,13 @@ R""(
 
   ```console
   # nix store dump-path --store https://cache.nixos.org/ \
-      /nix/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar
+      /bsd/store/7crrmih8c52r8fbnqb933dxrsp44md93-glibc-2.25 > glibc.nar
   ```
 
 # Description
 
 This command generates a [Nix Archive (NAR)][Nix Archive] file containing the serialisation of the
-store path [*installable*](./nix.md#installables). The NAR is written to standard output.
+store path [*installable*](./bsd.md#installables). The NAR is written to standard output.
 
 [Nix Archive]: @docroot@/store/file-system-object/content-address.md#serial-nix-archive
 

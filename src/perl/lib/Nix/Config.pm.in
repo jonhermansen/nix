@@ -10,7 +10,7 @@ $storeDir = Nix::Store::getStoreDir;
 %config = ();
 
 sub readConfig {
-    my $config = "$confDir/nix.conf";
+    my $config = "$confDir/bsd.conf";
     return unless -f $config;
 
     open CONFIG, "<$config" or die "cannot open '$config'";

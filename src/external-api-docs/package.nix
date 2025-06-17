@@ -46,8 +46,8 @@ mkMesonDerivation (finalAttrs: {
   '';
 
   postInstall = ''
-    mkdir -p ''${!outputDoc}/nix-support
-    echo "doc external-api-docs $out/share/doc/nix/external-api/html" >> ''${!outputDoc}/nix-support/hydra-build-products
+    mkdir -p ''${!outputDoc}/bsd-support
+    echo "doc external-api-docs $out/share/doc/bsd/external-api/html" >> ''${!outputDoc}/bsd-support/hydra-build-products
   '';
 
   meta = {

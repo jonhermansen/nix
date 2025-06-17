@@ -9,14 +9,14 @@ This completes the infrastructure overhaul for the [RFC 132](https://github.com/
 ## Major changes
 
 - Unstable C++ API reworked
-  [#12836](https://github.com/NixOS/nix/pull/12836)
-  [#12798](https://github.com/NixOS/nix/pull/12798)
-  [#12773](https://github.com/NixOS/nix/pull/12773)
+  [#12836](https://github.com/NixOS/bsd/pull/12836)
+  [#12798](https://github.com/NixOS/bsd/pull/12798)
+  [#12773](https://github.com/NixOS/bsd/pull/12773)
 
   Now the C++ interface confirms to common conventions much better than before:
 
   - All headers are expected to be included with the initial `nix/`, e.g. as `#include "nix/....hh"` (what Nix's headers now do) or `#include <nix/....hh>` (what downstream projects may choose to do).
-    Likewise, the pkg-config files have `-I${includedir}` not `-I${includedir}/nix` or similar.
+    Likewise, the pkg-config files have `-I${includedir}` not `-I${includedir}/bsd` or similar.
 
     Including without the `nix/` like before sometimes worked because of how for `#include` C pre-process checks the directory containing the current file, not just the lookup path, but this was not reliable.
 
@@ -61,7 +61,7 @@ This completes the infrastructure overhaul for the [RFC 132](https://github.com/
   +const char *s = "hi from " NIX_LOCAL_SYSTEM;
   ```
 
-- C API `nix_flake_init_global` removed [#5638](https://github.com/NixOS/nix/issues/5638) [#12759](https://github.com/NixOS/nix/pull/12759)
+- C API `nix_flake_init_global` removed [#5638](https://github.com/NixOS/bsd/issues/5638) [#12759](https://github.com/NixOS/bsd/pull/12759)
 
   In order to improve the modularity of the code base, we are removing a use of global state, and therefore the `nix_flake_init_global` function.
 

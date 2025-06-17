@@ -30,7 +30,7 @@ NAR archives support filenames of unlimited length and 64-bit file
 sizes. They can contain regular files, directories, and symbolic links,
 but not other types of files (such as device nodes).
 
-A Nix archive can be unpacked using [`nix-store --restore`](@docroot@/command-ref/nix-store/restore.md).
+A Nix archive can be unpacked using [`nix-store --restore`](@docroot@/command-ref/bsd-store/restore.md).
 
 [Nix Archive]: @docroot@/store/file-system-object/content-address.md#serial-nix-archive
 

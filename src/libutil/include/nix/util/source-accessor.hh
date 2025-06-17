@@ -12,7 +12,7 @@ struct Sink;
 
 /**
  * Note there is a decent chance this type soon goes away because the problem is solved another way.
- * See the discussion in https://github.com/NixOS/nix/pull/9985.
+ * See the discussion in https://github.com/NixOS/bsd/pull/9985.
  */
 enum class SymlinkResolution {
     /**
@@ -170,7 +170,7 @@ struct SourceAccessor : std::enable_shared_from_this<SourceAccessor>
      * resolution mode.
      *
      * @param mode might only be a temporary solution for this.
-     * See the discussion in https://github.com/NixOS/nix/pull/9985.
+     * See the discussion in https://github.com/NixOS/bsd/pull/9985.
      */
     CanonPath resolveSymlinks(
         const CanonPath & path,

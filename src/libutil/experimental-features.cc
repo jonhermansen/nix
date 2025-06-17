@@ -37,7 +37,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             [__contentAddressed](@docroot@/language/advanced-attributes.md#adv-attr-__contentAddressed)
             for details.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/35",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/35",
     },
     {
         .tag = Xp::ImpureDerivations,
@@ -68,16 +68,16 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
 
             This is a more explicit alternative to using [`builtins.currentTime`](@docroot@/language/builtins.md#builtins-currentTime).
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/42",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/42",
     },
     {
         .tag = Xp::Flakes,
         .name = "flakes",
         .description = R"(
             Enable flakes. See the manual entry for [`nix
-            flake`](@docroot@/command-ref/new-cli/nix3-flake.md) for details.
+            flake`](@docroot@/command-ref/new-cli/bsd3-flake.md) for details.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/27",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/27",
     },
     {
         .tag = Xp::FetchTree,
@@ -91,16 +91,16 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
 
             Enabling just this feature serves as a "release candidate", allowing users to try it out in isolation.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/31",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/31",
     },
     {
         .tag = Xp::NixCommand,
         .name = "nix-command",
         .description = R"(
             Enable the new `nix` subcommands. See the manual on
-            [`nix`](@docroot@/command-ref/new-cli/nix.md) for details.
+            [`nix`](@docroot@/command-ref/new-cli/bsd.md) for details.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/28",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/28",
     },
     {
         .tag = Xp::GitHashing,
@@ -109,7 +109,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             Allow creating (content-addressed) store objects which are hashed via Git's hashing algorithm.
             These store objects will not be understandable by older versions of Nix.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/41",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/41",
     },
     {
         .tag = Xp::RecursiveNix,
@@ -142,18 +142,18 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             arbitrary substitutions. For example, running
 
             ```
-            nix-store -r /nix/store/kmwd1hq55akdb9sc7l3finr175dajlby-hello-2.10
+            nix-store -r /bsd/store/kmwd1hq55akdb9sc7l3finr175dajlby-hello-2.10
             ```
 
             in the above `runCommand` script would be disallowed, as this could
             lead to derivations with hidden dependencies or breaking
             reproducibility by relying on the current state of the Nix store. An
             exception would be if
-            `/nix/store/kmwd1hq55akdb9sc7l3finr175dajlby-hello-2.10` were
+            `/bsd/store/kmwd1hq55akdb9sc7l3finr175dajlby-hello-2.10` were
             already in the build inputs or built by a previous recursive Nix
             call.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/47",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/47",
     },
     {
         .tag = Xp::NoUrlLiterals,
@@ -195,7 +195,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             containing parameters have to be quoted anyway, and unquoted URLs
             may confuse external tooling.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/44",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/44",
     },
     {
         .tag = Xp::FetchClosure,
@@ -203,7 +203,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
         .description = R"(
             Enable the use of the [`fetchClosure`](@docroot@/language/builtins.md#builtins-fetchClosure) built-in function in the Nix language.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/40",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/40",
     },
     {
         .tag = Xp::AutoAllocateUids,
@@ -212,7 +212,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             Allows Nix to automatically pick UIDs for builds, rather than creating
             `nixbld*` user accounts. See the [`auto-allocate-uids`](@docroot@/command-ref/conf-file.md#conf-auto-allocate-uids) setting for details.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/34",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/34",
     },
     {
         .tag = Xp::Cgroups,
@@ -221,7 +221,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             Allows Nix to execute builds inside cgroups. See
             the [`use-cgroups`](@docroot@/command-ref/conf-file.md#conf-use-cgroups) setting for details.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/36",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/36",
     },
     {
         .tag = Xp::DaemonTrustOverride,
@@ -232,7 +232,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
             useful for various experiments with `nix-daemon --stdio`
             networking.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/38",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/38",
     },
     {
         .tag = Xp::DynamicDerivations,
@@ -246,7 +246,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
               - dependencies in derivations on the outputs of
                 derivations that are themselves derivations outputs.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/39",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/39",
     },
     {
         .tag = Xp::ParseTomlTimestamps,
@@ -254,7 +254,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
         .description = R"(
             Allow parsing of timestamps in builtins.fromTOML.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/45",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/45",
     },
     {
         .tag = Xp::ReadOnlyLocalStore,
@@ -262,15 +262,15 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
         .description = R"(
             Allow the use of the `read-only` parameter in [local store](@docroot@/store/types/local-store.md) URIs.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/46",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/46",
     },
     {
         .tag = Xp::LocalOverlayStore,
         .name = "local-overlay-store",
         .description = R"(
-            Allow the use of [local overlay store](@docroot@/command-ref/new-cli/nix3-help-stores.md#local-overlay-store).
+            Allow the use of [local overlay store](@docroot@/command-ref/new-cli/bsd3-help-stores.md#local-overlay-store).
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/50",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/50",
     },
     {
         .tag = Xp::ConfigurableImpureEnv,
@@ -278,15 +278,15 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
         .description = R"(
             Allow the use of the [impure-env](@docroot@/command-ref/conf-file.md#conf-impure-env) setting.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/37",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/37",
     },
     {
         .tag = Xp::MountedSSHStore,
         .name = "mounted-ssh-store",
         .description = R"(
-            Allow the use of the [`mounted SSH store`](@docroot@/command-ref/new-cli/nix3-help-stores.html#experimental-ssh-store-with-filesystem-mounted).
+            Allow the use of the [`mounted SSH store`](@docroot@/command-ref/new-cli/bsd3-help-stores.html#experimental-ssh-store-with-filesystem-mounted).
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/43",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/43",
     },
     {
         .tag = Xp::VerifiedFetches,
@@ -294,7 +294,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
         .description = R"(
             Enables verification of git commit signatures through the [`fetchGit`](@docroot@/language/builtins.md#builtins-fetchGit) built-in.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/48",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/48",
     },
     {
         .tag = Xp::PipeOperators,
@@ -302,7 +302,7 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
         .description = R"(
             Add `|>` and `<|` operators to the Nix language.
         )",
-        .trackingUrl = "https://github.com/NixOS/nix/milestone/55",
+        .trackingUrl = "https://github.com/NixOS/bsd/milestone/55",
     },
     {
         .tag = Xp::BLAKE3Hashes,

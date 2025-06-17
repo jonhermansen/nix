@@ -8,7 +8,7 @@ R""(
   ```console
   # nix derivation show nixpkgs#hello
   {
-    "/nix/store/s6rn4jz1sin56rf4qj5b5v8jxjm32hlk-hello-2.10.drv": {
+    "/bsd/store/s6rn4jz1sin56rf4qj5b5v8jxjm32hlk-hello-2.10.drv": {
       …
     }
   }
@@ -37,7 +37,7 @@ R""(
 # Description
 
 This command prints on standard output a JSON representation of the
-[store derivation]s to which [*installables*](./nix.md#installables) evaluate.
+[store derivation]s to which [*installables*](./bsd.md#installables) evaluate.
 
 Store derivations are used internally by Nix. They are store paths with
 extension `.drv` that represent the build-time dependency graph to which

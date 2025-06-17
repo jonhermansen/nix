@@ -1,5 +1,5 @@
 #include "nix/expr/eval-profiler.hh"
-#include "nix/expr/nixexpr.hh"
+#include "nix/expr/bsdexpr.hh"
 #include "nix/expr/eval.hh"
 #include "nix/util/lru-cache.hh"
 

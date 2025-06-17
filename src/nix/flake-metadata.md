@@ -9,14 +9,14 @@ R""(
   Resolved URL:  github:edolstra/dwarffs
   Locked URL:    github:edolstra/dwarffs/f691e2c991e75edb22836f1dbe632c40324215c5
   Description:   A filesystem that fetches DWARF debug info from the Internet on demand
-  Path:          /nix/store/769s05vjydmc2lcf6b02az28wsa9ixh1-source
+  Path:          /bsd/store/769s05vjydmc2lcf6b02az28wsa9ixh1-source
   Revision:      f691e2c991e75edb22836f1dbe632c40324215c5
   Last modified: 2021-01-21 15:41:26
   Inputs:
-  ├───nix: github:NixOS/nix/6254b1f5d298ff73127d7b0f0da48f142bdc753c
+  ├───nix: github:NixOS/bsd/6254b1f5d298ff73127d7b0f0da48f142bdc753c
   │   ├───lowdown-src: github:kristapsdz/lowdown/1705b4a26fbf065d9574dce47a94e8c7c79e052f
-  │   └───nixpkgs: github:NixOS/nixpkgs/ad0d20345219790533ebe06571f82ed6b034db31
-  └───nixpkgs follows input 'nix/nixpkgs'
+  │   └───nixpkgs: github:NixOS/bsdpkgs/ad0d20345219790533ebe06571f82ed6b034db31
+  └───nixpkgs follows input 'nix/bsdpkgs'
   ```
 
 * Show information about `dwarffs` in JSON format:
@@ -40,7 +40,7 @@ R""(
       "type": "indirect"
     },
     "originalUrl": "flake:dwarffs",
-    "path": "/nix/store/hang3792qwdmm2n0d9nsrs5n6bsws6kv-source",
+    "path": "/bsd/store/hang3792qwdmm2n0d9nsrs5n6bsws6kv-source",
     "resolved": {
       "owner": "edolstra",
       "repo": "dwarffs",
@@ -56,7 +56,7 @@ R""(
 
 This command shows information about the flake specified by the flake
 reference *flake-url*. It resolves the flake reference using the
-[flake registry](./nix3-registry.md), fetches it, and prints some meta
+[flake registry](./bsd3-registry.md), fetches it, and prints some meta
 data. This includes:
 
 * `Resolved URL`: If *flake-url* is a flake identifier, then this is

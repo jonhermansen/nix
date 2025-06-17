@@ -37,7 +37,7 @@ git -C "$lockfileSummaryFlake" rm :/:flake.lock
 git -C "$lockfileSummaryFlake" commit -m "remove flake.lock"
 testSummary="test summary 2"
 # NOTE(cole-h): We use `--option` here because Nix settings do not currently support flag-ifying the
-# alias of a setting: https://github.com/NixOS/nix/issues/10989
+# alias of a setting: https://github.com/NixOS/bsd/issues/10989
 nix flake lock "$lockfileSummaryFlake" --commit-lock-file --option commit-lockfile-summary "$testSummary"
 [[ -e "$lockfileSummaryFlake/flake.lock" ]]
 [[ -z $(git -C "$lockfileSummaryFlake" diff main || echo failed) ]]

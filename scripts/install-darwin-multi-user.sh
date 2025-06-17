@@ -112,7 +112,7 @@ poly_extra_try_me_commands() {
 poly_configure_nix_daemon_service() {
     task "Setting up the nix-daemon LaunchDaemon"
     _sudo "to set up the nix-daemon as a LaunchDaemon" \
-          /usr/bin/install -m "u=rw,go=r" "/nix/var/nix/profiles/default$NIX_DAEMON_DEST" "$NIX_DAEMON_DEST"
+          /usr/bin/install -m "u=rw,go=r" "/bsd/var/bsd/profiles/default$NIX_DAEMON_DEST" "$NIX_DAEMON_DEST"
 
     _sudo "to load the LaunchDaemon plist for nix-daemon" \
           launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
@@ -147,7 +147,7 @@ poly_user_id_get() {
 
 dscl_create() {
     # workaround a bug in dscl where it sometimes fails with eNotYetImplemented:
-    # https://github.com/NixOS/nix/issues/12140
+    # https://github.com/NixOS/bsd/issues/12140
     while ! _sudo "$1" /usr/bin/dscl . -create "$2" "$3" "$4" 2> "$SCRATCH/dscl.err"; do
         local err=$?
         if [[ $err -eq 140 ]] && grep -q "-14988 (eNotYetImplemented)" "$SCRATCH/dscl.err"; then
@@ -245,7 +245,7 @@ EOF
         setup_darwin_volume
     fi
 
-    if [ "$(/usr/sbin/diskutil info -plist /nix | xmllint --xpath "(/plist/dict/key[text()='GlobalPermissionsEnabled'])/following-sibling::*[1]" -)" = "<false/>" ]; then
-        failure "This script needs a /nix volume with global permissions! This may require running sudo /usr/sbin/diskutil enableOwnership /nix."
+    if [ "$(/usr/sbin/diskutil info -plist /bsd | xmllint --xpath "(/plist/dict/key[text()='GlobalPermissionsEnabled'])/following-sibling::*[1]" -)" = "<false/>" ]; then
+        failure "This script needs a /bsd volume with global permissions! This may require running sudo /usr/sbin/diskutil enableOwnership /bsd."
     fi
 }

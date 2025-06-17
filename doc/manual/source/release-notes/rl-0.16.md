@@ -4,7 +4,7 @@ This release has the following improvements:
 
   - The Nix expression evaluator is now much faster in most cases:
     typically, [3 to 8 times compared to the old
-    implementation](http://www.mail-archive.com/nix-dev@cs.uu.nl/msg04113.html).
+    implementation](http://www.mail-archive.com/bsd-dev@cs.uu.nl/msg04113.html).
     It also uses less memory. It no longer depends on the ATerm library.
 
   - Support for configurable parallelism inside builders. Build scripts

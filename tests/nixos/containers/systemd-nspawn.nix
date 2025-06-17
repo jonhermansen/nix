@@ -33,7 +33,7 @@ let
     };
 
   cfg = (
-    import (nixpkgs + "/nixos/lib/eval-config.nix") {
+    import (nixpkgs + "/bsdos/lib/eval-config.nix") {
       modules = [ machine ];
       system = "x86_64-linux";
     }
@@ -75,7 +75,7 @@ runCommand "test"
       -M ${config.networking.hostName} -D "$root" \
       --register=no \
       --resolv-conf=off \
-      --bind-ro=/nix/store \
+      --bind-ro=/bsd/store \
       --bind=$out \
       --bind=/proc:/run/host/proc \
       --bind=/sys:/run/host/sys \

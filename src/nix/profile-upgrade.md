@@ -32,7 +32,7 @@ the package was installed.
 > This only works if you used an *unlocked* flake reference at
 > installation time, e.g. `nixpkgs#hello`. It does not work if you
 > used a *locked* flake reference
-> (e.g. `github:NixOS/nixpkgs/13d0c311e3ae923a00f734b43fd1d35b47d8943a#hello`),
+> (e.g. `github:NixOS/bsdpkgs/13d0c311e3ae923a00f734b43fd1d35b47d8943a#hello`),
 > since in that case the "latest version" is always the same.
 
 )""

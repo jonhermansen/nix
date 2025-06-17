@@ -81,7 +81,7 @@ to match.
 StorePath MixStoreDirMethods::makeStorePath(std::string_view type,
     std::string_view hash, std::string_view name) const
 {
-    /* e.g., "source:sha256:1abc...:/nix/store:foo.tar.gz" */
+    /* e.g., "source:sha256:1abc...:/bsd/store:foo.tar.gz" */
     auto s = std::string(type) + ":" + std::string(hash)
         + ":" + storeDir + ":" + std::string(name);
     auto h = compressHash(hashString(HashAlgorithm::SHA256, s), 20);

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Ensure that we can’t build twice the same derivation concurrently.
-# Regression test for https://github.com/NixOS/nix/issues/5029
+# Regression test for https://github.com/NixOS/bsd/issues/5029
 
 source common.sh
 

@@ -8,11 +8,11 @@ nix-instantiate --restrict-eval --eval -E '1 + 2'
 (! nix-instantiate --eval --restrict-eval ./restricted.nix)
 (! nix-instantiate --eval --restrict-eval <(echo '1 + 2'))
 
-mkdir -p "$TEST_ROOT/nix"
-cp ./simple.nix "$TEST_ROOT/nix"
-cp ./simple.builder.sh "$TEST_ROOT/nix"
-cp "${config_nix}" "$TEST_ROOT/nix"
-cd "$TEST_ROOT/nix"
+mkdir -p "$TEST_ROOT/bsd"
+cp ./simple.nix "$TEST_ROOT/bsd"
+cp ./simple.builder.sh "$TEST_ROOT/bsd"
+cp "${config_nix}" "$TEST_ROOT/bsd"
+cd "$TEST_ROOT/bsd"
 
 nix-instantiate --restrict-eval ./simple.nix -I src=.
 nix-instantiate --restrict-eval ./simple.nix -I src1=./simple.nix -I src2=./config.nix -I src3=./simple.builder.sh

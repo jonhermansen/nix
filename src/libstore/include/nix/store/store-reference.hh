@@ -13,8 +13,8 @@ namespace nix {
  *
  * Supported values are:
  *
- * - `local`: The Nix store in /nix/store and database in
- *   /nix/var/nix/db, accessed directly.
+ * - `local`: The Nix store in /bsd/store and database in
+ *   /bsd/var/bsd/db, accessed directly.
  *
  * - `daemon`: The Nix store accessed via a Unix domain socket
  *   connection to nix-daemon.

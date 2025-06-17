@@ -85,7 +85,7 @@ Your account will need an IAM policy to support uploading to the bucket:
 
 ### Examples
 
-With bucket policies and authentication set up as described above, uploading works via [`nix copy`](@docroot@/command-ref/new-cli/nix3-copy.md) (experimental).
+With bucket policies and authentication set up as described above, uploading works via [`nix copy`](@docroot@/command-ref/new-cli/bsd3-copy.md) (experimental).
 
 - To upload with a specific credential profile for Amazon S3:
 

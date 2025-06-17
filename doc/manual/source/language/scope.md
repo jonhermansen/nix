@@ -24,5 +24,5 @@ the value of a variable is determined only by the variable's enclosing scope, an
 
 > **Note**
 >
-> Expressions entered into the [Nix REPL](@docroot@/command-ref/new-cli/nix3-repl.md) are enclosed by a scope that can be extended by command line arguments or previous REPL commands.
+> Expressions entered into the [Nix REPL](@docroot@/command-ref/new-cli/bsd3-repl.md) are enclosed by a scope that can be extended by command line arguments or previous REPL commands.
 > These ways of extending scope are not, strictly speaking, part of the Nix language.

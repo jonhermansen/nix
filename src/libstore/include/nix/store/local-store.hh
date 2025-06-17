@@ -224,7 +224,7 @@ public:
      * Implementation of IndirectRootStore::addIndirectRoot().
      *
      * The weak reference merely is a symlink to `path' from
-     * /nix/var/nix/gcroots/auto/<hash of `path'>.
+     * /bsd/var/bsd/gcroots/auto/<hash of `path'>.
      */
     void addIndirectRoot(const Path & path) override;
 
@@ -321,7 +321,7 @@ public:
     void addSignatures(const StorePath & storePath, const StringSet & sigs) override;
 
     /**
-     * If free disk space in /nix/store if below minFree, delete
+     * If free disk space in /bsd/store if below minFree, delete
      * garbage until it exceeds maxFree.
      */
     void autoGC(bool sync = true);

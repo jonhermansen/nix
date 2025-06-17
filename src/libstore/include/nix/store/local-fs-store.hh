@@ -25,17 +25,17 @@ struct LocalFSStoreConfig : virtual StoreConfig
         "Directory prefixed to all other paths."};
 
     PathSetting stateDir{this,
-        rootDir.get() ? *rootDir.get() + "/nix/var/nix" : settings.nixStateDir,
+        rootDir.get() ? *rootDir.get() + "/bsd/var/bsd" : settings.nixStateDir,
         "state",
         "Directory where Nix will store state."};
 
     PathSetting logDir{this,
-        rootDir.get() ? *rootDir.get() + "/nix/var/log/nix" : settings.nixLogDir,
+        rootDir.get() ? *rootDir.get() + "/bsd/var/log/bsd" : settings.nixLogDir,
         "log",
         "directory where Nix will store log files."};
 
     PathSetting realStoreDir{this,
-        rootDir.get() ? *rootDir.get() + "/nix/store" : storeDir, "real",
+        rootDir.get() ? *rootDir.get() + "/bsd/store" : storeDir, "real",
         "Physical path of the Nix store."};
 };
 

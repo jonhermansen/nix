@@ -30,7 +30,7 @@ else
     #   routine, replace this script w/ deprecation notice and a note
     #   on the remove-after date)
     #
-    readonly NIX_ROOT="${NIX_ROOT:-/nix}"
+    readonly NIX_ROOT="${NIX_ROOT:-/bsd}"
 
     _sudo() {
         shift # throw away the 'explanation'
@@ -443,10 +443,10 @@ add_nix_vol_fstab_line() {
     shift
 
     # wrap `ex` to work around problems w/ vim features breaking exit codes
-    # - plugins (see github.com/NixOS/nix/issues/5468): -u NONE
+    # - plugins (see github.com/NixOS/bsd/issues/5468): -u NONE
     # - swap file: -n
     #
-    # the first draft used `--noplugin`, but github.com/NixOS/nix/issues/6462
+    # the first draft used `--noplugin`, but github.com/NixOS/bsd/issues/6462
     # suggests we need the less-semantic `-u NONE`
     #
     # we'd prefer EDITOR="/usr/bin/ex -u NONE" but vifs doesn't word-split
@@ -649,7 +649,7 @@ EOF
     fi
     if ! test_synthetic_conf_mountable; then
         task "Configuring /etc/synthetic.conf to make a mount-point at $NIX_ROOT" >&2
-        # technically /etc/synthetic.d/nix is supported in Big Sur+
+        # technically /etc/synthetic.d/bsd is supported in Big Sur+
         # but handling both takes even more code...
         # See earlier note; `-u NONE` disables vim plugins/rc, `-n` skips swapfile
         _sudo "to add Nix to /etc/synthetic.conf" \

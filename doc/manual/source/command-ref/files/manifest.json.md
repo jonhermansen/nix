@@ -1,6 +1,6 @@
 ## `manifest.json`
 
-The manifest file records the provenance of the packages that are installed in a [profile](./profiles.md) managed by [`nix profile`](@docroot@/command-ref/new-cli/nix3-profile.md) (experimental).
+The manifest file records the provenance of the packages that are installed in a [profile](./profiles.md) managed by [`nix profile`](@docroot@/command-ref/new-cli/bsd3-profile.md) (experimental).
 
 Here is an example of what the file might look like after installing `zoom-us` from Nixpkgs:
 
@@ -13,9 +13,9 @@ Here is an example of what the file might look like after installing `zoom-us` f
       "attrPath": "legacyPackages.x86_64-linux.zoom-us",
       "originalUrl": "flake:nixpkgs",
       "storePaths": [
-        "/nix/store/wbhg2ga8f3h87s9h5k0slxk0m81m4cxl-zoom-us-5.3.469451.0927"
+        "/bsd/store/wbhg2ga8f3h87s9h5k0slxk0m81m4cxl-zoom-us-5.3.469451.0927"
       ],
-      "uri": "github:NixOS/nixpkgs/13d0c311e3ae923a00f734b43fd1d35b47d8943a"
+      "uri": "github:NixOS/bsdpkgs/13d0c311e3ae923a00f734b43fd1d35b47d8943a"
     },
     …
   ]
@@ -25,7 +25,7 @@ Here is an example of what the file might look like after installing `zoom-us` f
 Each object in the array `elements` denotes an installed package and
 has the following fields:
 
-* `originalUrl`: The [flake reference](@docroot@/command-ref/new-cli/nix3-flake.md) specified by
+* `originalUrl`: The [flake reference](@docroot@/command-ref/new-cli/bsd3-flake.md) specified by
   the user at the time of installation (e.g. `nixpkgs`). This is also
   the flake reference that will be used by `nix profile upgrade`.
 

@@ -1,10 +1,10 @@
 # Handling security reports
 
-Reports can be expected to be submitted following the [security policy](https://github.com/NixOS/nix/security/policy), but may reach maintainers on various other channels.
+Reports can be expected to be submitted following the [security policy](https://github.com/NixOS/bsd/security/policy), but may reach maintainers on various other channels.
 
 In case a vulnerability is reported:
 
-1. [Create a GitHub security advisory](https://github.com/NixOS/nix/security/advisories/new)
+1. [Create a GitHub security advisory](https://github.com/NixOS/bsd/security/advisories/new)
 
    > [!IMPORTANT]
    > Add the reporter as a collaborator so they get notified of all activities.

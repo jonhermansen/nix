@@ -34,7 +34,7 @@ the end, while base-16 processes in from the beginning.
   ```
 
   Note that it includes the location of the store as well as the name to make sure that changes to either of those are reflected in the hash
-  (e.g. you won't get `/nix/store/<digest>-name1` and `/nix/store/<digest>-name2`, or `/gnu/store/<digest>-name1`, with equal hash parts).
+  (e.g. you won't get `/bsd/store/<digest>-name1` and `/bsd/store/<digest>-name2`, or `/gnu/store/<digest>-name1`, with equal hash parts).
 
 - `type` = one of:
 

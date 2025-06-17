@@ -39,7 +39,7 @@ mkMesonDerivation (
 
     workDir = ./.;
     fileset = fileset.unions [
-      ../../scripts/nix-profile.sh.in
+      ../../scripts/bsd-profile.sh.in
       ../../.version
       ../../tests/functional
       ./.
@@ -78,7 +78,7 @@ mkMesonDerivation (
 
     preConfigure =
       # TEMP hack for Meson before make is gone, where
-      # `src/nix-functional-tests` is during the transition a symlink and
+      # `src/bsd-functional-tests` is during the transition a symlink and
       # not the actual directory directory.
       ''
         cd $(readlink -e $PWD)

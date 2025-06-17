@@ -25,17 +25,17 @@ individual users can switch between different environments.
 `nix-env` takes exactly one *operation* flag which indicates the
 subcommand to be performed. The following operations are available:
 
-- [`--install`](./nix-env/install.md)
-- [`--upgrade`](./nix-env/upgrade.md)
-- [`--uninstall`](./nix-env/uninstall.md)
-- [`--set`](./nix-env/set.md)
-- [`--set-flag`](./nix-env/set-flag.md)
-- [`--query`](./nix-env/query.md)
-- [`--switch-profile`](./nix-env/switch-profile.md)
-- [`--list-generations`](./nix-env/list-generations.md)
-- [`--delete-generations`](./nix-env/delete-generations.md)
-- [`--switch-generation`](./nix-env/switch-generation.md)
-- [`--rollback`](./nix-env/rollback.md)
+- [`--install`](./bsd-env/install.md)
+- [`--upgrade`](./bsd-env/upgrade.md)
+- [`--uninstall`](./bsd-env/uninstall.md)
+- [`--set`](./bsd-env/set.md)
+- [`--set-flag`](./bsd-env/set-flag.md)
+- [`--query`](./bsd-env/query.md)
+- [`--switch-profile`](./bsd-env/switch-profile.md)
+- [`--list-generations`](./bsd-env/list-generations.md)
+- [`--delete-generations`](./bsd-env/delete-generations.md)
+- [`--switch-generation`](./bsd-env/switch-generation.md)
+- [`--rollback`](./bsd-env/rollback.md)
 
 These pages can be viewed offline:
 
@@ -60,7 +60,7 @@ These pages can be viewed offline:
 
 # Selectors
 
-Several operations, such as [`nix-env --query`](./nix-env/query.md) and [`nix-env --install`](./nix-env/install.md), take a list of *arguments* that specify the packages on which to operate.
+Several operations, such as [`nix-env --query`](./bsd-env/query.md) and [`nix-env --install`](./bsd-env/install.md), take a list of *arguments* that specify the packages on which to operate.
 
 Packages are identified based on a `name` part and a `version` part of a [symbolic derivation name](@docroot@/language/derivations.md#attr-name):
 

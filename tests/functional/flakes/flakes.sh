@@ -136,7 +136,7 @@ nix build -o "$TEST_ROOT/result" --expr "(builtins.getFlake \"git+file://$flake1
 # Regression test for baseNameOf on the root of the flake.
 [[ $(nix eval --raw flake1#baseName) =~ ^[a-z0-9]+-source$ ]]
 
-# Test that the root of a tree returns a path named /nix/store/<hash1>-<hash2>-source.
+# Test that the root of a tree returns a path named /bsd/store/<hash1>-<hash2>-source.
 # This behavior is *not* desired, but has existed for a while.
 # Issue #10627 what to do about it.
 [[ $(nix eval --raw flake1#root) =~ ^.*/[a-z0-9]+-[a-z0-9]+-source$ ]]
@@ -222,11 +222,11 @@ nix registry list --flake-registry "file://$registry" --refresh | grepQuiet flak
 mv "$registry.tmp" "$registry"
 
 # Ensure that locking ignores the user registry.
-mkdir -p "$TEST_HOME/.config/nix"
-ln -sfn "$registry" "$TEST_HOME/.config/nix/registry.json"
+mkdir -p "$TEST_HOME/.config/bsd"
+ln -sfn "$registry" "$TEST_HOME/.config/bsd/registry.json"
 nix flake metadata --flake-registry '' flake1
 expectStderr 1 nix flake update --flake-registry '' --flake "$flake3Dir" | grepQuiet "cannot find flake 'flake:flake1' in the flake registries"
-rm "$TEST_HOME/.config/nix/registry.json"
+rm "$TEST_HOME/.config/bsd/registry.json"
 
 # Test whether flakes are registered as GC roots for offline use.
 # FIXME: use tarballs rather than git.

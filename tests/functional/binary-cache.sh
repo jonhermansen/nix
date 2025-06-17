@@ -30,7 +30,7 @@ done
 expect 1 nix log --store "file://$cacheDir" "$outPath" 2>&1 | grep 'is not available'
 nix store copy-log --to "file://$cacheDir" "$outPath"
 nix log --store "file://$cacheDir" "$outPath" | grep FOO
-rm -rf "$TEST_ROOT/var/log/nix"
+rm -rf "$TEST_ROOT/var/log/bsd"
 expect 1 nix log "$outPath" 2>&1 | grep 'is not available'
 nix log --substituters "file://$cacheDir" "$outPath" | grep FOO
 
@@ -56,7 +56,7 @@ basicDownloadTests() {
     # But with the right configuration, "nix-env -qas" should also work.
     clearStore
     clearCacheCache
-    echo "WantMassQuery: 1" >> "$cacheDir/nix-cache-info"
+    echo "WantMassQuery: 1" >> "$cacheDir/bsd-cache-info"
 
     nix-env --substituters "file://$cacheDir" -f dependencies.nix -qas \* | grep -- "--S"
     nix-env --substituters "file://$cacheDir" -f dependencies.nix -qas \* | grep -- "--S"
@@ -69,7 +69,7 @@ basicDownloadTests() {
     nix-store --check-validity "$outPath"
     nix-store -qR "$outPath" | grep input-2
 
-    echo "WantMassQuery: 0" >> "$cacheDir/nix-cache-info"
+    echo "WantMassQuery: 0" >> "$cacheDir/bsd-cache-info"
 }
 
 
@@ -274,7 +274,7 @@ diff -u \
     <(jq -S < "$cacheDir"/debuginfo/02623eda209c26a59b1a8638ff7752f6b945c26b.debug) \
     <(echo '{"archive":"../nar/100vxs724qr46phz8m24iswmg9p3785hsyagz0kchf6q6gf06sw6.nar","member":"lib/debug/.build-id/02/623eda209c26a59b1a8638ff7752f6b945c26b.debug"}' | jq -S)
 
-# Test against issue https://github.com/NixOS/nix/issues/3964
+# Test against issue https://github.com/NixOS/bsd/issues/3964
 
 # preserve quotes variables in the single-quoted string
 # shellcheck disable=SC2016

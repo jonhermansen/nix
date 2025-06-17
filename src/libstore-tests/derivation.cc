@@ -101,7 +101,7 @@ TEST_F(DynDerivationTest, BadATerm_oldVersionDynDeps) {
 
 TEST_JSON(DerivationTest, inputAddressed,
     (DerivationOutput::InputAddressed {
-        .path = store->parseStorePath("/nix/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-drv-name-output-name"),
+        .path = store->parseStorePath("/bsd/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-drv-name-output-name"),
     }),
     "drv-name", "output-name")
 
@@ -199,12 +199,12 @@ Derivation makeSimpleDrv(const Store & store) {
     Derivation drv;
     drv.name = "simple-derivation";
     drv.inputSrcs = {
-        store.parseStorePath("/nix/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep1"),
+        store.parseStorePath("/bsd/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep1"),
     };
     drv.inputDrvs = {
         .map = {
             {
-                store.parseStorePath("/nix/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep2.drv"),
+                store.parseStorePath("/bsd/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep2.drv"),
                 {
                     .value = {
                         "cat",
@@ -239,12 +239,12 @@ Derivation makeDynDepDerivation(const Store & store) {
     Derivation drv;
     drv.name = "dyn-dep-derivation";
     drv.inputSrcs = {
-        store.parseStorePath("/nix/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep1"),
+        store.parseStorePath("/bsd/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep1"),
     };
     drv.inputDrvs = {
         .map = {
             {
-                store.parseStorePath("/nix/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep2.drv"),
+                store.parseStorePath("/bsd/store/c015dhfh5l0lp6wxyvdn7bmwhbbr6hr9-dep2.drv"),
                 DerivedPathMap<StringSet>::ChildNode {
                     .value = {
                         "cat",

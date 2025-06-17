@@ -19,7 +19,7 @@ If you are on Linux with systemd:
 Remove files created by Nix:
 
 ```console
-sudo rm -rf /etc/nix /etc/profile.d/nix.sh /etc/tmpfiles.d/nix-daemon.conf /nix ~root/.nix-channels ~root/.nix-defexpr ~root/.nix-profile ~root/.cache/nix
+sudo rm -rf /etc/bsd /etc/profile.d/bsd.sh /etc/tmpfiles.d/bsd-daemon.conf /bsd ~root/.nix-channels ~root/.nix-defexpr ~root/.nix-profile ~root/.cache/bsd
 ```
 
 Remove build users and their group:
@@ -49,7 +49,7 @@ which you may remove.
 > ```console
 > error: the user '_nixbld1' in the group 'nixbld' does not exist
 > ```
-> when running Nix commands, refer to GitHub issue [NixOS/nix#10892](https://github.com/NixOS/nix/issues/10892) for instructions to fix your installation without reinstalling.
+> when running Nix commands, refer to GitHub issue [NixOS/bsd#10892](https://github.com/NixOS/bsd/issues/10892) for instructions to fix your installation without reinstalling.
 
 1. If system-wide shell initialisation files haven't been altered since installing Nix, use the backups made by the installer:
 
@@ -63,8 +63,8 @@ which you may remove.
 
    ```bash
    # Nix
-   if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+   if [ -e '/bsd/var/bsd/profiles/default/etc/profile.d/bsd-daemon.sh' ]; then
+     . '/bsd/var/bsd/profiles/default/etc/profile.d/bsd-daemon.sh'
    fi
    # End Nix
    ```
@@ -83,21 +83,21 @@ which you may remove.
 3. Remove the `nixbld` group and the `_nixbuildN` users:
 
    ```console
-   sudo dscl . -delete /Groups/nixbld
+   sudo dscl . -delete /Groups/bsdbld
    for u in $(sudo dscl . -list /Users | grep _nixbld); do sudo dscl . -delete /Users/$u; done
    ```
 
    This will remove all the build users that no longer serve a purpose.
 
-4. Edit fstab using `sudo vifs` to remove the line mounting the Nix Store volume on `/nix`, which looks like
+4. Edit fstab using `sudo vifs` to remove the line mounting the Nix Store volume on `/bsd`, which looks like
 
    ```
-   UUID=<uuid> /nix apfs rw,noauto,nobrowse,suid,owners
+   UUID=<uuid> /bsd apfs rw,noauto,nobrowse,suid,owners
    ```
    or
 
    ```
-   LABEL=Nix\040Store /nix apfs rw,nobrowse
+   LABEL=Nix\040Store /bsd apfs rw,nobrowse
    ```
 
    by setting the cursor on the respective line using the arrow keys, and pressing `dd`, and then `:wq` to save the file.
@@ -117,19 +117,19 @@ which you may remove.
    fi
    ```
 
-   This will prevent the creation of the empty `/nix` directory.
+   This will prevent the creation of the empty `/bsd` directory.
 
 6. Remove the files Nix added to your system, except for the store:
 
    ```console
-   sudo rm -rf /etc/nix /var/root/.nix-profile /var/root/.nix-defexpr /var/root/.nix-channels ~/.nix-profile ~/.nix-defexpr ~/.nix-channels
+   sudo rm -rf /etc/bsd /var/root/.nix-profile /var/root/.nix-defexpr /var/root/.nix-channels ~/.nix-profile ~/.nix-defexpr ~/.nix-channels
    ```
 
 
 7. Remove the Nix Store volume:
 
    ```console
-   sudo diskutil apfs deleteVolume /nix
+   sudo diskutil apfs deleteVolume /bsd
    ```
 
    This will remove the Nix Store volume and everything that was added to the store.
@@ -147,19 +147,19 @@ which you may remove.
 
 > **Note**
 >
-> After you complete the steps here, you will still have an empty `/nix` directory.
+> After you complete the steps here, you will still have an empty `/bsd` directory.
 > This is an expected sign of a successful uninstall.
-> The empty `/nix` directory will disappear the next time you reboot.
+> The empty `/bsd` directory will disappear the next time you reboot.
 >
 > You do not have to reboot to finish uninstalling Nix.
 > The uninstall is complete.
-> macOS (Catalina+) directly controls root directories, and its read-only root will prevent you from manually deleting the empty `/nix` mountpoint.
+> macOS (Catalina+) directly controls root directories, and its read-only root will prevent you from manually deleting the empty `/bsd` mountpoint.
 
 ## Single User
 
 To remove a [single-user installation](./installing-binary.md#single-user-installation) of Nix, run:
 
 ```console
-rm -rf /nix ~/.nix-channels ~/.nix-defexpr ~/.nix-profile
+rm -rf /bsd ~/.nix-channels ~/.nix-defexpr ~/.nix-profile
 ```
 You might also want to manually remove references to Nix from your `~/.profile`.

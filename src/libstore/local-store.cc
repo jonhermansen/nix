@@ -569,7 +569,7 @@ void LocalStore::makeStoreWritable()
 {
 #ifdef __linux__
     if (!isRootUser()) return;
-    /* Check if /nix/store is on a read-only mount. */
+    /* Check if /bsd/store is on a read-only mount. */
     struct statvfs stat;
     if (statvfs(config->realStoreDir.get().c_str(), &stat) != 0)
         throw SysError("getting info about the Nix store mount point");

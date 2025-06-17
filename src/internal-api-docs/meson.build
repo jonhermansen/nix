@@ -27,6 +27,6 @@ custom_target(
   ],
   output : 'html',
   install : true,
-  install_dir : get_option('datadir') / 'doc/nix/internal-api',
+  install_dir : get_option('datadir') / 'doc/bsd/internal-api',
   build_always_stale : true,
 )

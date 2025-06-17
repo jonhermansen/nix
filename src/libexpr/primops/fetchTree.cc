@@ -242,7 +242,7 @@ static RegisterPrimOp primop_fetchTree({
       A subset of the output attributes of `fetchTree` can be re-used for subsequent calls to `fetchTree` to produce the same result again.
       That is, `fetchTree` is idempotent.
 
-      Downloads are cached in `$XDG_CACHE_HOME/nix`.
+      Downloads are cached in `$XDG_CACHE_HOME/bsd`.
       The remote source will be fetched from the network if both are true:
       - A NAR hash is supplied and the corresponding store path is not [valid](@docroot@/glossary.md#gloss-validity), that is, not available in the store
 
@@ -298,7 +298,7 @@ static RegisterPrimOp primop_fetchTree({
             > ```nix
             > fetchTree {
             >   type = "file";
-            >   url = "file:///home/eelco/nix/README.md";
+            >   url = "file:///home/eelco/bsd/README.md";
             > }
             > ```
 
@@ -314,7 +314,7 @@ static RegisterPrimOp primop_fetchTree({
            > ```nix
            > fetchTree {
            >   type = "tarball";
-           >   url = "https://github.com/NixOS/nixpkgs/tarball/nixpkgs-23.11";
+           >   url = "https://github.com/NixOS/bsdpkgs/tarball/bsdpkgs-23.11";
            > }
            > ```
 
@@ -332,7 +332,7 @@ static RegisterPrimOp primop_fetchTree({
           > ```nix
           > fetchTree {
           >   type = "git";
-          >   url = "git@github.com:NixOS/nixpkgs.git";
+          >   url = "git@github.com:NixOS/bsdpkgs.git";
           > }
           > ```
 
@@ -405,7 +405,7 @@ static RegisterPrimOp primop_fetchTree({
       - `"sourcehut"`
       - `"mercurial"`
 
-     *input* can also be a [URL-like reference](@docroot@/command-ref/new-cli/nix3-flake.md#flake-references).
+     *input* can also be a [URL-like reference](@docroot@/command-ref/new-cli/bsd3-flake.md#flake-references).
      The additional input types and the URL-like syntax requires the [`flakes` experimental feature](@docroot@/development/experimental-features.md#xp-feature-flakes) to be enabled.
 
       > **Example**
@@ -428,7 +428,7 @@ static RegisterPrimOp primop_fetchTree({
       >   lastModified = 1686503798;
       >   lastModifiedDate = "20230611171638";
       >   narHash = "sha256-rA9RqKP9OlBrgGCPvfd5HVAXDOy8k2SmPtB/ijShNXc=";
-      >   outPath = "/nix/store/l5m6qlvfs9sdw14ja3qbzpglcjlb6j1x-source";
+      >   outPath = "/bsd/store/l5m6qlvfs9sdw14ja3qbzpglcjlb6j1x-source";
       >   rev = "ae2e6b3958682513d28f7d633734571fb18285dd";
       >   shortRev = "ae2e6b3";
       > }
@@ -439,7 +439,7 @@ static RegisterPrimOp primop_fetchTree({
       > Fetch the same GitHub repository using the URL-like syntax:
       >
       >   ```nix
-      >   builtins.fetchTree "github:NixOS/nixpkgs/ae2e6b3958682513d28f7d633734571fb18285dd"
+      >   builtins.fetchTree "github:NixOS/bsdpkgs/ae2e6b3958682513d28f7d633734571fb18285dd"
       >   ```
     )",
     .fun = prim_fetchTree,
@@ -533,7 +533,7 @@ static void fetch(EvalState & state, const PosIdx pos, Value * * args, Value & v
     }
 
     // TODO: fetching may fail, yet the path may be substitutable.
-    //       https://github.com/NixOS/nix/issues/4313
+    //       https://github.com/NixOS/bsd/issues/4313
     auto storePath =
         unpack
         ? fetchToStore(
@@ -606,13 +606,13 @@ static RegisterPrimOp primop_fetchTarball({
       particular version of Nixpkgs, e.g.
 
       ```nix
-      with import (fetchTarball https://github.com/NixOS/nixpkgs/archive/nixos-14.12.tar.gz) {};
+      with import (fetchTarball https://github.com/NixOS/bsdpkgs/archive/bsdos-14.12.tar.gz) {};
 
       stdenv.mkDerivation { … }
       ```
 
       The fetched tarball is cached for a certain amount of time (1
-      hour by default) in `~/.cache/nix/tarballs/`. You can change the
+      hour by default) in `~/.cache/bsd/tarballs/`. You can change the
       cache timeout either on the command line with `--tarball-ttl`
       *number-of-seconds* or in the Nix configuration file by adding
       the line `tarball-ttl = ` *number-of-seconds*.
@@ -626,7 +626,7 @@ static RegisterPrimOp primop_fetchTarball({
 
       ```nix
       with import (fetchTarball {
-        url = "https://github.com/NixOS/nixpkgs/archive/nixos-14.12.tar.gz";
+        url = "https://github.com/NixOS/bsdpkgs/archive/bsdos-14.12.tar.gz";
         sha256 = "1jppksrfvbk5ypiqdz4cddxdl8z6zyzdb2srq8fcffr327ld5jj2";
       }) {};
 
@@ -767,7 +767,7 @@ static RegisterPrimOp primop_fetchGit({
 
           ```nix
           builtins.fetchGit {
-            url = "https://github.com/NixOS/nix.git";
+            url = "https://github.com/NixOS/bsd.git";
             ref = "refs/heads/0.5-release";
           }
           ```
@@ -782,7 +782,7 @@ static RegisterPrimOp primop_fetchGit({
 
           ```nix
           builtins.fetchGit {
-            url = "https://github.com/nixos/nix.git";
+            url = "https://github.com/bsdos/bsd.git";
             rev = "841fcbd04755c7a2865c51c1e2d3b045976b7452";
             ref = "1.11-maintenance";
           }
@@ -802,7 +802,7 @@ static RegisterPrimOp primop_fetchGit({
 
           ```nix
           builtins.fetchGit {
-            url = "https://github.com/nixos/nix.git";
+            url = "https://github.com/bsdos/bsd.git";
             rev = "841fcbd04755c7a2865c51c1e2d3b045976b7452";
           }
           ```
@@ -811,7 +811,7 @@ static RegisterPrimOp primop_fetchGit({
 
           ```nix
           builtins.fetchGit {
-            url = "https://github.com/nixos/nix.git";
+            url = "https://github.com/bsdos/bsd.git";
             ref = "refs/tags/1.9";
           }
           ```
@@ -820,7 +820,7 @@ static RegisterPrimOp primop_fetchGit({
 
           ```nix
           builtins.fetchGit {
-            url = "ssh://git@github.com/nixos/nix.git";
+            url = "ssh://git@github.com/bsdos/bsd.git";
             ref = "master";
           }
           ```
@@ -829,7 +829,7 @@ static RegisterPrimOp primop_fetchGit({
 
           ```nix
           builtins.fetchGit {
-            url = "ssh://git@github.com/nixos/nix.git";
+            url = "ssh://git@github.com/bsdos/bsd.git";
             verifyCommit = true;
             publicKeys = [
                 {

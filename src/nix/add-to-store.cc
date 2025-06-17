@@ -73,7 +73,7 @@ struct CmdAddFile : CmdAddToStore
 
     std::string description() override
     {
-        return "Deprecated. Use [`nix store add --mode flat`](@docroot@/command-ref/new-cli/nix3-store-add.md) instead.";
+        return "Deprecated. Use [`nix store add --mode flat`](@docroot@/command-ref/new-cli/bsd3-store-add.md) instead.";
     }
 };
 
@@ -81,7 +81,7 @@ struct CmdAddPath : CmdAddToStore
 {
     std::string description() override
     {
-        return "Deprecated alias to [`nix store add`](@docroot@/command-ref/new-cli/nix3-store-add.md).";
+        return "Deprecated alias to [`nix store add`](@docroot@/command-ref/new-cli/bsd3-store-add.md).";
     }
 };
 

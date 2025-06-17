@@ -38,13 +38,13 @@ The following flake output attributes must be derivations:
 * `packages.`*system*`.`*name*
 
 The following flake output attributes must be [app
-definitions](./nix3-run.md):
+definitions](./bsd3-run.md):
 
 * `apps.`*system*`.`*name*
 * `defaultApp.`*system*
 
 The following flake output attributes must be [template
-definitions](./nix3-flake-init.md):
+definitions](./bsd3-flake-init.md):
 
 * `defaultTemplate`
 * `templates.`*name*
@@ -60,7 +60,7 @@ The following flake output attributes must be *NixOS modules*:
 * `nixosModules.`*name*
 
 The following flake output attributes must be
-[bundlers](./nix3-bundle.md):
+[bundlers](./bsd3-bundle.md):
 
 * `bundlers.`*name*
 * `defaultBundler`

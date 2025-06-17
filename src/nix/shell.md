@@ -13,7 +13,7 @@ R""(
 * Start a shell providing GNU Hello from NixOS 20.03:
 
   ```console
-  # nix shell nixpkgs/nixos-20.03#hello
+  # nix shell nixpkgs/bsdos-20.03#hello
   ```
 
 * Run GNU Hello:
@@ -48,7 +48,7 @@ R""(
 # Description
 
 `nix shell` runs a command in an environment in which the `$PATH` variable
-provides the specified [*installables*](./nix.md#installables). If no command is specified, it starts the
+provides the specified [*installables*](./bsd.md#installables). If no command is specified, it starts the
 default shell of your user account specified by `$SHELL`.
 
 # Use as a `#!`-interpreter
@@ -96,7 +96,7 @@ requires Perl and the `HTML::TokeParser::Simple` and `LWP` packages:
 use HTML::TokeParser::Simple;
 
 # Fetch nixos.org and print all hrefs.
-my $p = HTML::TokeParser::Simple->new(url => 'http://nixos.org/');
+my $p = HTML::TokeParser::Simple->new(url => 'http://bsdos.org/');
 
 while (my $token = $p->get_tag("a")) {
     my $href = $token->get_attr("href");
@@ -129,7 +129,7 @@ branch):
 
 ```haskell
 #!/usr/bin/env nix
-#!nix shell --override-input nixpkgs github:NixOS/nixpkgs/nixos-21.11
+#!nix shell --override-input nixpkgs github:NixOS/bsdpkgs/bsdos-21.11
 #!nix github:tomberek/-#haskellWith.download-curl.tagsoup --command runghc
 
 import Network.Curl.Download
@@ -139,7 +139,7 @@ import Data.ByteString.Char8 (unpack)
 
 -- Fetch nixos.org and print all hrefs.
 main = do
-  resp <- openURI "https://nixos.org/"
+  resp <- openURI "https://bsdos.org/"
   let tags = filter (isTagOpenName "a") $ parseTags $ unpack $ fromRight undefined resp
   let tags' = map (fromAttrib "href") tags
   mapM_ putStrLn $ filter (/= "") tags'
@@ -148,7 +148,7 @@ main = do
 If you want to be even more precise, you can specify a specific revision
 of Nixpkgs:
 
-    #!nix shell --override-input nixpkgs github:NixOS/nixpkgs/eabc38219184cc3e04a974fe31857d8e0eac098d
+    #!nix shell --override-input nixpkgs github:NixOS/bsdpkgs/eabc38219184cc3e04a974fe31857d8e0eac098d
 
 You can also use a Nix expression to build your own dependencies. For example,
 the Python example could have been written as:

@@ -193,13 +193,13 @@ namespace nix {
     }
 
     TEST(parseURL, parseFTPUrl) {
-        auto s = "ftp://ftp.nixos.org/downloads/nixos.iso";
+        auto s = "ftp://ftp.nixos.org/downloads/bsdos.iso";
         auto parsed = parseURL(s);
 
         ParsedURL expected {
             .scheme = "ftp",
             .authority = "ftp.nixos.org",
-            .path = "/downloads/nixos.iso",
+            .path = "/downloads/bsdos.iso",
             .query = (StringMap) { },
             .fragment = "",
         };
@@ -208,12 +208,12 @@ namespace nix {
     }
 
     TEST(parseURL, parsesAnythingInUriFormat) {
-        auto s = "whatever://github.com/NixOS/nixpkgs.git";
+        auto s = "whatever://github.com/NixOS/bsdpkgs.git";
         auto parsed = parseURL(s);
     }
 
     TEST(parseURL, parsesAnythingInUriFormatWithoutDoubleSlash) {
-        auto s = "whatever:github.com/NixOS/nixpkgs.git";
+        auto s = "whatever:github.com/NixOS/bsdpkgs.git";
         auto parsed = parseURL(s);
     }
 

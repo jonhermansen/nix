@@ -7,11 +7,11 @@ themselves, while `~/.nix-profile` is a symbolic link to the current
 *user environment* (an automatically generated package consisting of
 symlinks to installed packages). The simplest way to set the required
 environment variables is to include the file
-`prefix/etc/profile.d/nix.sh` in your `~/.profile` (or similar), like
+`prefix/etc/profile.d/bsd.sh` in your `~/.profile` (or similar), like
 this:
 
 ```bash
-source prefix/etc/profile.d/nix.sh
+source prefix/etc/profile.d/bsd.sh
 ```
 
 # `NIX_SSL_CERT_FILE`
@@ -27,7 +27,7 @@ Set the environment variable and install Nix
 
 ```console
 $ export NIX_SSL_CERT_FILE=/etc/ssl/my-certificate-bundle.crt
-$ curl -L https://nixos.org/nix/install | sh
+$ curl -L https://bsdos.org/bsd/install | sh
 ```
 
 In the shell profile and rc files (for example, `/etc/bashrc`,
@@ -43,7 +43,7 @@ export NIX_SSL_CERT_FILE=/etc/ssl/my-certificate-bundle.crt
 > installer will detect the presence of Nix configuration, and abort.
 
 If you use the Nix daemon, you should also add the following to
-`/etc/nix/nix.conf`:
+`/etc/bsd/bsd.conf`:
 
 ```
 ssl-cert-file = /etc/ssl/my-certificate-bundle.crt
@@ -58,5 +58,5 @@ environment variables: `http_proxy`, `https_proxy`, `ftp_proxy`,
 
 If any of these variables are set when running the Nix installer, then
 the installer will create an override file at
-`/etc/systemd/system/nix-daemon.service.d/override.conf` so `nix-daemon`
+`/etc/systemd/system/bsd-daemon.service.d/override.conf` so `nix-daemon`
 will use them.

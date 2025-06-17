@@ -361,7 +361,7 @@ struct ExprCall : Expr
     Expr * fun;
     std::vector<Expr *> args;
     PosIdx pos;
-    std::optional<PosIdx> cursedOrEndPos; // used during parsing to warn about https://github.com/NixOS/nix/issues/11118
+    std::optional<PosIdx> cursedOrEndPos; // used during parsing to warn about https://github.com/NixOS/bsd/issues/11118
     ExprCall(const PosIdx & pos, Expr * fun, std::vector<Expr *> && args)
         : fun(fun), args(args), pos(pos), cursedOrEndPos({})
     { }

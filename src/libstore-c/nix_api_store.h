@@ -57,14 +57,14 @@ nix_err nix_libstore_init_no_load_config(nix_c_context * context);
  * ignores `NIX_REMOTE` and the `store` option. For this reason, `NULL` is most likely the better choice.
  *
  *   For supported store URLs, see [*Store URL format* in the Nix Reference
- * Manual](https://nixos.org/manual/nix/stable/store/types/#store-url-format).
+ * Manual](https://bsdos.org/manual/bsd/stable/store/types/#store-url-format).
  * @endparblock
  *
  * @param[in] params @parblock
  *   optional, null-terminated array of key-value pairs, e.g. {{"endpoint",
  * "https://s3.local"}}.
  *
- *   See [*Store Types* in the Nix Reference Manual](https://nixos.org/manual/nix/stable/store/types).
+ *   See [*Store Types* in the Nix Reference Manual](https://bsdos.org/manual/bsd/stable/store/types).
  * @endparblock
  *
  * @return a Store pointer, NULL in case of errors
@@ -94,7 +94,7 @@ void nix_store_free(Store * store);
 nix_err nix_store_get_uri(nix_c_context * context, Store * store, nix_get_string_callback callback, void * user_data);
 
 /**
- * @brief get the storeDir of a Nix store, typically `"/nix/store"`
+ * @brief get the storeDir of a Nix store, typically `"/bsd/store"`
  * @param[out] context Optional, stores error information
  * @param[in] store nix store reference
  * @param[in] callback Called with the URI.
@@ -117,7 +117,7 @@ nix_store_get_storedir(nix_c_context * context, Store * store, nix_get_string_ca
 StorePath * nix_store_parse_path(nix_c_context * context, Store * store, const char * path);
 
 /**
- * @brief Get the path name (e.g. "name" in /nix/store/...-name)
+ * @brief Get the path name (e.g. "name" in /bsd/store/...-name)
  *
  * @param[in] store_path the path to get the name from
  * @param[in] callback called with the name
@@ -156,7 +156,7 @@ bool nix_store_is_valid_path(nix_c_context * context, Store * store, StorePath *
  * A store may reside at a different location than its `storeDir` suggests.
  * This situation is called a relocated store.
  * Relocated stores are used during NixOS installation, as well as in restricted computing environments that don't offer
- * a writable `/nix/store`.
+ * a writable `/bsd/store`.
  *
  * Not all types of stores support this operation.
  *
@@ -177,7 +177,7 @@ nix_err nix_store_real_path(
  * Blocking, calls callback once for each realised output.
  *
  * @note When working with expressions, consider using e.g. nix_string_realise to get the output. `.drvPath` may not be
- * accurate or available in the future. See https://github.com/NixOS/nix/issues/6507
+ * accurate or available in the future. See https://github.com/NixOS/bsd/issues/6507
  *
  * @param[out] context Optional, stores error information
  * @param[in] store Nix Store reference

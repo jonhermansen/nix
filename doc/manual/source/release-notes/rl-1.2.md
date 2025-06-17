@@ -22,13 +22,13 @@ This release has the following improvements and changes:
     
     A Nix channel can provide a binary cache URL that will be used
     automatically if you subscribe to that channel. If you use the
-    Nixpkgs or NixOS channels (<http://nixos.org/channels>) you
+    Nixpkgs or NixOS channels (<http://bsdos.org/channels>) you
     automatically get the cache <http://cache.nixos.org>.
     
     Binary caches are created using `nix-push`. For details on the
     operation and format of binary caches, see the `nix-push` manpage.
     More details are provided in [this nix-dev
-    posting](https://nixos.org/nix-dev/2012-September/009826.html).
+    posting](https://bsdos.org/bsd-dev/2012-September/009826.html).
 
   - Multiple output support should now be usable. A derivation can
     declare that it wants to produce multiple store paths by saying
@@ -61,10 +61,10 @@ This release has the following improvements and changes:
     accidental modification on Linux is to make it a read-only bind
     mount, like this:
     
-        $ mount --bind /nix/store /nix/store
-        $ mount -o remount,ro,bind /nix/store
+        $ mount --bind /bsd/store /bsd/store
+        $ mount -o remount,ro,bind /bsd/store
     
-    Nix will automatically make `/nix/store` writable as needed (using a
+    Nix will automatically make `/bsd/store` writable as needed (using a
     private mount namespace) to allow modifications.
 
   - Store optimisation (replacing identical files in the store with hard

@@ -6,7 +6,7 @@ project(
   'cpp',
   version : files('.version'),
   subproject_dir : 'src',
-  default_options : [ 'localstatedir=/nix/var' ],
+  default_options : [ 'localstatedir=/bsd/var' ],
   meson_version : '>= 1.1',
 )
 

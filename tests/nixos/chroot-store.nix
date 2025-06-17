@@ -35,11 +35,11 @@ in
       # fmt: off
       start_all()
 
-      machine.succeed("nix copy --no-check-sigs --to /tmp/nix ${pkgA}")
+      machine.succeed("nix copy --no-check-sigs --to /tmp/bsd ${pkgA}")
 
-      machine.succeed("nix shell --store /tmp/nix ${pkgA} --command hello >&2")
+      machine.succeed("nix shell --store /tmp/bsd ${pkgA} --command hello >&2")
 
-      # Test that /nix/store is available via an overlayfs mount.
-      machine.succeed("nix shell --store /tmp/nix ${pkgA} --command cowsay foo >&2")
+      # Test that /bsd/store is available via an overlayfs mount.
+      machine.succeed("nix shell --store /tmp/bsd ${pkgA} --command cowsay foo >&2")
     '';
 }

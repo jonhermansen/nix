@@ -28,7 +28,7 @@ R""(
 
 # Description
 
-This command adds [_installables_](./nix.md#installables) to a Nix profile.
+This command adds [_installables_](./bsd.md#installables) to a Nix profile.
 
 > **Note**
 >

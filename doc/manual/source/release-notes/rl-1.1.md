@@ -33,11 +33,11 @@ This release has the following improvements:
                     -l` decompresses them on the fly. This can be disabled by setting
     the option `build-compress-log` to `false`.
 
-  - The creation of build logs in `/nix/var/log/nix/drvs` can be
+  - The creation of build logs in `/bsd/var/log/bsd/drvs` can be
     disabled by setting the new option `build-keep-log` to `false`. This
     is useful, for instance, for Hydra build machines.
 
-  - Nix now reserves some space in `/nix/var/nix/db/reserved` to ensure
+  - Nix now reserves some space in `/bsd/var/bsd/db/reserved` to ensure
     that the garbage collector can run successfully if the disk is full.
     This is necessary because SQLite transactions fail if the disk is
     full.

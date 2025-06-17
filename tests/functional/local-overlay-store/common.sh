@@ -56,33 +56,33 @@ setupStoreDirs () {
   storeBRoot="$storeVolume/merged-store"
   storeB="local-overlay://?root=$storeBRoot&lower-store=$storeA&upper-layer=$storeBTop"
   # Creating testing directories
-  mkdir -p "$storeVolume"/{store-a/nix/store,store-b,merged-store/nix/store,workdir}
+  mkdir -p "$storeVolume"/{store-a/bsd/store,store-b,merged-store/bsd/store,workdir}
 }
 
 # Mounting Overlay Store
 mountOverlayfs () {
   mount -t overlay overlay \
-    -o lowerdir="$storeA/nix/store" \
+    -o lowerdir="$storeA/bsd/store" \
     -o upperdir="$storeBTop" \
     -o workdir="$storeVolume/workdir" \
-    "$storeBRoot/nix/store" \
+    "$storeBRoot/bsd/store" \
     || skipTest "overlayfs is not supported"
 
   cleanupOverlay () {
-    umount -n "$storeBRoot/nix/store"
+    umount -n "$storeBRoot/bsd/store"
     rm -r $storeVolume/workdir
   }
   trap cleanupOverlay EXIT
 }
 
 remountOverlayfs () {
-  mount -o remount "$storeBRoot/nix/store"
+  mount -o remount "$storeBRoot/bsd/store"
 }
 
 toRealPath () {
   storeDir=$1; shift
   storePath=$1; shift
-  echo $storeDir$(echo $storePath | sed "s^${NIX_STORE_DIR:-/nix/store}^^")
+  echo $storeDir$(echo $storePath | sed "s^${NIX_STORE_DIR:-/bsd/store}^^")
 }
 
 initLowerStore () {

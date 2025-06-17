@@ -15,7 +15,7 @@ initLowerStore
 mountOverlayfs
 
 export NIX_REMOTE="$storeB"
-stateB="$storeBRoot/nix/var/nix"
+stateB="$storeBRoot/bsd/var/bsd"
 hermetic=$(nix-build ../hermetic.nix --no-out-link --arg busybox "$busybox" --arg withFinalRefs true --arg seed 2)
 input1=$(nix-build ../hermetic.nix --no-out-link --arg busybox "$busybox" --arg withFinalRefs true --arg seed 2 -A passthru.input1 -j0)
 input2=$(nix-build ../hermetic.nix --no-out-link --arg busybox "$busybox" --arg withFinalRefs true --arg seed 2 -A passthru.input2 -j0)

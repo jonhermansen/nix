@@ -173,7 +173,7 @@ nix flake lock "$flakeFollowsA" 2>&1 | grep "warning: input 'B' has an override 
 nix flake lock "$flakeFollowsA" 2>&1 | grep "warning: input 'B' has an override for a non-existent input 'invalid2'"
 
 # Now test follow path overloading
-# This tests a lockfile checking regression https://github.com/NixOS/nix/pull/8819
+# This tests a lockfile checking regression https://github.com/NixOS/bsd/pull/8819
 #
 # We construct the following graph, where p->q means p has input q.
 # A double edge means that the edge gets overridden using `follows`.
@@ -286,7 +286,7 @@ echo $checkRes | grep -F "error: follow cycle detected: [baz -> foo -> bar -> ba
 
 
 # Test transitive input url locking
-# This tests the following lockfile issue: https://github.com/NixOS/nix/issues/9143
+# This tests the following lockfile issue: https://github.com/NixOS/bsd/issues/9143
 #
 # We construct the following graph, where p->q means p has input q.
 #

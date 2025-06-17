@@ -9,10 +9,10 @@ TODO_NixOS
 clearStore
 
 # Intentionally not in a canonical form
-# See https://github.com/NixOS/nix/issues/6195
+# See https://github.com/NixOS/bsd/issues/6195
 repo=$TEST_ROOT/./hg
 
-rm -rf $repo ${repo}-tmp $TEST_HOME/.cache/nix
+rm -rf $repo ${repo}-tmp $TEST_HOME/.cache/bsd
 
 hg init $repo
 echo '[ui]' >> $repo/.hg/hgrc

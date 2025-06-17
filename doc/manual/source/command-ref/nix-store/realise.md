@@ -61,7 +61,7 @@ For non-derivation arguments, the argument itself is printed.
   specified derivation must already exist. When used with `-K`, if an
   output path is not identical to the corresponding output from the
   previous build, the new output path is left in
-  `/nix/store/name.check.`
+  `/bsd/store/name.check.`
 
 {{#include ./opt-common.md}}
 
@@ -72,14 +72,14 @@ For non-derivation arguments, the argument itself is printed.
 # Examples
 
 This operation is typically used to build [store derivation]s produced by
-[`nix-instantiate`](@docroot@/command-ref/nix-instantiate.md):
+[`nix-instantiate`](@docroot@/command-ref/bsd-instantiate.md):
 
 ```console
 $ nix-store --realise $(nix-instantiate ./test.nix)
-/nix/store/31axcgrlbfsxzmfff1gyj1bf62hvkby2-aterm-2.3.1
+/bsd/store/31axcgrlbfsxzmfff1gyj1bf62hvkby2-aterm-2.3.1
 ```
 
-This is essentially what [`nix-build`](@docroot@/command-ref/nix-build.md) does.
+This is essentially what [`nix-build`](@docroot@/command-ref/bsd-build.md) does.
 
 To test whether a previously-built derivation is deterministic:
 

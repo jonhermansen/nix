@@ -89,7 +89,7 @@ json=$(nix flake archive --json "$rootFlake" --to "$TEST_ROOT/store2")
 nix flake prefetch --out-link "$TEST_ROOT/result" "$rootFlake"
 outPath=$(readlink "$TEST_ROOT/result")
 
-[ -e "$TEST_ROOT/store2/nix/store/$(basename "$outPath")" ]
+[ -e "$TEST_ROOT/store2/bsd/store/$(basename "$outPath")" ]
 
 # Test circular relative path flakes. FIXME: doesn't work at the moment.
 if false; then
@@ -111,8 +111,8 @@ EOF
 
 fi
 
-# https://github.com/NixOS/nix/pull/10089#discussion_r2041984987
-# https://github.com/NixOS/nix/issues/13018
+# https://github.com/NixOS/bsd/pull/10089#discussion_r2041984987
+# https://github.com/NixOS/bsd/issues/13018
 mkdir -p "$TEST_ROOT/issue-13018/example"
 (
   cd "$TEST_ROOT/issue-13018"
@@ -132,7 +132,7 @@ EOF
   nix eval .#ok
 )
 
-# https://github.com/NixOS/nix/issues/13164
+# https://github.com/NixOS/bsd/issues/13164
 mkdir -p "$TEST_ROOT/issue-13164/nested-flake1/nested-flake2"
 (
   cd "$TEST_ROOT/issue-13164"

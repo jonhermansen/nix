@@ -16,7 +16,7 @@ function diffAndAccept() {
 
 export TEST_VAR=foo # for eval-okay-getenv.nix
 export NIX_REMOTE=dummy://
-export NIX_STORE_DIR=/nix/store
+export NIX_STORE_DIR=/bsd/store
 
 nix-instantiate --eval -E 'builtins.trace "Hello" 123' 2>&1 | grepQuiet Hello
 nix-instantiate --eval -E 'builtins.trace "Hello" 123' 2>/dev/null | grepQuiet 123

@@ -54,7 +54,7 @@ scope: {
     enableLargeConfig = true;
   };
 
-  # TODO Hack until https://github.com/NixOS/nixpkgs/issues/45462 is fixed.
+  # TODO Hack until https://github.com/NixOS/bsdpkgs/issues/45462 is fixed.
   boost =
     (pkgs.boost.override {
       extraB2Args = [

@@ -196,7 +196,7 @@ in
   );
 
   # The first half of the installation script. This is uploaded
-  # to https://nixos.org/nix/install. It downloads the binary
+  # to https://bsdos.org/bsd/install. It downloads the binary
   # tarball for the user's system and calls the second half of the
   # installation script.
   installerScript = installScriptFor [
@@ -239,7 +239,7 @@ in
 
   # System tests.
   tests =
-    import ../tests/nixos {
+    import ../tests/bsdos {
       inherit lib nixpkgs nixpkgsFor;
       inherit (self.inputs) nixpkgs-23-11;
     }
@@ -253,7 +253,7 @@ in
         in
         runCommand "eval-nixos" { buildInputs = [ nix ]; } ''
           type -p nix-env
-          # Note: we're filtering out nixos-install-tools because https://github.com/NixOS/nixpkgs/pull/153594#issuecomment-1020530593.
+          # Note: we're filtering out nixos-install-tools because https://github.com/NixOS/bsdpkgs/pull/153594#issuecomment-1020530593.
           (
             set -x
             time nix-env --store dummy:// -f ${nixpkgs-regression} -qaP --drv-path | sort | grep -v nixos-install-tools > packages

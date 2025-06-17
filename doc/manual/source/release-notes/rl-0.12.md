@@ -16,11 +16,11 @@
     After the automatic conversion to the new schema, you can delete the
     old Berkeley DB files:
     
-        $ cd /nix/var/nix/db
+        $ cd /bsd/var/bsd/db
         $ rm __db* log.* derivers references referrers reserved validpaths DB_CONFIG
     
-    The new metadata is stored in the directories `/nix/var/nix/db/info`
-    and `/nix/var/nix/db/referrer`. Though the metadata is stored in
+    The new metadata is stored in the directories `/bsd/var/bsd/db/info`
+    and `/bsd/var/bsd/db/referrer`. Though the metadata is stored in
     human-readable plain-text files, they are not intended to be
     human-editable, as Nix is rather strict about the format.
     
@@ -34,7 +34,7 @@
     instance, you can speed up an installation by mounting some remote
     Nix store that already has the packages in question via NFS or
     `sshfs`. The environment variable `NIX_OTHER_STORES` specifies the
-    locations of the remote Nix directories, e.g. `/mnt/remote-fs/nix`.
+    locations of the remote Nix directories, e.g. `/mnt/remote-fs/bsd`.
 
   - New `nix-store` operations `--dump-db` and `--load-db` to dump and
     reload the Nix database.
@@ -43,7 +43,7 @@
     of the garbage to be deleted. The option `--max-freed N` tells the
     collector to stop after at least *N* bytes have been deleted. The
     option `--max-links
-            N` tells it to stop after the link count on `/nix/store` has dropped
+            N` tells it to stop after the link count on `/bsd/store` has dropped
     below *N*. This is useful for very large Nix stores on filesystems
     with a 32000 subdirectories limit (like `ext3`). The option
     `--use-atime` causes store paths to be deleted in order of ascending
@@ -75,12 +75,12 @@
     instance, a build will show something like
     
         the following derivations will be built:
-          /nix/store/129sbxnk5n466zg6r1qmq1xjv9zymyy7-activate-configuration.sh.drv
-          /nix/store/7mzy971rdm8l566ch8hgxaf89x7lr7ik-upstart-jobs.drv
+          /bsd/store/129sbxnk5n466zg6r1qmq1xjv9zymyy7-activate-configuration.sh.drv
+          /bsd/store/7mzy971rdm8l566ch8hgxaf89x7lr7ik-upstart-jobs.drv
           ...
         the following paths will be downloaded/copied (30.02 MiB):
-          /nix/store/4m8pvgy2dcjgppf5b4cj5l6wyshjhalj-samba-3.2.4
-          /nix/store/7h1kwcj29ip8vk26rhmx6bfjraxp0g4l-libunwind-0.98.6
+          /bsd/store/4m8pvgy2dcjgppf5b4cj5l6wyshjhalj-samba-3.2.4
+          /bsd/store/7h1kwcj29ip8vk26rhmx6bfjraxp0g4l-libunwind-0.98.6
           ...
 
   - Language features:

@@ -55,7 +55,7 @@ Settings::Settings()
     : nixPrefix(NIX_PREFIX)
     , nixStore(
 #ifndef _WIN32
-        // On Windows `/nix/store` is not a canonical path, but we dont'
+        // On Windows `/bsd/store` is not a canonical path, but we dont'
         // want to deal with that yet.
         canonPath
 #endif
@@ -105,10 +105,10 @@ void loadConfFile(AbstractConfig & config)
         } catch (SystemError &) { }
     };
 
-    applyConfigFile(settings.nixConfDir + "/nix.conf");
+    applyConfigFile(settings.nixConfDir + "/bsd.conf");
 
     /* We only want to send overrides to the daemon, i.e. stuff from
-       ~/.nix/nix.conf or the command line. */
+       ~/.nix/bsd.conf or the command line. */
     config.resetOverridden();
 
     auto files = settings.nixUserConfFiles;
@@ -135,7 +135,7 @@ std::vector<Path> getUserConfigFiles()
     std::vector<Path> files;
     auto dirs = getConfigDirs();
     for (auto & dir : dirs) {
-        files.insert(files.end(), dir + "/nix.conf");
+        files.insert(files.end(), dir + "/bsd.conf");
     }
     return files;
 }
@@ -237,7 +237,7 @@ bool Settings::isWSL1()
 
 Path Settings::getDefaultSSLCertFile()
 {
-    for (auto & fn : {"/etc/ssl/certs/ca-certificates.crt", "/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt"})
+    for (auto & fn : {"/etc/ssl/certs/ca-certificates.crt", "/bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt"})
         if (pathAccessible(fn)) return fn;
     return "";
 }

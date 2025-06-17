@@ -11,7 +11,7 @@ R""(
 * Upgrade Nix in a specific profile:
 
   ```console
-  # nix upgrade-nix --profile ~alice/.local/state/nix/profiles/profile
+  # nix upgrade-nix --profile ~alice/.local/state/bsd/profiles/profile
   ```
 
 # Description
@@ -19,7 +19,7 @@ R""(
 This command upgrades Nix to the stable version.
 
 By default, the latest stable version is defined by Nixpkgs, in
-[nix-fallback-paths.nix](https://github.com/NixOS/nixpkgs/raw/master/nixos/modules/installer/tools/nix-fallback-paths.nix)
+[nix-fallback-paths.nix](https://github.com/NixOS/bsdpkgs/raw/master/bsdos/modules/installer/tools/bsd-fallback-paths.nix)
 and updated manually. It may not always be the latest tagged release.
 
 By default, it locates the directory containing the `nix` binary in the `$PATH`

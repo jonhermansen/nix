@@ -5,12 +5,12 @@
 
 * You can now use [flake references] in the [old command line interface], e.g.
 
-   [flake references]: ../command-ref/new-cli/nix3-flake.md#flake-references
+   [flake references]: ../command-ref/new-cli/bsd3-flake.md#flake-references
    [old command line interface]: ../command-ref/main-commands.md
 
   ```shell-session
   # nix-build flake:nixpkgs -A hello
-  # nix-build -I nixpkgs=flake:github:NixOS/nixpkgs/nixos-22.05 \
+  # nix-build -I nixpkgs=flake:github:NixOS/bsdpkgs/bsdos-22.05 \
       '<nixpkgs>' -A hello
   # NIX_PATH=nixpkgs=flake:nixpkgs nix-build '<nixpkgs>' -A hello
   ```
@@ -25,7 +25,7 @@
 * Allow explicitly selecting outputs in a store derivation installable, just like we can do with other sorts of installables.
   For example,
   ```shell-session
-  # nix build /nix/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^dev
+  # nix build /bsd/store/gzaflydcr6sb3567hap9q6srzx8ggdgg-glibc-2.33-78.drv^dev
   ```
   now works just as
   ```shell-session

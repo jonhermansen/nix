@@ -48,7 +48,7 @@ sources = files(
   'url-name.cc',
 )
 
-subdir('include/nix/flake')
+subdir('include/bsd/flake')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

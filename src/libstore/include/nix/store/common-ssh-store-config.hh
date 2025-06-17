@@ -26,7 +26,7 @@ struct CommonSSHStoreConfig : virtual StoreConfig
         R"(
           [Store URL](@docroot@/store/types/index.md#store-url-format)
           to be used on the remote machine. The default is `auto`
-          (i.e. use the Nix daemon or `/nix/store` directly).
+          (i.e. use the Nix daemon or `/bsd/store` directly).
         )"};
 
     /**

@@ -9,30 +9,30 @@ database schema of previous installations when it is first run.
 
 If you get the error message
 
-    you have an old-style manifest `/nix/var/nix/manifests/[...]'; please
+    you have an old-style manifest `/bsd/var/bsd/manifests/[...]'; please
     delete it
 
 you should delete previously downloaded manifests:
 
-    $ rm /nix/var/nix/manifests/*
+    $ rm /bsd/var/bsd/manifests/*
 
 If `nix-channel` gives the error message
 
-    manifest `http://catamaran.labs.cs.uu.nl/dist/nix/channels/[channel]/MANIFEST'
+    manifest `http://catamaran.labs.cs.uu.nl/dist/bsd/channels/[channel]/MANIFEST'
     is too old (i.e., for Nix <= 0.7)
 
 then you should unsubscribe from the offending channel (`nix-channel
 --remove
 URL`; leave out `/MANIFEST`), and subscribe to the same URL, with
 `channels` replaced by `channels-v3` (e.g.,
-<http://catamaran.labs.cs.uu.nl/dist/nix/channels-v3/nixpkgs-unstable>).
+<http://catamaran.labs.cs.uu.nl/dist/bsd/channels-v3/bsdpkgs-unstable>).
 
 Nix 0.8 has the following improvements:
 
   - The cryptographic hashes used in store paths are now 160 bits long,
     but encoded in base-32 so that they are still only 32 characters
     long (e.g.,
-    `/nix/store/csw87wag8bqlqk7ipllbwypb14xainap-atk-1.9.0`). (This is
+    `/bsd/store/csw87wag8bqlqk7ipllbwypb14xainap-atk-1.9.0`). (This is
     actually a 160 bit truncation of a SHA-256 hash.)
 
   - Big cleanups and simplifications of the basic store semantics. The
@@ -49,7 +49,7 @@ Nix 0.8 has the following improvements:
     built it (the “deriver”):
 
         $ nix-store -qR $(which firefox)
-        /nix/store/4b0jx7vq80l9aqcnkszxhymsf1ffa5jd-firefox-1.0.1.drv
+        /bsd/store/4b0jx7vq80l9aqcnkszxhymsf1ffa5jd-firefox-1.0.1.drv
 
     So to see the build-time dependencies, you can do
 
@@ -63,7 +63,7 @@ Nix 0.8 has the following improvements:
     can query all paths that directly or indirectly use a certain Glibc:
 
         $ nix-store -q --referrers-closure \
-            /nix/store/8lz9yc6zgmc0vlqmn2ipcpkjlmbi51vv-glibc-2.3.4
+            /bsd/store/8lz9yc6zgmc0vlqmn2ipcpkjlmbi51vv-glibc-2.3.4
 
   - The concept of fixed-output derivations has been formalised.
     Previously, functions such as `fetchurl` in Nixpkgs used a hack
@@ -77,9 +77,9 @@ Nix 0.8 has the following improvements:
 
   - One-click installation :-) It is now possible to install any
     top-level component in Nixpkgs directly, through the web — see,
-    e.g., <http://catamaran.labs.cs.uu.nl/dist/nixpkgs-0.8/>. All you
-    have to do is associate `/nix/bin/nix-install-package` with the MIME
-    type `application/nix-package` (or the extension `.nixpkg`), and
+    e.g., <http://catamaran.labs.cs.uu.nl/dist/bsdpkgs-0.8/>. All you
+    have to do is associate `/bsd/bin/bsd-install-package` with the MIME
+    type `application/bsd-package` (or the extension `.nixpkg`), and
     clicking on a package link will cause it to be installed, with all
     appropriate dependencies. If you just want to install some specific
     application, this is easier than subscribing to a channel.
@@ -100,14 +100,14 @@ Nix 0.8 has the following improvements:
       - Install a store derivation directly (bypassing the Nix
         expression language entirely):
 
-            $ nix-env -i /nix/store/z58v41v21xd3...-aterm-2.3.1.drv
+            $ nix-env -i /bsd/store/z58v41v21xd3...-aterm-2.3.1.drv
 
         (This is used to implement `nix-install-package`, which is
         therefore immune to evolution in the Nix expression language.)
 
       - Install an already built store path directly:
 
-            $ nix-env -i /nix/store/hsyj5pbn0d9i...-aterm-2.3.1
+            $ nix-env -i /bsd/store/hsyj5pbn0d9i...-aterm-2.3.1
 
       - Install the result of a Nix expression specified as a
         command-line argument:
@@ -146,7 +146,7 @@ Nix 0.8 has the following improvements:
     automatically.
 
   - The behaviour of the garbage collector can be changed globally by
-    setting options in `/nix/etc/nix/nix.conf`.
+    setting options in `/bsd/etc/bsd/bsd.conf`.
 
       - `gc-keep-derivations` specifies whether deriver links should be
         followed when searching for live paths.

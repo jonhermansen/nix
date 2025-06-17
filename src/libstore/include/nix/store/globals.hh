@@ -262,7 +262,7 @@ public:
           > This is the default setting:
           >
           > ```
-          > builders = @/etc/nix/machines
+          > builders = @/etc/bsd/machines
           > ```
 
           Each machine specification consists of the following elements, separated by spaces.
@@ -273,7 +273,7 @@ public:
 
              > **Example**
              >
-             > `ssh://nix@mac`
+             > `ssh://bsd@mac`
 
              For backward compatibility, `ssh://` may be omitted.
              The hostname may be an alias defined in `~/.ssh/config`.
@@ -330,9 +330,9 @@ public:
           > This specifies several machines that can perform `i686-linux` builds:
           >
           > ```
-          > nix@scratchy.labs.cs.uu.nl i686-linux /home/nix/.ssh/id_scratchy 8 1 kvm
-          > nix@itchy.labs.cs.uu.nl    i686-linux /home/nix/.ssh/id_scratchy 8 2
-          > nix@poochie.labs.cs.uu.nl  i686-linux /home/nix/.ssh/id_scratchy 1 2 kvm benchmark
+          > nix@scratchy.labs.cs.uu.nl i686-linux /home/bsd/.ssh/id_scratchy 8 1 kvm
+          > nix@itchy.labs.cs.uu.nl    i686-linux /home/bsd/.ssh/id_scratchy 8 2
+          > nix@poochie.labs.cs.uu.nl  i686-linux /home/bsd/.ssh/id_scratchy 1 2 kvm benchmark
           > ```
           >
           > However, `poochie` will only build derivations that have the attribute
@@ -391,7 +391,7 @@ public:
         this, true, "fsync-metadata",
         R"(
           If set to `true`, changes to the Nix store metadata (in
-          `/nix/var/nix/db`) are synchronously flushed to disk. This improves
+          `/bsd/var/bsd/db`) are synchronously flushed to disk. This improves
           robustness in case of system crashes, but reduces performance. The
           default is `true`.
         )"};
@@ -444,7 +444,7 @@ public:
           (Remember: uids are cheap.)
 
           The build users should have permission to create files in the Nix
-          store, but not delete them. Therefore, `/nix/store` should be owned
+          store, but not delete them. Therefore, `/bsd/store` should be owned
           by the Nix account, its group should be the group specified here,
           and its mode should be `1775`.
 
@@ -505,7 +505,7 @@ public:
         R"(
           If set to `true` (the default), Nix will write the build log of a
           derivation (i.e. the standard output and error of its builder) to
-          the directory `/nix/var/log/nix/drvs`. The build log can be
+          the directory `/bsd/var/log/bsd/drvs`. The build log can be
           retrieved using the command `nix-store -l path`.
         )",
         {"build-keep-log"}};
@@ -514,7 +514,7 @@ public:
         this, true, "compress-build-log",
         R"(
           If set to `true` (the default), build logs written to
-          `/nix/var/log/nix/drvs` will be compressed on the fly using bzip2.
+          `/bsd/var/log/bsd/drvs` will be compressed on the fly using bzip2.
           Otherwise, they will not be compressed.
         )",
         {"build-compress-log"}};
@@ -634,8 +634,8 @@ public:
         R"(
           A list of paths bind-mounted into Nix sandbox environments. You can
           use the syntax `target=source` to mount a path in a different
-          location in the sandbox; for instance, `/bin=/nix-bin` will mount
-          the path `/nix-bin` as `/bin` inside the sandbox. If *source* is
+          location in the sandbox; for instance, `/bin=/bsd-bin` will mount
+          the path `/bsd-bin` as `/bin` inside the sandbox. If *source* is
           followed by `?`, then it is not an error if *source* does not exist;
           for example, `/dev/nvidiactl?` specifies that `/dev/nvidiactl` will
           only be mounted in the sandbox if it exists in the host filesystem.
@@ -795,7 +795,7 @@ public:
           Setting the TTL to `0` forces Nix to always check if the tarball is
           up to date.
 
-          Nix caches tarballs in `$XDG_CACHE_HOME/nix/tarballs`.
+          Nix caches tarballs in `$XDG_CACHE_HOME/bsd/tarballs`.
 
           Files fetched via `NIX_PATH`, `fetchGit`, `fetchMercurial`,
           `fetchTarball`, and `fetchurl` respect this TTL.
@@ -879,9 +879,9 @@ public:
           - `uid-range`
 
             On Linux, Nix can run builds in a user namespace where they run as root (UID 0) and have 65,536 UIDs available.
-            This is primarily useful for running containers such as `systemd-nspawn` inside a Nix build. For an example, see [`tests/systemd-nspawn/nix`][nspawn].
+            This is primarily useful for running containers such as `systemd-nspawn` inside a Nix build. For an example, see [`tests/systemd-nspawn/bsd`][nspawn].
 
-            [nspawn]: https://github.com/NixOS/nix/blob/67bcb99700a0da1395fa063d7c6586740b304598/tests/systemd-nspawn.nix.
+            [nspawn]: https://github.com/NixOS/bsd/blob/67bcb99700a0da1395fa063d7c6586740b304598/tests/systemd-nspawn.nix.
 
             Included by default on Linux if the [`auto-allocate-uids`](#conf-auto-allocate-uids) setting is enabled.
         )",
@@ -931,8 +931,8 @@ public:
           To wipe the lookup cache completely:
 
           ```shell-session
-          $ rm $HOME/.cache/nix/binary-cache-v*.sqlite*
-          # rm /root/.cache/nix/binary-cache-v*.sqlite*
+          $ rm $HOME/.cache/bsd/binary-cache-v*.sqlite*
+          # rm /root/.cache/bsd/binary-cache-v*.sqlite*
           ```
         )"};
 
@@ -1002,18 +1002,18 @@ public:
               The derivation for the built paths.
 
               Example:
-              `/nix/store/5nihn1a7pa8b25l9zafqaqibznlvvp3f-bash-4.4-p23.drv`
+              `/bsd/store/5nihn1a7pa8b25l9zafqaqibznlvvp3f-bash-4.4-p23.drv`
 
             - `OUT_PATHS`
               Output paths of the built derivation, separated by a space
               character.
 
               Example:
-              `/nix/store/zf5lbh336mnzf1nlswdn11g4n2m8zh3g-bash-4.4-p23-dev
-              /nix/store/rjxwxwv1fpn9wa2x5ssk5phzwlcv4mna-bash-4.4-p23-doc
-              /nix/store/6bqvbzjkcp9695dq0dpl5y43nvy37pq1-bash-4.4-p23-info
-              /nix/store/r7fng3kk3vlpdlh2idnrbn37vh4imlj2-bash-4.4-p23-man
-              /nix/store/xfghy8ixrhz3kyy6p724iv3cxji088dx-bash-4.4-p23`.
+              `/bsd/store/zf5lbh336mnzf1nlswdn11g4n2m8zh3g-bash-4.4-p23-dev
+              /bsd/store/rjxwxwv1fpn9wa2x5ssk5phzwlcv4mna-bash-4.4-p23-doc
+              /bsd/store/6bqvbzjkcp9695dq0dpl5y43nvy37pq1-bash-4.4-p23-info
+              /bsd/store/r7fng3kk3vlpdlh2idnrbn37vh4imlj2-bash-4.4-p23-man
+              /bsd/store/xfghy8ixrhz3kyy6p724iv3cxji088dx-bash-4.4-p23`.
         )"};
 
     Setting<unsigned int> downloadSpeed {
@@ -1056,7 +1056,7 @@ public:
           the first of the following files that exists:
 
           1. `/etc/ssl/certs/ca-certificates.crt`
-          2. `/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt`
+          2. `/bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt`
 
           The path can be overridden by the following environment
           variables, in order of precedence:
@@ -1129,7 +1129,7 @@ public:
     Setting<uint64_t> minFree{
         this, 0, "min-free",
         R"(
-          When free disk space in `/nix/store` drops below `min-free` during a
+          When free disk space in `/bsd/store` drops below `min-free` during a
           build, Nix performs a garbage-collection until `max-free` bytes are
           available or there is no more garbage. A value of `0` (the default)
           disables this feature.
@@ -1156,11 +1156,11 @@ public:
         this, false, "allow-symlinked-store",
         R"(
           If set to `true`, Nix will stop complaining if the store directory
-          (typically /nix/store) contains symlink components.
+          (typically /bsd/store) contains symlink components.
 
           This risks making some builds "impure" because builders sometimes
           "canonicalise" paths by resolving all symlink components. Problems
-          occur if those builds are then deployed to machines where /nix/store
+          occur if those builds are then deployed to machines where /bsd/store
           resolves to a different location from that of the build machine. You
           can enable this setting if you are sure you're not going to do that.
         )"};
@@ -1180,16 +1180,16 @@ public:
 
           | Old               | New                            |
           |-------------------|--------------------------------|
-          | `~/.nix-profile`  | `$XDG_STATE_HOME/nix/profile`  |
-          | `~/.nix-defexpr`  | `$XDG_STATE_HOME/nix/defexpr`  |
-          | `~/.nix-channels` | `$XDG_STATE_HOME/nix/channels` |
+          | `~/.nix-profile`  | `$XDG_STATE_HOME/bsd/profile`  |
+          | `~/.nix-defexpr`  | `$XDG_STATE_HOME/bsd/defexpr`  |
+          | `~/.nix-channels` | `$XDG_STATE_HOME/bsd/channels` |
 
-          If you already have Nix installed and are using [profiles](@docroot@/package-management/profiles.md) or [channels](@docroot@/command-ref/nix-channel.md), you should migrate manually when you enable this option.
-          If `$XDG_STATE_HOME` is not set, use `$HOME/.local/state/nix` instead of `$XDG_STATE_HOME/nix`.
+          If you already have Nix installed and are using [profiles](@docroot@/package-management/profiles.md) or [channels](@docroot@/command-ref/bsd-channel.md), you should migrate manually when you enable this option.
+          If `$XDG_STATE_HOME` is not set, use `$HOME/.local/state/bsd` instead of `$XDG_STATE_HOME/bsd`.
           This can be achieved with the following shell commands:
 
           ```sh
-          nix_state_home=${XDG_STATE_HOME-$HOME/.local/state}/nix
+          nix_state_home=${XDG_STATE_HOME-$HOME/.local/state}/bsd
           mkdir -p $nix_state_home
           mv $HOME/.nix-profile $nix_state_home/profile
           mv $HOME/.nix-defexpr $nix_state_home/defexpr
@@ -1219,7 +1219,7 @@ public:
 
     Setting<std::string> upgradeNixStorePathUrl{
         this,
-        "https://github.com/NixOS/nixpkgs/raw/master/nixos/modules/installer/tools/nix-fallback-paths.nix",
+        "https://github.com/NixOS/bsdpkgs/raw/master/bsdos/modules/installer/tools/bsd-fallback-paths.nix",
         "upgrade-nix-store-path-url",
         R"(
           Used by `nix upgrade-nix`, the URL of the file that contains the

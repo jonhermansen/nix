@@ -19,17 +19,17 @@ R""(
 
 > **Warning**
 >
-> Once you have used [`nix profile`] you can no longer use [`nix-env`] without first deleting `$XDG_STATE_HOME/nix/profiles/profile`
+> Once you have used [`nix profile`] you can no longer use [`nix-env`] without first deleting `$XDG_STATE_HOME/bsd/profiles/profile`
 
-[`nix-env`]: @docroot@/command-ref/nix-env.md
-[`nix profile`]: @docroot@/command-ref/new-cli/nix3-profile.md
+[`nix-env`]: @docroot@/command-ref/bsd-env.md
+[`nix profile`]: @docroot@/command-ref/new-cli/bsd3-profile.md
 
 Once you installed a package with [`nix profile`], you get the following error message when using [`nix-env`]:
 
 ```console
 $ nix-env -f '<nixpkgs>' -iA 'hello'
 error: nix-env
-profile '/home/alice/.local/state/nix/profiles/profile' is incompatible with 'nix-env'; please use 'nix profile' instead
+profile '/home/alice/.local/state/bsd/profiles/profile' is incompatible with 'nix-env'; please use 'nix profile' instead
 ```
 
 To migrate back to `nix-env` you can delete your current profile:
@@ -39,7 +39,7 @@ To migrate back to `nix-env` you can delete your current profile:
 > This will delete packages that have been installed before, so you may want to back up this information before running the command.
 
 ```console
- $ rm -rf "${XDG_STATE_HOME-$HOME/.local/state}/nix/profiles/profile"
+ $ rm -rf "${XDG_STATE_HOME-$HOME/.local/state}/bsd/profiles/profile"
 ```
 
 )""

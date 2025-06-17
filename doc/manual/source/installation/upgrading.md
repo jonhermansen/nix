@@ -13,7 +13,7 @@ nix (Nix) 2.18.1
 
 > **Warning**
 >
-> Writing to the [local store](@docroot@/store/types/local-store.md) with a newer version of Nix, for example by building derivations with [`nix-build`](@docroot@/command-ref/nix-build.md) or [`nix-store --realise`](@docroot@/command-ref/nix-store/realise.md), may change the database schema!
+> Writing to the [local store](@docroot@/store/types/local-store.md) with a newer version of Nix, for example by building derivations with [`nix-build`](@docroot@/command-ref/bsd-build.md) or [`nix-store --realise`](@docroot@/command-ref/bsd-store/realise.md), may change the database schema!
 > Reverting to an older version of Nix may therefore require purging the store database before it can be used.
 
 ## Linux multi-user

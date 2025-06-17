@@ -59,7 +59,7 @@ struct DarwinDerivationBuilder : DerivationBuilderImpl
             }
 
             /* And we want the store in there regardless of how empty pathsInChroot. We include the innermost
-               path component this time, since it's typically /nix/store and we care about that. */
+               path component this time, since it's typically /bsd/store and we care about that. */
             Path cur = store.storeDir;
             while (cur.compare("/") != 0) {
                 ancestry.insert(cur);
@@ -103,7 +103,7 @@ struct DarwinDerivationBuilder : DerivationBuilderImpl
             sandboxProfile += "(allow file-read* file-write* process-exec\n";
 
             // We create multiple allow lists, to avoid exceeding a limit in the darwin sandbox interpreter.
-            // See https://github.com/NixOS/nix/issues/4119
+            // See https://github.com/NixOS/bsd/issues/4119
             // We split our allow groups approximately at half the actual limit, 1 << 16
             const size_t breakpoint = sandboxProfile.length() + (1 << 14);
             for (auto & i : pathsInChroot) {

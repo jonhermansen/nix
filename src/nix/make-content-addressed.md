@@ -7,22 +7,22 @@ R""(
   ```console
   # nix store make-content-addressed nixpkgs#hello
   …
-  rewrote '/nix/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10' to '/nix/store/5skmmcb9svys5lj3kbsrjg7vf2irid63-hello-2.10'
+  rewrote '/bsd/store/v5sv61sszx301i0x6xysaqzla09nksnd-hello-2.10' to '/bsd/store/5skmmcb9svys5lj3kbsrjg7vf2irid63-hello-2.10'
   ```
 
   Since the resulting paths are content-addressed, they are always
   trusted and don't need signatures to copied to another store:
 
   ```console
-  # nix copy --to /tmp/nix --trusted-public-keys '' /nix/store/5skmmcb9svys5lj3kbsrjg7vf2irid63-hello-2.10
+  # nix copy --to /tmp/bsd --trusted-public-keys '' /bsd/store/5skmmcb9svys5lj3kbsrjg7vf2irid63-hello-2.10
   ```
 
   By contrast, the original closure is input-addressed, so it does
   need signatures to be trusted:
 
   ```console
-  # nix copy --to /tmp/nix --trusted-public-keys '' nixpkgs#hello
-  cannot add path '/nix/store/zy9wbxwcygrwnh8n2w9qbbcr6zk87m26-libunistring-0.9.10' because it lacks a signature by a trusted key
+  # nix copy --to /tmp/bsd --trusted-public-keys '' nixpkgs#hello
+  cannot add path '/bsd/store/zy9wbxwcygrwnh8n2w9qbbcr6zk87m26-libunistring-0.9.10' because it lacks a signature by a trusted key
   ```
 
 * Create a content-addressed representation of the current NixOS
@@ -35,7 +35,7 @@ R""(
 # Description
 
 This command converts the closure of the store paths specified by
-[*installables*](./nix.md#installables) to content-addressed form.
+[*installables*](./bsd.md#installables) to content-addressed form.
 
 Nix store paths are usually
 *input-addressed*, meaning that the hash part of the store path is
@@ -51,7 +51,7 @@ be verified without any additional information such as
 signatures. This means that a command like
 
 ```console
-# nix store build /nix/store/5skmmcb9svys5lj3kbsrjg7vf2irid63-hello-2.10 \
+# nix store build /bsd/store/5skmmcb9svys5lj3kbsrjg7vf2irid63-hello-2.10 \
     --substituters https://my-cache.example.org
 ```
 

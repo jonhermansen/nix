@@ -22,12 +22,12 @@ $ nix-serve -p 8080
 To check whether it works, try the following on the client:
 
 ```console
-$ curl http://avalon:8080/nix-cache-info
+$ curl http://avalon:8080/bsd-cache-info
 ```
 
 which should print something like:
 
-    StoreDir: /nix/store
+    StoreDir: /bsd/store
     WantMassQuery: 1
     Priority: 30
 

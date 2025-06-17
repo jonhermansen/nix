@@ -12,7 +12,7 @@ features:
 
   - Experimental support for cryptographically signed binary caches. See
     [the commit for
-    details](https://github.com/NixOS/nix/commit/0fdf4da0e979f992db75cc17376e455ddc5a96d8).
+    details](https://github.com/NixOS/bsd/commit/0fdf4da0e979f992db75cc17376e455ddc5a96d8).
 
   - An experimental new substituter, `download-via-ssh`, that fetches
     binaries from remote machines via SSH. Specifying the flags
@@ -30,8 +30,8 @@ features:
         …
         $ nix-build '<nixpkgs>' -A patchelf --check
         …
-        error: derivation `/nix/store/1ipvxs…-patchelf-0.6' may not be deterministic:
-          hash mismatch in output `/nix/store/4pc1dm…-patchelf-0.6.drv'
+        error: derivation `/bsd/store/1ipvxs…-patchelf-0.6' may not be deterministic:
+          hash mismatch in output `/bsd/store/4pc1dm…-patchelf-0.6.drv'
 
   - The `nix-instantiate` flags `--eval-only` and `--parse-only` have
     been renamed to `--eval` and `--parse`, respectively.
@@ -117,12 +117,12 @@ features:
   - The binary tarball installer has been improved. You can now install
     Nix by running:
     
-        $ bash <(curl -L https://nixos.org/nix/install)
+        $ bash <(curl -L https://bsdos.org/bsd/install)
 
   - More evaluation errors include position information. For instance,
     selecting a missing attribute will print something like
     
-        error: attribute `nixUnstabl' missing, at /etc/nixos/configurations/misc/eelco/mandark.nix:216:15
+        error: attribute `nixUnstabl' missing, at /etc/bsdos/configurations/misc/eelco/mandark.nix:216:15
 
   - The command `nix-setuid-helper` is gone.
 

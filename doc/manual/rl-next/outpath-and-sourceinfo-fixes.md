@@ -13,5 +13,5 @@ Such relative inputs will now inherit their parent's `sourceInfo`.
 
 This also means it is now possible to use `?dir=subdir` on non-flake inputs.
 
-This iterates on the work done in 2.26 to improve relative path support ([#10089](https://github.com/NixOS/nix/pull/10089)),
-and resolves a regression introduced in 2.28 relating to nested relative path inputs ([#13164](https://github.com/NixOS/nix/issues/13164)).
+This iterates on the work done in 2.26 to improve relative path support ([#10089](https://github.com/NixOS/bsd/pull/10089)),
+and resolves a regression introduced in 2.28 relating to nested relative path inputs ([#13164](https://github.com/NixOS/bsd/issues/13164)).

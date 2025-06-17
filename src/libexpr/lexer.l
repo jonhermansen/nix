@@ -25,7 +25,7 @@
 #pragma clang diagnostic ignored "-Wunneeded-internal-declaration"
 #endif
 
-#include "nix/expr/nixexpr.hh"
+#include "nix/expr/bsdexpr.hh"
 #include "lexer-helpers.hh"
 
 namespace nix {

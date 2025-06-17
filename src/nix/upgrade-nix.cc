@@ -82,7 +82,7 @@ struct CmdUpgradeNix : MixDryRun, StoreCommand
 
         {
             Activity act(*logger, lvlInfo, actUnknown, fmt("verifying that '%s' works...", store->printStorePath(storePath)));
-            auto program = store->printStorePath(storePath) + "/bin/nix-env";
+            auto program = store->printStorePath(storePath) + "/bin/bsd-env";
             auto s = runProgram(program, false, {"--version"});
             if (s.find("Nix") == std::string::npos)
                 throw Error("could not verify that '%s' works", program);
@@ -117,7 +117,7 @@ struct CmdUpgradeNix : MixDryRun, StoreCommand
 
         auto profileDir = where.parent_path();
 
-        // Resolve profile to /nix/var/nix/profiles/<name> link.
+        // Resolve profile to /bsd/var/bsd/profiles/<name> link.
         while (canonPath(profileDir.string()).find("/profiles/") == std::string::npos && std::filesystem::is_symlink(profileDir))
             profileDir = readLink(profileDir.string());
 

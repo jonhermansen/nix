@@ -5,7 +5,7 @@
 #include "nix_api_expr.h"
 #include "nix_api_value.h"
 
-#include "nix/expr/tests/nix_api_expr.hh"
+#include "nix/expr/tests/bsd_api_expr.hh"
 #include "nix/util/tests/string_callback.hh"
 #include "nix/util/file-system.hh"
 
@@ -118,7 +118,7 @@ TEST_F(nix_api_expr_test, nix_build_drv)
     ASSERT_EQ(pEnd, p.substr(p.size() - pEnd.size()));
 
     // NOTE: .drvPath should be usually be ignored. Output paths are more versatile.
-    //       See https://github.com/NixOS/nix/issues/6507
+    //       See https://github.com/NixOS/bsd/issues/6507
     //       Use e.g. nix_string_realise to realise the output.
     StorePath * drvStorePath = nix_store_parse_path(ctx, store, drvPath.c_str());
     ASSERT_EQ(true, nix_store_is_valid_path(ctx, store, drvStorePath));

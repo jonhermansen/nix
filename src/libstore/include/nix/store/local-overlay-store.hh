@@ -20,8 +20,8 @@ struct LocalOverlayStoreConfig : virtual LocalStoreConfig
 
     const Setting<std::string> lowerStoreUri{(StoreConfig*) this, "", "lower-store",
         R"(
-          [Store URL](@docroot@/command-ref/new-cli/nix3-help-stores.md#store-url-format)
-          for the lower store. The default is `auto` (i.e. use the Nix daemon or `/nix/store` directly).
+          [Store URL](@docroot@/command-ref/new-cli/bsd3-help-stores.md#store-url-format)
+          for the lower store. The default is `auto` (i.e. use the Nix daemon or `/bsd/store` directly).
 
           Must be a store with a store dir on the file system.
           Must be used as OverlayFS lower layer for this store's store dir.

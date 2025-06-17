@@ -1,5 +1,5 @@
 # This is for backwards compatibility, not because we like it.
-# See https://github.com/NixOS/nix/issues/9020.
+# See https://github.com/NixOS/bsd/issues/9020.
 {
   a = rec {
     b = c + 1;

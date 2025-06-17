@@ -64,7 +64,7 @@ deleted.
 
 There is also a convenient little utility `nix-collect-garbage`, which
 when invoked with the `-d` (`--delete-old`) switch deletes all old
-generations of all profiles in `/nix/var/nix/profiles`. So
+generations of all profiles in `/bsd/var/bsd/profiles`. So
 
 ```console
 $ nix-collect-garbage -d

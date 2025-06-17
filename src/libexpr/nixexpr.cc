@@ -1,4 +1,4 @@
-#include "nix/expr/nixexpr.hh"
+#include "nix/expr/bsdexpr.hh"
 #include "nix/expr/eval.hh"
 #include "nix/expr/symbol-table.hh"
 #include "nix/util/util.hh"
@@ -635,7 +635,7 @@ std::string DocComment::getInnerText(const PosTable & positions) const {
  * In parser.y, every use of expr_select in a production must call one of the
  * two below functions.
  *
- * To be removed by https://github.com/NixOS/nix/pull/11121
+ * To be removed by https://github.com/NixOS/bsd/pull/11121
  */
 
 void ExprCall::resetCursedOr()
@@ -651,7 +651,7 @@ void ExprCall::warnIfCursedOr(const SymbolTable & symbols, const PosTable & posi
                "This expression uses `or` as an identifier in a way that will change in a future Nix release.\n"
                "Wrap this entire expression in parentheses to preserve its current meaning:\n"
                "    (" << positions[pos].getSnippetUpTo(positions[*cursedOrEndPos]).value_or("could not read expression") << ")\n"
-               "Give feedback at https://github.com/NixOS/nix/pull/11121";
+               "Give feedback at https://github.com/NixOS/bsd/pull/11121";
         warn(out.str());
     }
 }

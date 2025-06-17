@@ -30,7 +30,7 @@ lowerInode=$(stat -c %i "$storeA/$lowerPath")
 nix-store --store "$storeB&remount-hook=$PWD/remount.sh" --delete "$upperPath"
 
 # Check there is no longer a file in upper layer
-expect 1 stat "$storeBTop/${upperPath##/nix/store/}"
+expect 1 stat "$storeBTop/${upperPath##/bsd/store/}"
 
 # Check that overlay file is now the one in lower layer
 upperInode=$(stat -c %i "$storeBRoot/$upperPath")

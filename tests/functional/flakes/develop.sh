@@ -11,7 +11,7 @@ rm -rf "$TEST_HOME/.cache" "$TEST_HOME/.config" "$TEST_HOME/.local"
 cp ../shell-hello.nix "$config_nix" "$TEST_HOME/"
 cat <<EOF >"$TEST_HOME/flake.nix"
 {
-    inputs.nixpkgs.url = "$TEST_HOME/nixpkgs";
+    inputs.nixpkgs.url = "$TEST_HOME/bsdpkgs";
     outputs = {self, nixpkgs}: {
       packages.$system.hello = (import ./config.nix).mkDerivation {
         name = "hello";
@@ -24,10 +24,10 @@ cat <<EOF >"$TEST_HOME/flake.nix"
 EOF
 
 # Create fake nixpkgs flake.
-mkdir -p "$TEST_HOME/nixpkgs"
-cp "${config_nix}" ../shell.nix "$TEST_HOME/nixpkgs"
+mkdir -p "$TEST_HOME/bsdpkgs"
+cp "${config_nix}" ../shell.nix "$TEST_HOME/bsdpkgs"
 
-cat <<EOF >"$TEST_HOME/nixpkgs/flake.nix"
+cat <<EOF >"$TEST_HOME/bsdpkgs/flake.nix"
 {
     outputs = {self}: {
       legacyPackages.$system.bashInteractive = (import ./shell.nix {}).bashInteractive;
@@ -125,7 +125,7 @@ expectStderr 1 nix develop --unset-env-var FOO --set-env-var FOO 'BAR' --no-writ
 expectStderr 0 nix develop --ignore-env --set-env-var FOO 'BAR' --ignore-env .#hello < /dev/null
 
 # Determine the bashInteractive executable.
-nix build --no-write-lock-file './nixpkgs#bashInteractive' --out-link ./bash-interactive
+nix build --no-write-lock-file './bsdpkgs#bashInteractive' --out-link ./bash-interactive
 BASH_INTERACTIVE_EXECUTABLE="$PWD/bash-interactive/bin/bash"
 
 # Test whether `nix develop` sets `SHELL` to nixpkgs#bashInteractive shell.

@@ -26,7 +26,7 @@ source "$commonDir/test-root.sh"
 test_nix_conf_dir=$TEST_ROOT/etc
 # Used in other files
 # shellcheck disable=SC2034
-test_nix_conf=$test_nix_conf_dir/nix.conf
+test_nix_conf=$test_nix_conf_dir/bsd.conf
 
 export TEST_HOME=$TEST_ROOT/test-home
 
@@ -38,8 +38,8 @@ if ! isTestOnNixOS; then
       NIX_STORE_DIR=$TEST_ROOT/store
   fi
   export NIX_LOCALSTATE_DIR=$TEST_ROOT/var
-  export NIX_LOG_DIR=$TEST_ROOT/var/log/nix
-  export NIX_STATE_DIR=$TEST_ROOT/var/nix
+  export NIX_LOG_DIR=$TEST_ROOT/var/log/bsd
+  export NIX_STATE_DIR=$TEST_ROOT/var/bsd
   export NIX_CONF_DIR=$test_nix_conf_dir
   export NIX_DAEMON_SOCKET_PATH=$TEST_ROOT/dSocket
   unset NIX_USER_CONF_FILES

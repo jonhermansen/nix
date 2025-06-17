@@ -10,7 +10,7 @@
   tag ? "latest",
   bundleNixpkgs ? true,
   channelName ? "nixpkgs",
-  channelURL ? "https://nixos.org/channels/nixpkgs-unstable",
+  channelURL ? "https://bsdos.org/channels/bsdpkgs-unstable",
   extraPkgs ? [ ],
   maxLayers ? 70,
   nixConf ? { },
@@ -21,7 +21,7 @@
   gname ? "root",
   Labels ? {
     "org.opencontainers.image.title" = "Nix";
-    "org.opencontainers.image.source" = "https://github.com/NixOS/nix";
+    "org.opencontainers.image.source" = "https://github.com/NixOS/bsd";
     "org.opencontainers.image.vendor" = "Nix project";
     "org.opencontainers.image.version" = nix.version;
     "org.opencontainers.image.description" = "Nix container image";
@@ -207,7 +207,7 @@ let
               path = nixpkgs;
               name = "source";
             }
-          } $out/nixpkgs
+          } $out/bsdpkgs
           echo "[]" > $out/manifest.nix
         fi
       '';
@@ -281,7 +281,7 @@ let
           mkdir -p $out/etc
 
           mkdir -p $out/etc/ssl/certs
-          ln -s /nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt $out/etc/ssl/certs
+          ln -s /bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt $out/etc/ssl/certs
 
           cat $passwdContentsPath > $out/etc/passwd
           echo "" >> $out/etc/passwd
@@ -293,28 +293,28 @@ let
           echo "" >> $out/etc/shadow
 
           mkdir -p $out/usr
-          ln -s /nix/var/nix/profiles/share $out/usr/
+          ln -s /bsd/var/bsd/profiles/share $out/usr/
 
-          mkdir -p $out/nix/var/nix/gcroots
+          mkdir -p $out/bsd/var/bsd/gcroots
 
           mkdir $out/tmp
 
           mkdir -p $out/var/tmp
 
-          mkdir -p $out/etc/nix
-          cat $nixConfContentsPath > $out/etc/nix/nix.conf
+          mkdir -p $out/etc/bsd
+          cat $nixConfContentsPath > $out/etc/bsd/bsd.conf
 
           mkdir -p $out${userHome}
-          mkdir -p $out/nix/var/nix/profiles/per-user/${uname}
+          mkdir -p $out/bsd/var/bsd/profiles/per-user/${uname}
 
-          ln -s ${profile} $out/nix/var/nix/profiles/default-1-link
-          ln -s /nix/var/nix/profiles/default-1-link $out/nix/var/nix/profiles/default
+          ln -s ${profile} $out/bsd/var/bsd/profiles/default-1-link
+          ln -s /bsd/var/bsd/profiles/default-1-link $out/bsd/var/bsd/profiles/default
 
-          ln -s ${channel} $out/nix/var/nix/profiles/per-user/${uname}/channels-1-link
-          ln -s /nix/var/nix/profiles/per-user/${uname}/channels-1-link $out/nix/var/nix/profiles/per-user/${uname}/channels
+          ln -s ${channel} $out/bsd/var/bsd/profiles/per-user/${uname}/channels-1-link
+          ln -s /bsd/var/bsd/profiles/per-user/${uname}/channels-1-link $out/bsd/var/bsd/profiles/per-user/${uname}/channels
 
           mkdir -p $out${userHome}/.nix-defexpr
-          ln -s /nix/var/nix/profiles/per-user/${uname}/channels $out${userHome}/.nix-defexpr/channels
+          ln -s /bsd/var/bsd/profiles/per-user/${uname}/channels $out${userHome}/.nix-defexpr/channels
           echo "${channelURL} ${channelName}" > $out${userHome}/.nix-channels
 
           mkdir -p $out/bin $out/usr/bin
@@ -323,13 +323,13 @@ let
 
         ''
         + (lib.optionalString (flake-registry-path != null) ''
-          nixCacheDir="${userHome}/.cache/nix"
+          nixCacheDir="${userHome}/.cache/bsd"
           mkdir -p $out$nixCacheDir
           globalFlakeRegistryPath="$nixCacheDir/flake-registry.json"
           ln -s ${flake-registry-path} $out$globalFlakeRegistryPath
-          mkdir -p $out/nix/var/nix/gcroots/auto
+          mkdir -p $out/bsd/var/bsd/gcroots/auto
           rootName=$(${lib.getExe' nix "nix"} --extra-experimental-features nix-command hash file --type sha1 --base32 <(echo -n $globalFlakeRegistryPath))
-          ln -s $globalFlakeRegistryPath $out/nix/var/nix/gcroots/auto/$rootName
+          ln -s $globalFlakeRegistryPath $out/bsd/var/bsd/gcroots/auto/$rootName
         '')
       );
 
@@ -350,7 +350,7 @@ dockerTools.buildLayeredImageWithNixDb {
 
   extraCommands = ''
     rm -rf nix-support
-    ln -s /nix/var/nix/profiles nix/var/nix/gcroots/profiles
+    ln -s /bsd/var/bsd/profiles nix/var/bsd/gcroots/profiles
   '';
   fakeRootCommands = ''
     chmod 1777 tmp
@@ -367,20 +367,20 @@ dockerTools.buildLayeredImageWithNixDb {
       "PATH=${
         lib.concatStringsSep ":" [
           "${userHome}/.nix-profile/bin"
-          "/nix/var/nix/profiles/default/bin"
-          "/nix/var/nix/profiles/default/sbin"
+          "/bsd/var/bsd/profiles/default/bin"
+          "/bsd/var/bsd/profiles/default/sbin"
         ]
       }"
       "MANPATH=${
         lib.concatStringsSep ":" [
           "${userHome}/.nix-profile/share/man"
-          "/nix/var/nix/profiles/default/share/man"
+          "/bsd/var/bsd/profiles/default/share/man"
         ]
       }"
-      "SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt"
-      "GIT_SSL_CAINFO=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt"
-      "NIX_SSL_CERT_FILE=/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt"
-      "NIX_PATH=/nix/var/nix/profiles/per-user/${uname}/channels:${userHome}/.nix-defexpr/channels"
+      "SSL_CERT_FILE=/bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt"
+      "GIT_SSL_CAINFO=/bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt"
+      "NIX_SSL_CERT_FILE=/bsd/var/bsd/profiles/default/etc/ssl/certs/ca-bundle.crt"
+      "NIX_PATH=/bsd/var/bsd/profiles/per-user/${uname}/channels:${userHome}/.nix-defexpr/channels"
     ];
   };
 

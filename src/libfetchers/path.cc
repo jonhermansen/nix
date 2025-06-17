@@ -50,7 +50,7 @@ struct PathInputScheme : InputScheme
             /* Allow the user to pass in "fake" tree info
                attributes. This is useful for making a pinned tree work
                the same as the repository from which is exported (e.g.
-               path:/nix/store/...-source?lastModified=1585388205&rev=b0c285...).
+               path:/bsd/store/...-source?lastModified=1585388205&rev=b0c285...).
              */
             "rev",
             "revCount",
@@ -145,7 +145,7 @@ struct PathInputScheme : InputScheme
             storePath = store->addToStoreFromDump(*src, "source");
         }
 
-        // To avoid copying the path again to the /nix/store, we need to add a cache entry.
+        // To avoid copying the path again to the /bsd/store, we need to add a cache entry.
         ContentAddressMethod method = ContentAddressMethod::Raw::NixArchive;
         auto fp = getFingerprint(store, input);
         if (fp) {

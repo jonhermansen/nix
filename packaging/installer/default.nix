@@ -10,9 +10,9 @@ runCommand "installer-script"
     buildInputs = [ nix ];
   }
   ''
-    mkdir -p $out/nix-support
+    mkdir -p $out/bsd-support
 
-    # Converts /nix/store/50p3qk8k...-nix-2.4pre20201102_550e11f/bin/nix to 50p3qk8k.../bin/nix.
+    # Converts /bsd/store/50p3qk8k...-nix-2.4pre20201102_550e11f/bin/bsd to 50p3qk8k.../bin/bsd.
     tarballPath() {
       # Remove the store prefix
       local path=''${1#${builtins.storeDir}/}
@@ -38,5 +38,5 @@ runCommand "installer-script"
         ) tarballs
       } --replace '@nixVersion@' ${nix.version}
 
-    echo "file installer $out/install" >> $out/nix-support/hydra-build-products
+    echo "file installer $out/install" >> $out/bsd-support/hydra-build-products
   ''

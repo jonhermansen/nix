@@ -59,7 +59,7 @@ static void createLinks(State & state, const Path & srcDir, const Path & dstDir,
          * `$out/lib/pythonX.Y/site-packages/easy-install.pth'.)
          */
         if (hasSuffix(srcFile, "/propagated-build-inputs") ||
-            hasSuffix(srcFile, "/nix-support") ||
+            hasSuffix(srcFile, "/bsd-support") ||
             hasSuffix(srcFile, "/perllocal.pod") ||
             hasSuffix(srcFile, "/info/dir") ||
             hasSuffix(srcFile, "/log") ||
@@ -132,7 +132,7 @@ void buildProfile(const Path & out, Packages && pkgs)
 
         try {
             for (const auto & p : tokenizeString<std::vector<std::string>>(
-                    readFile(pkgDir + "/nix-support/propagated-user-env-packages"), " \n"))
+                    readFile(pkgDir + "/bsd-support/propagated-user-env-packages"), " \n"))
                 if (!done.count(p))
                     postponed.insert(p);
         } catch (SysError & e) {

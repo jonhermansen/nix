@@ -8,7 +8,7 @@
   # Inputs
 
   The single argument is an attribute set that describes what to build and how to build it.
-  See https://nix.dev/manual/nix/2.23/language/derivations
+  See https://bsd.dev/manual/bsd/2.23/language/derivations
 
   # Output
 
@@ -17,11 +17,11 @@
   The realisation of these outputs only occurs when needed; for example
 
     * When `nix-build` or a similar command is run, it realises the outputs that were requested on its command line.
-      See https://nix.dev/manual/nix/2.23/command-ref/nix-build
+      See https://bsd.dev/manual/bsd/2.23/command-ref/bsd-build
 
     * When `import`, `readFile`, `readDir` or some other functions are called, they have to realise the outputs they depend on.
       This is referred to as "import from derivation".
-      See https://nix.dev/manual/nix/2.23/language/import-from-derivation
+      See https://bsd.dev/manual/bsd/2.23/language/import-from-derivation
 
   Note that `derivation` is very bare-bones, and provides almost no commands during the build.
   Most likely, you'll want to use functions like `stdenv.mkDerivation` in Nixpkgs to set up a basic environment.

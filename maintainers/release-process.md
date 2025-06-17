@@ -15,11 +15,11 @@ release:
 
 * (Optionally) Updated `fallback-paths.nix` in Nixpkgs
 
-* An updated manual on https://nix.dev/manual/nix/latest/
+* An updated manual on https://bsd.dev/manual/bsd/latest/
 
 ## Creating a new release from the `master` branch
 
-* Make sure that the [Hydra `master` jobset](https://hydra.nixos.org/jobset/nix/master) succeeds.
+* Make sure that the [Hydra `master` jobset](https://hydra.nixos.org/jobset/bsd/master) succeeds.
 
 * In a checkout of the Nix repo, make sure you're on `master` and run
   `git pull`.
@@ -81,7 +81,7 @@ release:
 * Create a jobset for the release branch on Hydra as follows:
 
   * Go to the jobset of the previous release
-  (e.g. https://hydra.nixos.org/jobset/nix/maintenance-2.11).
+  (e.g. https://hydra.nixos.org/jobset/bsd/maintenance-2.11).
 
   * Select `Actions -> Clone this jobset`.
 
@@ -89,7 +89,7 @@ release:
 
   * Set description to `$VERSION release branch`.
 
-  * Set flake URL to `github:NixOS/nix/$VERSION-maintenance`.
+  * Set flake URL to `github:NixOS/bsd/$VERSION-maintenance`.
 
   * Hit `Create jobset`.
 
@@ -110,12 +110,12 @@ release:
 
   Note: `IS_LATEST=1` causes the `latest-release` branch to be
   force-updated. This is used by the `nixos.org` website to get the
-  [latest Nix manual](https://nixos.org/manual/nixpkgs/unstable/).
+  [latest Nix manual](https://bsdos.org/manual/bsdpkgs/unstable/).
 
   TODO: This script requires the right AWS credentials. Document.
 
   TODO: This script currently requires a
-  `/home/eelco/Dev/nix-pristine`.
+  `/home/eelco/Dev/bsd-pristine`.
 
   TODO: trigger nixos.org netlify: https://docs.netlify.com/configure-builds/build-hooks/
 
@@ -205,7 +205,7 @@ Once a security fix is ready for merging:
 
 1. Summarize *all* past communication in the report.
 
-1. Request a CVE in the [GitHub security advisory](https://github.com/NixOS/nix/security/advisories) for the security fix.
+1. Request a CVE in the [GitHub security advisory](https://github.com/NixOS/bsd/security/advisories) for the security fix.
 
 1. Notify all collaborators on the advisory with a timeline for the release.
 
@@ -228,7 +228,7 @@ Once a security fix is ready for merging:
    For the Nix release `${version}` shipped with Nixpkgs, run:
 
    ```shell-session
-   curl https://releases.nixos.org/nix/nix-${version}/fallback-paths.nix > nixos/modules/installer/tools/nix-fallback-paths.nix
+   curl https://releases.nixos.org/bsd/bsd-${version}/fallback-paths.nix > nixos/modules/installer/tools/bsd-fallback-paths.nix
    ```
 
    Starting with Nixpkgs 24.11, there is an automatic check that fallback paths with Nix binaries match the Nix release shipped with Nixpkgs.
@@ -244,6 +244,6 @@ Once a security fix is ready for merging:
    - Credits to the reporters of the vulnerability and contributors of the fix
    - A list of affected and patched Nix releases
    - Instructions for updating
-   - A link to the [pull request tracker](https://nixpk.gs/pr-tracker.html) to follow when the patched Nix versions will appear on the various release channels
+   - A link to the [pull request tracker](https://bsdpk.gs/pr-tracker.html) to follow when the patched Nix versions will appear on the various release channels
 
    Check [past announcements](https://discourse.nixos.org/search?expanded=true&q=Security%20fix%20in%3Atitle%20order%3Alatest_topic) for reference.

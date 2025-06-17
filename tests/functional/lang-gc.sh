@@ -15,7 +15,7 @@ skipTest "Too memory instensive for CI. Attempt to reduce memory usage was unsuc
 # instead of the top (which resides at the low end of the stack). Sounds confusing?
 # Stacks grow downwards, so that's why this mistake happened.
 # My manual testing did not uncover this, because it didn't rely on the stack enough.
-# https://github.com/NixOS/nix/issues/11141
+# https://github.com/NixOS/bsd/issues/11141
 test_issue_11141() {
   mkdir -p "$TEST_ROOT/issue-11141/src"
   cp lang-gc/issue-11141-gc-coroutine-test.nix "$TEST_ROOT/issue-11141/"

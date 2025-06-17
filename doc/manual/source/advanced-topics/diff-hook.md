@@ -23,10 +23,10 @@ in {
 
 Additionally, `nix.conf` contains:
 
-    diff-hook = /etc/nix/my-diff-hook
+    diff-hook = /etc/bsd/my-diff-hook
     run-diff-hook = true
 
-where `/etc/nix/my-diff-hook` is an executable file containing:
+where `/etc/bsd/my-diff-hook` is an executable file containing:
 
 ```bash
 #!/bin/sh
@@ -50,13 +50,13 @@ code of 0:
 ```console
 $ nix-build ./deterministic.nix --attr stable
 this derivation will be built:
-  /nix/store/z98fasz2jqy9gs0xbvdj939p27jwda38-stable.drv
-building '/nix/store/z98fasz2jqy9gs0xbvdj939p27jwda38-stable.drv'...
-/nix/store/yyxlzw3vqaas7wfp04g0b1xg51f2czgq-stable
+  /bsd/store/z98fasz2jqy9gs0xbvdj939p27jwda38-stable.drv
+building '/bsd/store/z98fasz2jqy9gs0xbvdj939p27jwda38-stable.drv'...
+/bsd/store/yyxlzw3vqaas7wfp04g0b1xg51f2czgq-stable
 
 $ nix-build ./deterministic.nix --attr stable --check
-checking outputs of '/nix/store/z98fasz2jqy9gs0xbvdj939p27jwda38-stable.drv'...
-/nix/store/yyxlzw3vqaas7wfp04g0b1xg51f2czgq-stable
+checking outputs of '/bsd/store/z98fasz2jqy9gs0xbvdj939p27jwda38-stable.drv'...
+/bsd/store/yyxlzw3vqaas7wfp04g0b1xg51f2czgq-stable
 ```
 
 If the build is not deterministic, Nix will exit with a status code of
@@ -65,20 +65,20 @@ If the build is not deterministic, Nix will exit with a status code of
 ```console
 $ nix-build ./deterministic.nix --attr unstable
 this derivation will be built:
-  /nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv
-building '/nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv'...
-/nix/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable
+  /bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv
+building '/bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv'...
+/bsd/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable
 
 $ nix-build ./deterministic.nix --attr unstable --check
-checking outputs of '/nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv'...
-error: derivation '/nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv' may
-not be deterministic: output '/nix/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable' differs
+checking outputs of '/bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv'...
+error: derivation '/bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv' may
+not be deterministic: output '/bsd/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable' differs
 ```
 
 In the Nix daemon's log, we will now see:
 
 ```
-For derivation /nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv:
+For derivation /bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv:
 1c1
 < 8108
 ---
@@ -90,15 +90,15 @@ build's output in a special, `.check` path:
 
 ```console
 $ nix-build ./deterministic.nix --attr unstable --check --keep-failed
-checking outputs of '/nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv'...
-note: keeping build directory '/tmp/nix-build-unstable.drv-0'
-error: derivation '/nix/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv' may
-not be deterministic: output '/nix/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable' differs
-from '/nix/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable.check'
+checking outputs of '/bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv'...
+note: keeping build directory '/tmp/bsd-build-unstable.drv-0'
+error: derivation '/bsd/store/cgl13lbj1w368r5z8gywipl1ifli7dhk-unstable.drv' may
+not be deterministic: output '/bsd/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable' differs
+from '/bsd/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable.check'
 ```
 
 In particular, notice the
-`/nix/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable.check` output. Nix
+`/bsd/store/krpqk0l9ib0ibi1d2w52z293zw455cap-unstable.check` output. Nix
 has copied the build results to that directory where you can examine it.
 
 > []{#check-dirs-are-unregistered} **Note**
@@ -117,7 +117,7 @@ has copied the build results to that directory where you can examine it.
 already. If the derivation has not been built Nix will fail with the
 error:
 
-    error: some outputs of '/nix/store/hzi1h60z2qf0nb85iwnpvrai3j2w7rr6-unstable.drv' 
+    error: some outputs of '/bsd/store/hzi1h60z2qf0nb85iwnpvrai3j2w7rr6-unstable.drv' 
     are not valid, so checking is not possible
 
 Run the build without `--check`, and then try with `--check` again.

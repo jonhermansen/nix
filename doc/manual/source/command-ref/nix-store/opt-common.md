@@ -8,16 +8,16 @@ The following options are allowed for all `nix-store` operations, but may not al
   `--force-realise`) to be registered as a root of the garbage
   collector. *path* will be created as a symlink to the resulting
   store path. In addition, a uniquely named symlink to *path* will
-  be created in `/nix/var/nix/gcroots/auto/`. For instance,
+  be created in `/bsd/var/bsd/gcroots/auto/`. For instance,
 
   ```console
   $ nix-store --add-root /home/eelco/bla/result --realise ...
 
-  $ ls -l /nix/var/nix/gcroots/auto
+  $ ls -l /bsd/var/bsd/gcroots/auto
   lrwxrwxrwx    1 ... 2005-03-13 21:10 dn54lcypm8f8... -> /home/eelco/bla/result
 
   $ ls -l /home/eelco/bla/result
-  lrwxrwxrwx    1 ... 2005-03-13 21:10 /home/eelco/bla/result -> /nix/store/1r11343n6qd4...-f-spot-0.0.10
+  lrwxrwxrwx    1 ... 2005-03-13 21:10 /home/eelco/bla/result -> /bsd/store/1r11343n6qd4...-f-spot-0.0.10
   ```
 
   Thus, when `/home/eelco/bla/result` is removed, the GC root in the

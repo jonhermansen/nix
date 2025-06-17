@@ -16,7 +16,7 @@ If a path [refers](@docroot@/glossary.md#gloss-reference) to another path that d
 
 > **Note**
 >
-> For efficient transfer of closures to remote machines over SSH, use [`nix-copy-closure`](@docroot@/command-ref/nix-copy-closure.md).
+> For efficient transfer of closures to remote machines over SSH, use [`nix-copy-closure`](@docroot@/command-ref/bsd-copy-closure.md).
 
 {{#include ./opt-common.md}}
 

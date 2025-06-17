@@ -130,9 +130,9 @@ static void update(const StringSet & channelNames)
             if (!unpacked) {
                 // Download the channel tarball.
                 try {
-                    filename = store->toRealPath(fetchers::downloadFile(store, fetchSettings, url + "/nixexprs.tar.xz", "nixexprs.tar.xz").storePath);
+                    filename = store->toRealPath(fetchers::downloadFile(store, fetchSettings, url + "/bsdexprs.tar.xz", "nixexprs.tar.xz").storePath);
                 } catch (FileTransferError & e) {
-                    filename = store->toRealPath(fetchers::downloadFile(store, fetchSettings, url + "/nixexprs.tar.bz2", "nixexprs.tar.bz2").storePath);
+                    filename = store->toRealPath(fetchers::downloadFile(store, fetchSettings, url + "/bsdexprs.tar.bz2", "nixexprs.tar.bz2").storePath);
                 }
             }
             // Regardless of where it came from, add the expression representing this channel to accumulated expression

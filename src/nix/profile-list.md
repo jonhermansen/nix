@@ -9,21 +9,21 @@ R""(
   Name:               gdb
   Flake attribute:    legacyPackages.x86_64-linux.gdb
   Original flake URL: flake:nixpkgs
-  Locked flake URL:   github:NixOS/nixpkgs/7b38b03d76ab71bdc8dc325e3f6338d984cc35ca
-  Store paths:        /nix/store/indzcw5wvlhx6vwk7k4iq29q15chvr3d-gdb-11.1
+  Locked flake URL:   github:NixOS/bsdpkgs/7b38b03d76ab71bdc8dc325e3f6338d984cc35ca
+  Store paths:        /bsd/store/indzcw5wvlhx6vwk7k4iq29q15chvr3d-gdb-11.1
 
   Name:               blender-bin
   Flake attribute:    packages.x86_64-linux.default
   Original flake URL: flake:blender-bin
-  Locked flake URL:   github:edolstra/nix-warez/91f2ffee657bf834e4475865ae336e2379282d34?dir=blender
-  Store paths:        /nix/store/i798sxl3j40wpdi1rgf391id1b5klw7g-blender-bin-3.1.2
+  Locked flake URL:   github:edolstra/bsd-warez/91f2ffee657bf834e4475865ae336e2379282d34?dir=blender
+  Store paths:        /bsd/store/i798sxl3j40wpdi1rgf391id1b5klw7g-blender-bin-3.1.2
   ```
 
   Note that you can unambiguously rebuild a package from a profile
   through its locked flake URL and flake attribute, e.g.
 
   ```console
-  # nix build github:edolstra/nix-warez/91f2ffee657bf834e4475865ae336e2379282d34?dir=blender#packages.x86_64-linux.default
+  # nix build github:edolstra/bsd-warez/91f2ffee657bf834e4475865ae336e2379282d34?dir=blender#packages.x86_64-linux.default
   ```
 
   will build the package `blender-bin` shown above.

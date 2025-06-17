@@ -78,7 +78,7 @@
 
   Translate a [derivation expression] into a [store derivation].
 
-  See [`nix-instantiate`](./command-ref/nix-instantiate.md), which produces a store derivation from a Nix expression that evaluates to a derivation.
+  See [`nix-instantiate`](./command-ref/bsd-instantiate.md), which produces a store derivation from a Nix expression that evaluates to a derivation.
 
   [instantiate]: #gloss-instantiate
 
@@ -91,9 +91,9 @@
   - [Building](@docroot@/store/building.md) the corresponding [store derivation]
   - Delegating to a [remote machine](@docroot@/command-ref/conf-file.md#conf-builders) and retrieving the outputs
 
-  See [`nix-store --realise`](@docroot@/command-ref/nix-store/realise.md) for a detailed description of the algorithm.
+  See [`nix-store --realise`](@docroot@/command-ref/bsd-store/realise.md) for a detailed description of the algorithm.
 
-  See also [`nix-build`](./command-ref/nix-build.md) and [`nix build`](./command-ref/new-cli/nix3-build.md) (experimental).
+  See also [`nix-build`](./command-ref/bsd-build.md) and [`nix build`](./command-ref/new-cli/bsd3-build.md) (experimental).
 
   [realise]: #gloss-realise
 
@@ -136,7 +136,7 @@
 
   > **Example**
   >
-  > `/nix/store/a040m110amc4h71lds2jmr8qrkj2jhxd-git-2.38.1`
+  > `/bsd/store/a040m110amc4h71lds2jmr8qrkj2jhxd-git-2.38.1`
 
   See [Store Path](@docroot@/store/store-path.md) for details.
 
@@ -216,7 +216,7 @@
   An SQlite database to track [reference]s between [store object]s.
   This is an implementation detail of the [local store].
 
-  Default location: `/nix/var/nix/db`.
+  Default location: `/bsd/var/bsd/db`.
 
   [Nix database]: #gloss-nix-database
 
@@ -312,7 +312,7 @@
   The [store derivation] that produced an [output path].
 
   The deriver for an output path can be queried with the `--deriver` option to
-  [`nix-store --query`](@docroot@/command-ref/nix-store/query.md).
+  [`nix-store --query`](@docroot@/command-ref/bsd-store/query.md).
 
 - [validity]{#gloss-validity}
 
@@ -331,18 +331,18 @@
   An automatically generated store object that consists of a set of
   symlinks to “active” applications, i.e., other store paths. These
   are generated automatically by
-  [`nix-env`](./command-ref/nix-env.md). See *profiles*.
+  [`nix-env`](./command-ref/bsd-env.md). See *profiles*.
 
 - [profile]{#gloss-profile}
 
   A symlink to the current *user environment* of a user, e.g.,
-  `/nix/var/nix/profiles/default`.
+  `/bsd/var/bsd/profiles/default`.
 
 - [installable]{#gloss-installable}
 
   Something that can be realised in the Nix store.
 
-  See [installables](./command-ref/new-cli/nix.md#installables) for [`nix` commands](./command-ref/new-cli/nix.md) (experimental) for details.
+  See [installables](./command-ref/new-cli/bsd.md#installables) for [`nix` commands](./command-ref/new-cli/bsd.md) (experimental) for details.
 
 - [Nix Archive (NAR)]{#gloss-nar}
 

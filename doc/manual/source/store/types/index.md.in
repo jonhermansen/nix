@@ -8,7 +8,7 @@ Stores are specified using a URL-like syntax. For example, the command
 
 ```console
 # nix path-info --store https://cache.nixos.org/ --json \
-  /nix/store/a7gvj343m05j2s32xcnwr35v31ynlypr-coreutils-9.1
+  /bsd/store/a7gvj343m05j2s32xcnwr35v31ynlypr-coreutils-9.1
 ```
 
 fetches information about a store path in the HTTP binary cache
@@ -29,15 +29,15 @@ supported settings for each store type are documented below.
 The special store URL `auto` causes Nix to automatically select a
 store as follows:
 
-* Use the [local store](./local-store.md) `/nix/store` if `/nix/var/nix`
+* Use the [local store](./local-store.md) `/bsd/store` if `/bsd/var/bsd`
   is writable by the current user.
 
-* Otherwise, if `/nix/var/nix/daemon-socket/socket` exists, [connect
+* Otherwise, if `/bsd/var/bsd/daemon-socket/socket` exists, [connect
   to the Nix daemon listening on that socket](./local-daemon-store.md).
 
 * Otherwise, on Linux only, use the [local chroot store](./local-store.md)
-  `~/.local/share/nix/root`, which will be created automatically if it
+  `~/.local/share/bsd/root`, which will be created automatically if it
   does not exist.
 
-* Otherwise, use the [local store](./local-store.md) `/nix/store`.
+* Otherwise, use the [local store](./local-store.md) `/bsd/store`.
 

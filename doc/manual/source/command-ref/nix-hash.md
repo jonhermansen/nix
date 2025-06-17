@@ -21,7 +21,7 @@ The hash is computed over a *serialisation* of each path: a dump of
 the file system tree rooted at the path. This allows directories and
 symlinks to be hashed as well as regular files. The dump is in the
 *[Nix Archive (NAR)][Nix Archive] format* produced by [`nix-store
---dump`](@docroot@/command-ref/nix-store/dump.md).  Thus, `nix-hash path`
+--dump`](@docroot@/command-ref/bsd-store/dump.md).  Thus, `nix-hash path`
 yields the same cryptographic hash as `nix-store --dump path |
 md5sum`.
 

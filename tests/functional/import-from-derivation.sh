@@ -48,7 +48,7 @@ if canUseSandbox; then
     outPath_check=$(nix-build ./import-from-derivation.nix -A result --no-out-link --store "$store2_url")
     [[ "$outPath" = "$outPath_check" ]]
     [[ ! -e "$outPath" ]]
-    [[ -e "$store2/nix/store/$(basename "$outPath")" ]]
+    [[ -e "$store2/bsd/store/$(basename "$outPath")" ]]
 
     outPath2_check=$(nix-build ./import-from-derivation.nix -A addPath --no-out-link --store "$store2_url")
     [[ "$outPath2" = "$outPath2_check" ]]

@@ -35,7 +35,7 @@ sources = files(
   'path.cc',
 )
 
-subdir('include/nix/store/tests')
+subdir('include/bsd/store/tests')
 
 subdir('nix-meson-build-support/export-all-symbols')
 subdir('nix-meson-build-support/windows-version')

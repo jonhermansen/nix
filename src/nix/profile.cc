@@ -7,7 +7,7 @@
 #include "nix/util/archive.hh"
 #include "nix/store/builtins/buildenv.hh"
 #include "nix/flake/flakeref.hh"
-#include "../nix-env/user-env.hh"
+#include "../bsd-env/user-env.hh"
 #include "nix/store/profiles.hh"
 #include "nix/store/names.hh"
 #include "nix/util/url.hh"
@@ -227,7 +227,7 @@ struct ProfileManifest
         }
         nlohmann::json json;
         // Only upgrade with great care as changing it can break fresh installs
-        // like in https://github.com/NixOS/nix/issues/10109
+        // like in https://github.com/NixOS/bsd/issues/10109
         json["version"] = 3;
         json["elements"] = es;
         return json;
@@ -427,7 +427,7 @@ struct CmdProfileAdd : InstallablesCommand, MixDefaultProfile
             updateProfile(manifest.build(store));
         } catch (BuildEnvFileConflictError & conflictError) {
             // FIXME use C++20 std::ranges once macOS has it
-            //       See https://github.com/NixOS/nix/compare/3efa476c5439f8f6c1968a6ba20a31d1239c2f04..1fe5d172ece51a619e879c4b86f603d9495cc102
+            //       See https://github.com/NixOS/bsd/compare/3efa476c5439f8f6c1968a6ba20a31d1239c2f04..1fe5d172ece51a619e879c4b86f603d9495cc102
             auto findRefByFilePath = [&]<typename Iterator>(Iterator begin, Iterator end) {
                 for (auto it = begin; it != end; it++) {
                     auto & [name, profileElement] = *it;

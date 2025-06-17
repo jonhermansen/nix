@@ -6,7 +6,7 @@ TODO_NixOS
 
 ###################################################
 # Check that --dry-run isn't confused with read-only mode
-# https://github.com/NixOS/nix/issues/1795
+# https://github.com/NixOS/bsd/issues/1795
 
 clearStore
 clearCache
@@ -32,7 +32,7 @@ nix-build --no-out-link dependencies.nix --dry-run 2>&1 | grep "will be built"
 
 ###################################################
 # Check --dry-run doesn't create links with --dry-run
-# https://github.com/NixOS/nix/issues/1849
+# https://github.com/NixOS/bsd/issues/1849
 clearStore
 clearCache
 

@@ -4,7 +4,7 @@ After the special backport-based release of Nix 2.28 (timed to coincide with Nix
 As such, we have slightly more weeks of work from `master` (since 2.28 was branched from 2.27) than usual.
 This fact is counterbalanced by the fact that most of those changes are bug fixes rather than larger new features.
 
-- Prettified JSON output on the terminal [#12555](https://github.com/NixOS/nix/issues/12555) [#12652](https://github.com/NixOS/nix/pull/12652)
+- Prettified JSON output on the terminal [#12555](https://github.com/NixOS/bsd/issues/12555) [#12652](https://github.com/NixOS/bsd/pull/12652)
 
   This makes the output easier to read.
 
@@ -13,30 +13,30 @@ This fact is counterbalanced by the fact that most of those changes are bug fixe
   `--json --pretty` can be passed to enable it even if the output is not a terminal.
   If your script creates a pseudoterminal for Nix's stdout, you can pass `--no-pretty` to disable the new behavior.
 
-- Repl: improve continuation prompt for incomplete expressions [#12846](https://github.com/NixOS/nix/pull/12846)
+- Repl: improve continuation prompt for incomplete expressions [#12846](https://github.com/NixOS/bsd/pull/12846)
 
   Improved REPL user experience by updating the continuation prompt from invisible blank spaces to a visible `" > "`, enhancing clarity when entering multi-line expressions.
 
-- REPL `:load-flake` and `:reload` now work together [#8753](https://github.com/NixOS/nix/issues/8753) [#13180](https://github.com/NixOS/nix/pull/13180)
+- REPL `:load-flake` and `:reload` now work together [#8753](https://github.com/NixOS/bsd/issues/8753) [#13180](https://github.com/NixOS/bsd/pull/13180)
 
   Previously, `:reload` only reloaded the files specified with `:load` (or on the command line).
   Now, it also works with the flakes specified with `:load-flake` (or on the command line).
   This makes it correctly reload everything that was previously loaded, regardless of what sort of thing (plain file or flake) each item is.
 
-- Increase retry delays on HTTP 429 Too Many Requests [#13052](https://github.com/NixOS/nix/pull/13052)
+- Increase retry delays on HTTP 429 Too Many Requests [#13052](https://github.com/NixOS/bsd/pull/13052)
 
   When downloading Nix, the retry delay was previously set to 0.25 seconds. It has now been increased to 1 minute to better handle transient CI errors, particularly on GitHub.
 
-- S3: opt-in the STSProfileCredentialsProvider [#12646](https://github.com/NixOS/nix/pull/12646)
+- S3: opt-in the STSProfileCredentialsProvider [#12646](https://github.com/NixOS/bsd/pull/12646)
 
   Added support for STS-based authentication for S3-based binary caches, i.e. enabling seamless integration with `aws sso login`.
 
-- Reduce connect timeout for http substituter [#12876](https://github.com/NixOS/nix/pull/12876)
+- Reduce connect timeout for http substituter [#12876](https://github.com/NixOS/bsd/pull/12876)
 
   Previously, the Nix setting `connect-timeout` had no limit. It is now set to `5s`, offering a more practical default for users self-hosting binary caches, which may occasionally become unavailable, such as during updates.
 
 
-- C API: functions for locking and loading a flake [#10435](https://github.com/NixOS/nix/issues/10435) [#12877](https://github.com/NixOS/nix/pull/12877) [#13098](https://github.com/NixOS/nix/pull/13098)
+- C API: functions for locking and loading a flake [#10435](https://github.com/NixOS/bsd/issues/10435) [#12877](https://github.com/NixOS/bsd/pull/12877) [#13098](https://github.com/NixOS/bsd/pull/13098)
 
   This release adds functions to the C API for handling the loading of flakes. Previously, this had to be worked around by using `builtins.getFlake`.
   C API consumers and language bindings now have access to basic locking functionality.
@@ -52,31 +52,31 @@ This fact is counterbalanced by the fact that most of those changes are bug fixe
 
   More details can be found in the [C API documentation](@docroot@/c-api.md).
 
-- No longer copy flakes that are in the nix store [#10435](https://github.com/NixOS/nix/issues/10435) [#12877](https://github.com/NixOS/nix/pull/12877) [#13098](https://github.com/NixOS/nix/pull/13098)
+- No longer copy flakes that are in the nix store [#10435](https://github.com/NixOS/bsd/issues/10435) [#12877](https://github.com/NixOS/bsd/pull/12877) [#13098](https://github.com/NixOS/bsd/pull/13098)
 
-  Previously, we would duplicate entries like `path:/nix/store/*` back into the Nix store.
+  Previously, we would duplicate entries like `path:/bsd/store/*` back into the Nix store.
   This was prominently visible for pinned system flake registry entries in NixOS, e.g., when running `nix run nixpkgs#hello`.
 
-- Consistently preserve error messages from cached evaluation [#12762](https://github.com/NixOS/nix/issues/12762) [#12809](https://github.com/NixOS/nix/pull/12809)
+- Consistently preserve error messages from cached evaluation [#12762](https://github.com/NixOS/bsd/issues/12762) [#12809](https://github.com/NixOS/bsd/pull/12809)
 
   In one code path, we are not returning the errors cached from prior evaluation, but instead throwing generic errors stemming from the lack of value (due to the error).
   These generic error messages were far less informative.
   Now we consistently return the original error message.
 
-- Faster blake3 hashing [#12676](https://github.com/NixOS/nix/pull/12676)
+- Faster blake3 hashing [#12676](https://github.com/NixOS/bsd/pull/12676)
 
   The implementation for blake3 hashing is now multi-threaded and used memory-mapped IO.
-  Benchmark results can be found the [pull request](https://github.com/NixOS/nix/pull/12676).
+  Benchmark results can be found the [pull request](https://github.com/NixOS/bsd/pull/12676).
 
-- Fix progress bar for S3 binary caches and make file transfers interruptible [#12877](https://github.com/NixOS/nix/issues/12877) [#13098](https://github.com/NixOS/nix/issues/13098) [#12538](https://github.com/NixOS/nix/pull/12538)
+- Fix progress bar for S3 binary caches and make file transfers interruptible [#12877](https://github.com/NixOS/bsd/issues/12877) [#13098](https://github.com/NixOS/bsd/issues/13098) [#12538](https://github.com/NixOS/bsd/pull/12538)
 
   The progress bar now correctly display upload/download progress for S3 up/downloads. S3 uploads are now interruptible.
 
-- Add host attribute of github/gitlab flakerefs to URL serialization [#12580](https://github.com/NixOS/nix/pull/12580)
+- Add host attribute of github/gitlab flakerefs to URL serialization [#12580](https://github.com/NixOS/bsd/pull/12580)
 
   Resolved an issue where `github:` or `gitlab:` URLs lost their `host` attribute when written to a lockfile, resulting in invalid URLs.
 
-- Multiple signatures support in store urls [#12976](https://github.com/NixOS/nix/pull/12976)
+- Multiple signatures support in store urls [#12976](https://github.com/NixOS/bsd/pull/12976)
 
   Added support for a `secretKeyFiles` URI parameter in Nix store URIs, allowing multiple signing key files to be specified as a comma-separated list.
   This enables signing paths with multiple keys. This helps with [RFC #149](https://github.com/NixOS/rfcs/pull/149) to enable binary cache key rotation in the NixOS infra.
@@ -88,11 +88,11 @@ This fact is counterbalanced by the fact that most of those changes are bug fixe
     "$(nix build --print-out-paths nixpkgs#hello)"
   ```
 
-- nix flake show now skips over import-from-derivation [#4265](https://github.com/NixOS/nix/issues/4265) [#12583](https://github.com/NixOS/nix/pull/12583)
+- nix flake show now skips over import-from-derivation [#4265](https://github.com/NixOS/bsd/issues/4265) [#12583](https://github.com/NixOS/bsd/pull/12583)
 
   Previously, if a flake contained outputs relying on [import from derivation](@docroot@/language/import-from-derivation.md) during evaluation, `nix flake show` would fail to display the rest of the flake. The updated behavior skips such outputs, allowing the rest of the flake to be shown.
 
-- Add `nix formatter build` and `nix formatter run` commands [#13063](https://github.com/NixOS/nix/pull/13063)
+- Add `nix formatter build` and `nix formatter run` commands [#13063](https://github.com/NixOS/bsd/pull/13063)
 
   `nix formatter run` is an alias for `nix fmt`. Nothing new there.
 
@@ -100,12 +100,12 @@ This fact is counterbalanced by the fact that most of those changes are bug fixe
 
   ```
   $ nix formatter build
-  /nix/store/cb9w44vkhk2x4adfxwgdkkf5gjmm856j-treefmt/bin/treefmt
+  /bsd/store/cb9w44vkhk2x4adfxwgdkkf5gjmm856j-treefmt/bin/treefmt
   ```
 
-  Note that unlike `nix build`, this prints the full path to the program, not just the store path (in the example above that would be `/nix/store/cb9w44vkhk2x4adfxwgdkkf5gjmm856j-treefmt`).
+  Note that unlike `nix build`, this prints the full path to the program, not just the store path (in the example above that would be `/bsd/store/cb9w44vkhk2x4adfxwgdkkf5gjmm856j-treefmt`).
 
-- Amend OSC 8 escape stripping for xterm-style separator [#13109](https://github.com/NixOS/nix/pull/13109)
+- Amend OSC 8 escape stripping for xterm-style separator [#13109](https://github.com/NixOS/bsd/pull/13109)
 
   Improve terminal escape code filtering to understand a second type of hyperlink escape codes.
   This in particular prevents parts of GCC 14's diagnostics from being improperly filtered away.
