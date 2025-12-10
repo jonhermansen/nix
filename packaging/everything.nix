@@ -35,7 +35,7 @@
 
   nix-functional-tests,
 
-  nix-manual,
+  #nix-manual,
   nix-internal-api-docs,
   nix-external-api-docs,
 
@@ -167,11 +167,11 @@ stdenv.mkDerivation (finalAttrs: {
       for lib in ${lib.escapeShellArgs devPaths}; do
         lndir $lib $dev
       done
+    '';
 
       # Forwarded outputs
-      ln -sT ${nix-manual} $doc
-      ln -sT ${nix-manual.man} $man
-    '';
+#      ln -sT ${nix-manual} $doc
+#      ln -sT ${nix-manual.man} $man
 
   passthru = {
     inherit (nix-cli) version;
