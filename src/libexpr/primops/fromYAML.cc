@@ -1,7 +1,9 @@
+#include "expr-config-private.hh"
+
 #ifdef HAVE_RYML
 
-#  include "primops.hh"
-#  include "eval-inline.hh"
+#  include "nix/expr/primops.hh"
+#  include "nix/expr/eval-inline.hh"
 
 #  include <ryml.hpp>
 #  include <c4/format.hpp>
@@ -338,7 +340,7 @@ void FromYAMLContext::visitYAMLNode(Value & v, ryml::ConstNodeRef t, bool isTopN
                 "Error: Nix parsed ''%2%'' as sequence and only supported is the tag ''!!seq'', but ''%3%'' was used";
             throwError(fs, t, valTagStr);
         }
-        ListBuilder list(state, t.num_children());
+        ListBuilder list(state.mem, t.num_children());
 
         bool isStream = t.is_stream();
         size_t i = 0;
@@ -379,7 +381,7 @@ void FromYAMLContext::visitYAMLNode(Value & v, ryml::ConstNodeRef t, bool isTopN
             v.mkFloat(*_float);
         } else if ((valTag == ryml::TAG_NONE && !valTagCustom) || valTag == ryml::TAG_STR) {
             std::string_view value(val.begin(), val.size());
-            v.mkString(value);
+            v.mkString(value, state.mem);
         } else {
             throwError("Error: Value ''%2%'' with tag ''%3%'' is invalid", val, valTagStr);
         }
@@ -420,7 +422,7 @@ static RegisterPrimOp primop_fromYAML(
          - useBoolYAML1_1 :: bool ? false: When enabled booleans are parsed according to the YAML 1.1 spec, which matches more values than YAML 1.2.
                                            This option improves compatibility because many applications and configs are still using YAML 1.1 features.
      )",
-     .fun =
+     .impl =
          [](EvalState & state, const PosIdx pos, Value ** args, Value & val) {
              auto yaml = state.forceStringNoCtx(
                  *args[0], pos, "while evaluating the first argument passed to builtins.fromYAML");
