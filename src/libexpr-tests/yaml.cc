@@ -1,11 +1,11 @@
 #ifdef HAVE_RYML
 
 #  include <cstring>
-#  include "tests/libexpr.hh"
-#  include "primops.hh"
+#  include "nix/expr/tests/libexpr.hh"
+#  include "nix/expr/primops.hh"
 
 // access to the json sax parser is required
-#  include "json-to-value-sax.hh"
+#  include "nix/expr/json-to-value-sax.hh"
 
 namespace {
 using namespace nix;
