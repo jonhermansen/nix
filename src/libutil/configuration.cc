@@ -560,7 +560,7 @@ void ExperimentalFeatureSettings::anchor() {}
 
 bool ExperimentalFeatureSettings::isEnabled(const ExperimentalFeature & feature) const
 {
-    if (feature == Xp::Flakes || feature == Xp::FetchTree || feature == Xp::NixCommand || feature == Xp::FromYaml)
+    if (feature == Xp::FromYaml)
         return true;
     auto & f = experimentalFeatures.get();
     return std::find(f.begin(), f.end(), feature) != f.end();
