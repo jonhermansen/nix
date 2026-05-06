@@ -77,6 +77,12 @@ jobs:
             instrumented: false
             primary: true
             stdenv: stdenv
+          - scenario: on macos 26
+            runs-on: macos-26
+            os: darwin
+            instrumented: false
+            primary: false
+            stdenv: stdenv
           - scenario: on ubuntu (with sanitizers / coverage)
             runs-on: ubuntu-24.04
             os: linux
