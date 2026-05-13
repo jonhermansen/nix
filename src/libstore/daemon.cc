@@ -14,6 +14,7 @@
 #include "nix/store/indirect-root-store.hh"
 #include "nix/store/remote-store.hh"
 #include "nix/store/path-with-outputs.hh"
+#include "nix/store/submit-store.hh"
 #include "nix/util/finally.hh"
 #include "nix/util/archive.hh"
 #include "nix/store/derivations.hh"

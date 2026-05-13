@@ -124,6 +124,13 @@ public:
         ContentAddressMethod hashMethod,
         HashAlgorithm hashAlgo) override;
 
+    ref<const ValidPathInfo> addToStoreScanning(
+        Source & dump,
+        std::string_view name,
+        FileSerialisationMethod dumpMethod,
+        ContentAddressMethod hashMethod,
+        HashAlgorithm hashAlgo) override;
+
     void queryRealisationUncached(
         const DrvOutput & id, Callback<std::shared_ptr<const UnkeyedRealisation>> callback) noexcept override;
 
