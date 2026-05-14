@@ -77,6 +77,12 @@ jobs:
             instrumented: false
             primary: true
             stdenv: stdenv
+          - scenario: on macos 26
+            runs-on: macos-26
+            os: darwin
+            instrumented: false
+            primary: false
+            stdenv: stdenv
           - scenario: on ubuntu (with sanitizers / coverage)
             runs-on: ubuntu-24.04
             os: linux
@@ -100,6 +106,9 @@ jobs:
     # https://ubuntu.com/blog/ubuntu-23-10-restricted-unprivileged-user-namespaces
     - run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       if: matrix.os == 'linux'
+    - name: Create channels dir to test sandbox EPERM behavior
+      run: sudo mkdir -p /nix/var/nix/profiles/per-user/root/channels
+      if: matrix.os == 'darwin'
     - name: Run component tests
       run: |
         nix build --file ci/gha/tests/wrapper.nix componentTests -L \
