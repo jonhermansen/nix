@@ -57,3 +57,45 @@ expectStderr 1 nix eval --expr 'builtins.fromYAML "" {}' | grepQuiet "error"
 [[ $(nix eval --json --expr 'builtins.fromYAML "- name: a\n  val: 1\n- name: b\n  val: 2" {}') == '[{"name":"a","val":1},{"name":"b","val":2}]' ]]
 
 echo "fromYAML tests passed"
+
+# === toYAML tests ===
+
+# Scalars
+[[ $(nix eval --raw --expr 'builtins.toYAML 42') == "42" ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML 3.14') == "3.14" ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML true') == "true" ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML false') == "false" ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML null') == "null" ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "hello"') == "hello" ]]
+
+# Strings that need quoting (look like booleans/numbers/null)
+[[ $(nix eval --raw --expr 'builtins.toYAML "true"') == '"true"' ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "false"') == '"false"' ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "null"') == '"null"' ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "42"') == '"42"' ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "3.14"') == '"3.14"' ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "yes"') == '"yes"' ]]
+[[ $(nix eval --raw --expr 'builtins.toYAML "no"') == '"no"' ]]
+
+# Round-trip: fromYAML(toYAML(x)) == x for scalars
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML 42) {}') == 42 ]]
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML true) {}') == true ]]
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML false) {}') == false ]]
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML null) {}') == null ]]
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML "hello") {}') == '"hello"' ]]
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML "true") {}') == '"true"' ]]
+[[ $(nix eval --expr 'builtins.fromYAML (builtins.toYAML "42") {}') == '"42"' ]]
+
+# Round-trip: mapping
+[[ $(nix eval --json --expr 'builtins.fromYAML (builtins.toYAML { a = 1; b = "hello"; c = true; }) {}') == '{"a":1,"b":"hello","c":true}' ]]
+
+# Round-trip: list
+[[ $(nix eval --json --expr 'builtins.fromYAML (builtins.toYAML [1 2 3]) {}') == '[1,2,3]' ]]
+
+# Round-trip: nested mapping
+[[ $(nix eval --json --expr 'builtins.fromYAML (builtins.toYAML { a = { b = 1; }; }) {}') == '{"a":{"b":1}}' ]]
+
+# Round-trip: list of mappings (common Helm pattern)
+[[ $(nix eval --json --expr 'builtins.fromYAML (builtins.toYAML [{ name = "a"; value = 1; } { name = "b"; value = 2; }]) {}') == '[{"name":"a","value":1},{"name":"b","value":2}]' ]]
+
+echo "toYAML tests passed"
