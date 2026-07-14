@@ -470,6 +470,195 @@ static RegisterPrimOp primop_fromYAML(
          },
      });
 
+static void printYAMLValue(EvalState & state, bool strict, Value & v, const PosIdx pos,
+                           std::ostream & out, NixStringContext & context,
+                           int indent, bool isMapValue)
+{
+    if (strict)
+        state.forceValue(v, pos);
+
+    switch (v.type()) {
+    case nInt:
+        out << v.integer().value;
+        break;
+    case nFloat:
+        out << v.fpoint();
+        break;
+    case nBool:
+        out << (v.boolean() ? "true" : "false");
+        break;
+    case nNull:
+        out << "null";
+        break;
+    case nString: {
+        copyContext(v, context);
+        auto s = v.string_view();
+        bool needsQuoting = s.empty();
+        if (!needsQuoting) {
+            if (s == "true" || s == "false" || s == "null"
+                || s == "yes" || s == "no" || s == "on" || s == "off"
+                || s == "~" || s == ".inf" || s == "-.inf" || s == ".nan"
+                || s == ".Inf" || s == "-.Inf" || s == ".NaN")
+                needsQuoting = true;
+        }
+        if (!needsQuoting) {
+            bool looksNumeric = true;
+            bool hasDot = false;
+            for (size_t i = 0; i < s.size(); i++) {
+                char c = s[i];
+                if (i == 0 && (c == '-' || c == '+'))
+                    continue;
+                if (c == '.' && !hasDot) { hasDot = true; continue; }
+                if (c < '0' || c > '9') { looksNumeric = false; break; }
+            }
+            if (looksNumeric && !s.empty())
+                needsQuoting = true;
+        }
+        if (!needsQuoting) {
+            for (char c : s) {
+                if (c == ':' || c == '#' || c == '[' || c == ']'
+                    || c == '{' || c == '}' || c == ',' || c == '&'
+                    || c == '*' || c == '!' || c == '|' || c == '>'
+                    || c == '\'' || c == '"' || c == '%' || c == '@'
+                    || c == '`' || c == '\n' || c == '\r' || c == '\t') {
+                    needsQuoting = true;
+                    break;
+                }
+            }
+        }
+        if (needsQuoting) {
+            out << '"';
+            for (char c : s) {
+                switch (c) {
+                case '"': out << "\\\""; break;
+                case '\\': out << "\\\\"; break;
+                case '\n': out << "\\n"; break;
+                case '\r': out << "\\r"; break;
+                case '\t': out << "\\t"; break;
+                default: out << c;
+                }
+            }
+            out << '"';
+        } else {
+            out << s;
+        }
+        break;
+    }
+    case nAttrs: {
+        auto maybeString = state.tryAttrsToString(pos, v, context, false, false);
+        if (maybeString) {
+            out << '"';
+            for (char c : *maybeString) {
+                switch (c) {
+                case '"': out << "\\\""; break;
+                case '\\': out << "\\\\"; break;
+                case '\n': out << "\\n"; break;
+                default: out << c;
+                }
+            }
+            out << '"';
+            break;
+        }
+        if (auto i = v.attrs()->get(state.s.outPath)) {
+            printYAMLValue(state, strict, *i->value, i->pos, out, context, indent, isMapValue);
+            break;
+        }
+        auto sorted = v.attrs()->lexicographicOrder(state.symbols);
+        if (sorted.empty()) {
+            out << "{}";
+            break;
+        }
+        bool first = true;
+        std::string indentStr(indent, ' ');
+        for (auto & a : sorted) {
+            if (!first || isMapValue) {
+                out << "\n" << indentStr;
+            }
+            first = false;
+            auto key = std::string(state.symbols[a->name]);
+            bool keyNeedsQuoting = key.empty();
+            if (!keyNeedsQuoting) {
+                for (char c : key) {
+                    if (c == ':' || c == '#' || c == '[' || c == ']'
+                        || c == '{' || c == '}' || c == ',' || c == '\n') {
+                        keyNeedsQuoting = true;
+                        break;
+                    }
+                }
+            }
+            if (keyNeedsQuoting)
+                out << '"' << key << '"';
+            else
+                out << key;
+            out << ":";
+            bool childIsCollection = false;
+            state.forceValue(*a->value, a->pos);
+            if (a->value->type() == nAttrs || a->value->type() == nList)
+                childIsCollection = true;
+            if (childIsCollection) {
+                printYAMLValue(state, strict, *a->value, a->pos, out, context, indent + 2, true);
+            } else {
+                out << " ";
+                printYAMLValue(state, strict, *a->value, a->pos, out, context, indent + 2, false);
+            }
+        }
+        break;
+    }
+    case nList: {
+        if (v.listSize() == 0) {
+            out << "[]";
+            break;
+        }
+        std::string indentStr(indent, ' ');
+        int i = 0;
+        for (auto elem : v.listView()) {
+            if (i > 0 || isMapValue) {
+                out << "\n" << indentStr;
+            }
+            out << "-";
+            state.forceValue(*elem, pos);
+            bool childIsCollection = (elem->type() == nAttrs || elem->type() == nList);
+            if (childIsCollection) {
+                out << " ";
+                printYAMLValue(state, strict, *elem, pos, out, context, indent + 2, false);
+            } else {
+                out << " ";
+                printYAMLValue(state, strict, *elem, pos, out, context, indent + 2, false);
+            }
+            i++;
+        }
+        break;
+    }
+    case nPath:
+        out << v.path().path.abs();
+        break;
+    case nThunk:
+    case nFailed:
+    case nFunction:
+    case nExternal:
+        state.error<TypeError>("cannot convert %1% to YAML", showType(v)).atPos(v.determinePos(pos)).debugThrow();
+    }
+}
+
+static RegisterPrimOp primop_toYAML(
+    {.name = "__toYAML",
+     .args = {"e"},
+     .doc = R"(
+       Return a string containing a YAML representation of *e*. Strings,
+       integers, floats, booleans, nulls and lists are mapped to their YAML
+       equivalents. Sets are represented as YAML mappings with keys in
+       lexicographic order.
+     )",
+     .impl =
+         [](EvalState & state, const PosIdx pos, Value ** args, Value & val) {
+             std::ostringstream out;
+             NixStringContext context;
+             printYAMLValue(state, true, *args[0], pos, out, context, 0, false);
+             out << "\n";
+             val.mkString(out.view(), context, state.mem);
+         },
+     });
+
 } /* namespace nix */
 
 #endif
