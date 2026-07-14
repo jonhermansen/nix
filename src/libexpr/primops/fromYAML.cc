@@ -165,13 +165,33 @@ FromYAMLContext::ParserOptions::ParserOptions(FromYAMLContext & context, const B
     }
 }
 
-void s_error [[noreturn]] (const char * msg, size_t len, ryml::Location, void * fromYAMLContext)
+void s_error_basic [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataBasic const&, void * fromYAMLContext)
 {
     auto context = static_cast<const FromYAMLContext *>(fromYAMLContext);
     if (context) {
-        context->throwError("%2%", std::string_view(msg, len));
+        context->throwError("%2%", std::string_view(msg.str, msg.len));
     } else {
-        throw Error({.msg = fmt("failed assertion in rapidyaml library:\n\n%1%", std::string_view(msg, len))});
+        throw Error({.msg = fmt("failed assertion in rapidyaml library:\n\n%1%", std::string_view(msg.str, msg.len))});
+    }
+}
+
+void s_error_parse [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataParse const&, void * fromYAMLContext)
+{
+    auto context = static_cast<const FromYAMLContext *>(fromYAMLContext);
+    if (context) {
+        context->throwError("%2%", std::string_view(msg.str, msg.len));
+    } else {
+        throw Error({.msg = fmt("YAML parse error:\n\n%1%", std::string_view(msg.str, msg.len))});
+    }
+}
+
+void s_error_visit [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataVisit const&, void * fromYAMLContext)
+{
+    auto context = static_cast<const FromYAMLContext *>(fromYAMLContext);
+    if (context) {
+        context->throwError("%2%", std::string_view(msg.str, msg.len));
+    } else {
+        throw Error({.msg = fmt("YAML visit error:\n\n%1%", std::string_view(msg.str, msg.len))});
     }
 }
 
@@ -431,9 +451,11 @@ static RegisterPrimOp primop_fromYAML(
 
              FromYAMLContext context(state, pos, yaml, options);
              ryml::Callbacks callbacks;
-             callbacks.m_error = s_error;
-             ryml::set_callbacks(callbacks);
              callbacks.m_user_data = &context;
+             callbacks.set_error_basic(s_error_basic);
+             callbacks.set_error_parse(s_error_parse);
+             callbacks.set_error_visit(s_error_visit);
+             ryml::set_callbacks(callbacks);
              ryml::EventHandlerTree evth(callbacks);
              ryml::Parser parser(&evth);
              ryml::Tree tree = ryml::parse_in_arena(&parser, ryml::csubstr(yaml.begin(), yaml.size()));
@@ -446,7 +468,7 @@ static RegisterPrimOp primop_fromYAML(
              }
              context.visitYAMLNode(val, root, true);
          },
-     .experimentalFeature = Xp::FromYaml});
+     });
 
 } /* namespace nix */
 
