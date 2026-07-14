@@ -78,7 +78,7 @@ configdata_pub.set('NIX_USE_BOEHMGC', bdw_gc.found().to_int())
 
 ryml = dependency(
   'ryml',
-  version : '>=0.7.1',
+  version : '>=0.11.0',
   method : 'cmake',
   include_type : 'system',
   required : false,

@@ -109,6 +109,7 @@ suites = [
       'fixed.sh',
       'flamegraph-profiler.sh',
       'formatter.sh',
+      'fromYAML.sh',
       'function-trace.sh',
       'gc-auto.sh',
       'gc-closure.sh',
