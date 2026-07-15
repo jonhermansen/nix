@@ -565,8 +565,6 @@ void ExperimentalFeatureSettings::anchor() {}
 
 bool ExperimentalFeatureSettings::isEnabled(const ExperimentalFeature & feature) const
 {
-    if (feature == Xp::FromYaml)
-        return true;
     auto & f = experimentalFeatures.get();
     return std::find(f.begin(), f.end(), feature) != f.end();
 }
