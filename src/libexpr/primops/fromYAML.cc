@@ -4,6 +4,7 @@
 
 #  include "nix/expr/primops.hh"
 #  include "nix/expr/eval-inline.hh"
+#  include "nix/util/signals.hh"
 
 #  include <ryml.hpp>
 #  include <c4/format.hpp>
@@ -470,168 +471,168 @@ static RegisterPrimOp primop_fromYAML(
          },
      });
 
-static void printYAMLValue(EvalState & state, bool strict, Value & v, const PosIdx pos,
-                           std::ostream & out, NixStringContext & context,
-                           int indent, bool isMapValue)
+static bool needsYAMLQuoting(std::string_view s)
 {
+    if (s.empty()) return true;
+    if (s == "true" || s == "false" || s == "null"
+        || s == "yes" || s == "no" || s == "on" || s == "off"
+        || s == "~" || s == ".inf" || s == "-.inf" || s == ".nan"
+        || s == ".Inf" || s == "-.Inf" || s == ".NaN"
+        || s == "True" || s == "False" || s == "Yes" || s == "No"
+        || s == "On" || s == "Off" || s == "TRUE" || s == "FALSE"
+        || s == "YES" || s == "NO" || s == "ON" || s == "OFF"
+        || s == "NULL" || s == "Null")
+        return true;
+    bool looksNumeric = true;
+    bool hasDot = false;
+    for (size_t i = 0; i < s.size(); i++) {
+        char c = s[i];
+        if (i == 0 && (c == '-' || c == '+')) continue;
+        if (c == '.' && !hasDot) { hasDot = true; continue; }
+        if (c < '0' || c > '9') { looksNumeric = false; break; }
+    }
+    if (looksNumeric) return true;
+    for (char c : s) {
+        if (c == ':' || c == '#' || c == '[' || c == ']'
+            || c == '{' || c == '}' || c == ',' || c == '&'
+            || c == '*' || c == '!' || c == '|' || c == '>'
+            || c == '\'' || c == '"' || c == '%' || c == '@'
+            || c == '`' || c == '\n' || c == '\r' || c == '\t')
+            return true;
+    }
+    return false;
+}
+
+static void buildYAMLTree(EvalState & state, bool strict, Value & v, const PosIdx pos,
+                          ryml::Tree & tree, ryml::id_type node, bool hasKey,
+                          NixStringContext & context)
+{
+    checkInterrupt();
+    auto _level = state.addCallDepth(pos);
+
     if (strict)
         state.forceValue(v, pos);
 
     switch (v.type()) {
-    case nInt:
-        out << v.integer().value;
+    case nInt: {
+        auto s = std::to_string(v.integer().value);
+        auto val = tree.copy_to_arena(ryml::csubstr(s.data(), s.size()));
+        if (hasKey)
+            tree.set_val(node, val);
+        else
+            tree.to_val(node, val);
         break;
-    case nFloat:
-        out << v.fpoint();
+    }
+    case nFloat: {
+        auto s = std::to_string(v.fpoint());
+        // strip trailing zeros but keep at least one decimal
+        auto dot = s.find('.');
+        if (dot != std::string::npos) {
+            auto last = s.find_last_not_of('0');
+            if (last != std::string::npos && last > dot)
+                s.erase(last + 1);
+            else if (last == dot)
+                s.erase(dot + 2);
+        }
+        auto val = tree.copy_to_arena(ryml::csubstr(s.data(), s.size()));
+        if (hasKey)
+            tree.set_val(node, val);
+        else
+            tree.to_val(node, val);
         break;
-    case nBool:
-        out << (v.boolean() ? "true" : "false");
+    }
+    case nBool: {
+        auto val = v.boolean() ? ryml::csubstr("true") : ryml::csubstr("false");
+        if (hasKey)
+            tree.set_val(node, val);
+        else
+            tree.to_val(node, val);
         break;
-    case nNull:
-        out << "null";
+    }
+    case nNull: {
+        if (hasKey)
+            tree.set_val(node, ryml::csubstr("null"));
+        else
+            tree.to_val(node, ryml::csubstr("null"));
         break;
+    }
     case nString: {
         copyContext(v, context);
-        auto s = v.string_view();
-        bool needsQuoting = s.empty();
-        if (!needsQuoting) {
-            if (s == "true" || s == "false" || s == "null"
-                || s == "yes" || s == "no" || s == "on" || s == "off"
-                || s == "~" || s == ".inf" || s == "-.inf" || s == ".nan"
-                || s == ".Inf" || s == "-.Inf" || s == ".NaN")
-                needsQuoting = true;
-        }
-        if (!needsQuoting) {
-            bool looksNumeric = true;
-            bool hasDot = false;
-            for (size_t i = 0; i < s.size(); i++) {
-                char c = s[i];
-                if (i == 0 && (c == '-' || c == '+'))
-                    continue;
-                if (c == '.' && !hasDot) { hasDot = true; continue; }
-                if (c < '0' || c > '9') { looksNumeric = false; break; }
-            }
-            if (looksNumeric && !s.empty())
-                needsQuoting = true;
-        }
-        if (!needsQuoting) {
-            for (char c : s) {
-                if (c == ':' || c == '#' || c == '[' || c == ']'
-                    || c == '{' || c == '}' || c == ',' || c == '&'
-                    || c == '*' || c == '!' || c == '|' || c == '>'
-                    || c == '\'' || c == '"' || c == '%' || c == '@'
-                    || c == '`' || c == '\n' || c == '\r' || c == '\t') {
-                    needsQuoting = true;
-                    break;
-                }
-            }
-        }
-        if (needsQuoting) {
-            out << '"';
-            for (char c : s) {
-                switch (c) {
-                case '"': out << "\\\""; break;
-                case '\\': out << "\\\\"; break;
-                case '\n': out << "\\n"; break;
-                case '\r': out << "\\r"; break;
-                case '\t': out << "\\t"; break;
-                default: out << c;
-                }
-            }
-            out << '"';
-        } else {
-            out << s;
-        }
+        auto sv = v.string_view();
+        auto val = tree.copy_to_arena(ryml::csubstr(sv.data(), sv.size()));
+        if (hasKey)
+            tree.set_val(node, val);
+        else
+            tree.to_val(node, val);
+        if (needsYAMLQuoting(sv))
+            tree._add_flags(node, ryml::VAL_DQUO);
         break;
     }
     case nAttrs: {
         auto maybeString = state.tryAttrsToString(pos, v, context, false, false);
         if (maybeString) {
-            out << '"';
-            for (char c : *maybeString) {
-                switch (c) {
-                case '"': out << "\\\""; break;
-                case '\\': out << "\\\\"; break;
-                case '\n': out << "\\n"; break;
-                default: out << c;
-                }
-            }
-            out << '"';
+            auto val = tree.copy_to_arena(ryml::csubstr(maybeString->data(), maybeString->size()));
+            if (hasKey)
+                tree.set_val(node, val);
+            else
+                tree.to_val(node, val);
+            tree._add_flags(node, ryml::VAL_DQUO);
             break;
         }
         if (auto i = v.attrs()->get(state.s.outPath)) {
-            printYAMLValue(state, strict, *i->value, i->pos, out, context, indent, isMapValue);
+            buildYAMLTree(state, strict, *i->value, i->pos, tree, node, hasKey, context);
             break;
         }
+        if (hasKey)
+            tree._add_flags(node, ryml::MAP);
+        else
+            tree.to_map(node);
         auto sorted = v.attrs()->lexicographicOrder(state.symbols);
         if (sorted.empty()) {
-            out << "{}";
+            tree._add_flags(node, ryml::FLOW_SL);
             break;
         }
-        bool first = true;
-        std::string indentStr(indent, ' ');
         for (auto & a : sorted) {
-            if (!first || isMapValue) {
-                out << "\n" << indentStr;
-            }
-            first = false;
-            auto key = std::string(state.symbols[a->name]);
-            bool keyNeedsQuoting = key.empty();
-            if (!keyNeedsQuoting) {
-                for (char c : key) {
-                    if (c == ':' || c == '#' || c == '[' || c == ']'
-                        || c == '{' || c == '}' || c == ',' || c == '\n') {
-                        keyNeedsQuoting = true;
-                        break;
-                    }
-                }
-            }
-            if (keyNeedsQuoting)
-                out << '"' << key << '"';
-            else
-                out << key;
-            out << ":";
-            bool childIsCollection = false;
+            auto child = tree.append_child(node);
+            auto keyStr = std::string(state.symbols[a->name]);
+            auto key = tree.copy_to_arena(ryml::csubstr(keyStr.data(), keyStr.size()));
             state.forceValue(*a->value, a->pos);
-            if (a->value->type() == nAttrs || a->value->type() == nList)
-                childIsCollection = true;
-            if (childIsCollection) {
-                printYAMLValue(state, strict, *a->value, a->pos, out, context, indent + 2, true);
+            if (a->value->type() == nAttrs || a->value->type() == nList) {
+                tree._set_flags(child, ryml::KEY);
+                tree.set_key(child, key);
+                buildYAMLTree(state, strict, *a->value, a->pos, tree, child, true, context);
             } else {
-                out << " ";
-                printYAMLValue(state, strict, *a->value, a->pos, out, context, indent + 2, false);
+                tree.to_keyval(child, key, {});
+                buildYAMLTree(state, strict, *a->value, a->pos, tree, child, true, context);
             }
         }
         break;
     }
     case nList: {
+        if (hasKey)
+            tree._add_flags(node, ryml::SEQ);
+        else
+            tree.to_seq(node);
         if (v.listSize() == 0) {
-            out << "[]";
+            tree._add_flags(node, ryml::FLOW_SL);
             break;
         }
-        std::string indentStr(indent, ' ');
-        int i = 0;
         for (auto elem : v.listView()) {
-            if (i > 0 || isMapValue) {
-                out << "\n" << indentStr;
-            }
-            out << "-";
+            auto child = tree.append_child(node);
             state.forceValue(*elem, pos);
-            bool childIsCollection = (elem->type() == nAttrs || elem->type() == nList);
-            if (childIsCollection) {
-                out << " ";
-                printYAMLValue(state, strict, *elem, pos, out, context, indent + 2, false);
-            } else {
-                out << " ";
-                printYAMLValue(state, strict, *elem, pos, out, context, indent + 2, false);
-            }
-            i++;
+            buildYAMLTree(state, strict, *elem, pos, tree, child, false, context);
         }
         break;
     }
-    case nPath:
-        out << v.path().path.abs();
+    case nPath: {
+        auto p = v.path().path.abs();
+        auto val = tree.copy_to_arena(ryml::csubstr(p.data(), p.size()));
+        if (hasKey)
+            tree.set_val(node, val);
+        else
+            tree.to_val(node, val);
         break;
+    }
     case nThunk:
     case nFailed:
     case nFunction:
@@ -651,11 +652,11 @@ static RegisterPrimOp primop_toYAML(
      )",
      .impl =
          [](EvalState & state, const PosIdx pos, Value ** args, Value & val) {
-             std::ostringstream out;
              NixStringContext context;
-             printYAMLValue(state, true, *args[0], pos, out, context, 0, false);
-             out << "\n";
-             val.mkString(out.view(), context, state.mem);
+             ryml::Tree tree;
+             buildYAMLTree(state, true, *args[0], pos, tree, tree.root_id(), false, context);
+             std::string yaml = ryml::emitrs_yaml<std::string>(tree);
+             val.mkString(yaml, context, state.mem);
          },
      });
 
