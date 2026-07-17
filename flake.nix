@@ -430,6 +430,31 @@
             ''}";
             meta.description = "Open the Nix manual in your browser";
           };
+          yaml-demo = {
+            type = "app";
+            program = "${pkgs.writeShellScript "yaml-demo" ''
+              NIX="${self.packages.${system}.nix}/bin/nix"
+              echo "=== Nix YAML round-trip demo ==="
+              echo ""
+              echo "--- fromYAML ---"
+              $NIX eval --expr 'builtins.fromYAML "name: nginx\nport: 8080\nenabled: true\ntags:\n  - web\n  - proxy" {}'
+              echo ""
+              echo "--- toYAML ---"
+              $NIX eval --raw --expr 'builtins.toYAML { name = "nginx"; port = 8080; enabled = true; tags = ["web" "proxy"]; }'
+              echo ""
+              echo ""
+              echo "--- round-trip: parse YAML, modify, serialize back ---"
+              $NIX eval --raw --expr '
+                let
+                  original = "name: nginx\nport: 8080\nenabled: true\ntags:\n  - web\n  - proxy";
+                  parsed = builtins.fromYAML original {};
+                  patched = parsed // { port = 9090; };
+                in builtins.toYAML patched
+              '
+              echo ""
+            ''}";
+            meta.description = "Demo YAML round-trip with fromYAML/toYAML builtins";
+          };
         }
       );
 
