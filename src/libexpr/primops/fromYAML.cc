@@ -452,7 +452,8 @@ static RegisterPrimOp primop_fromYAML(
                                            This option improves compatibility because many applications and configs are still using YAML 1.1 features.
      )",
      .impl =
-         [](EvalState & state, const PosIdx pos, Value ** args, Value & val) {
+         [](EvalState & state, CallSite callSite, Value * const * args, Value & val) {
+             auto pos = callSite.pos;
              auto yaml = state.forceStringNoCtx(
                  *args[0], pos, "while evaluating the first argument passed to builtins.fromYAML");
              state.forceAttrs(*args[1], pos, "while evaluating the second argument passed to builtins.fromYAML");
@@ -577,16 +578,15 @@ static void buildYAMLTree(EvalState & state, bool strict, Value & v, const PosId
         break;
     }
     case nAttrs: {
-        auto maybeString = state.tryAttrsToString(pos, v, context, false, false);
-        if (maybeString) {
-            auto val = tree.copy_to_arena(ryml::csubstr(maybeString->data(), maybeString->size()));
-            if (hasKey)
-                tree.set_val(node, val);
-            else
-                tree.to_val(node, val);
-            tree._add_flags(node, ryml::VAL_DQUO);
+        bool peeled = state.peelToStringOutPath(pos, v, true, [&](Value * inner, bool) -> bool {
+            if (inner->type() != nAttrs) {
+                buildYAMLTree(state, strict, *inner, pos, tree, node, hasKey, context);
+                return true;
+            }
+            return false;
+        });
+        if (peeled)
             break;
-        }
         if (auto i = v.attrs()->get(state.s.outPath)) {
             buildYAMLTree(state, strict, *i->value, i->pos, tree, node, hasKey, context);
             break;
@@ -659,7 +659,8 @@ static RegisterPrimOp primop_toYAML(
        lexicographic order.
      )",
      .impl =
-         [](EvalState & state, const PosIdx pos, Value ** args, Value & val) {
+         [](EvalState & state, CallSite callSite, Value * const * args, Value & val) {
+             auto pos = callSite.pos;
              NixStringContext context;
              ryml::Tree tree;
              buildYAMLTree(state, true, *args[0], pos, tree, tree.root_id(), false, context);
