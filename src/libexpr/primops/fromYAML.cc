@@ -10,6 +10,8 @@
 #  include <c4/format.hpp>
 #  include <c4/std/string.hpp>
 #  include <boost/lexical_cast.hpp>
+#  include <map>
+#  include <vector>
 
 namespace {
 
@@ -328,7 +330,10 @@ void FromYAMLContext::visitYAMLNode(Value & v, ryml::ConstNodeRef t, bool isTopN
             auto fs = "Error: Nix parsed ''%2%'' as map and only supported is the tag ''!!map'', but ''%3%'' was used";
             throwError(fs, t, valTagStr);
         }
-        auto attrs = state.buildBindings(t.num_children());
+
+        // Last-key-wins for duplicate keys (matches Go yaml.v3 / Helm / kubectl)
+        std::vector<std::pair<std::string, ryml::ConstNodeRef>> entries;
+        std::map<std::string, size_t> keyIndex;
 
         for (ryml::ConstNodeRef child : t.children()) {
             auto key = child.key();
@@ -342,19 +347,22 @@ void FromYAMLContext::visitYAMLNode(Value & v, ryml::ConstNodeRef t, bool isTopN
                 auto fs = "Error: Nix supports string keys only, but the map ''%2%'' contains a null-key";
                 throwError(fs, t);
             }
-            visitYAMLNode(attrs.alloc({key.begin(), key.size()}), child);
+            std::string keyStr(key.begin(), key.size());
+            auto it = keyIndex.find(keyStr);
+            if (it != keyIndex.end()) {
+                entries[it->second].second = child;
+            } else {
+                keyIndex[keyStr] = entries.size();
+                entries.emplace_back(keyStr, child);
+            }
+        }
+
+        auto attrs = state.buildBindings(entries.size());
+        for (auto & [keyStr, child] : entries) {
+            visitYAMLNode(attrs.alloc(keyStr), child);
         }
 
         v.mkAttrs(attrs);
-        Symbol key;
-        // enforce uniqueness of keys
-        for (const auto & attr : *attrs.alreadySorted()) {
-            if (key == attr.name) {
-                auto fs = "Error: Non-unique key %2% after deserializing the map ''%3%''";
-                throwError(fs, state.symbols[key], t);
-            }
-            key = attr.name;
-        }
     } else if (t.is_seq()) {
         if (valTag != ryml::TAG_NONE && valTag != ryml::TAG_SEQ) {
             auto fs =
