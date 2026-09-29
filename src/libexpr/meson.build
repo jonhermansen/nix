@@ -87,7 +87,7 @@ ryml = dependency(
   required : false,
 )
 if ryml.found()
-  deps_other += ryml
+  deps_private_no_pkgconfig += ryml
   configdata_priv.set('HAVE_RYML', 1)
 endif
 
