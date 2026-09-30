@@ -13,9 +13,9 @@
 #  include <map>
 #  include <vector>
 
-namespace {
+namespace nix {
 
-using namespace nix;
+namespace {
 
 /**
  * Equality check of a compile time C-string *lhs* and another string *rhs*.
@@ -421,9 +421,7 @@ void FromYAMLContext::visitYAMLNode(Value & v, ryml::ConstNodeRef t, bool isTopN
     }
 }
 
-} /* namespace */
-
-namespace nix {
+} /* anonymous namespace */
 
 static RegisterPrimOp primop_fromYAML({
     .name = "__fromYAML",
