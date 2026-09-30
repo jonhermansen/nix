@@ -168,7 +168,7 @@ FromYAMLContext::ParserOptions::ParserOptions(FromYAMLContext & context, const B
     }
 }
 
-void s_error_basic [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataBasic const&, void * fromYAMLContext)
+void s_error_basic [[noreturn]] (ryml::csubstr msg, const ryml::ErrorDataBasic &, void * fromYAMLContext)
 {
     auto context = static_cast<const FromYAMLContext *>(fromYAMLContext);
     if (context) {
@@ -178,7 +178,7 @@ void s_error_basic [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataBasic const&,
     }
 }
 
-void s_error_parse [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataParse const&, void * fromYAMLContext)
+void s_error_parse [[noreturn]] (ryml::csubstr msg, const ryml::ErrorDataParse &, void * fromYAMLContext)
 {
     auto context = static_cast<const FromYAMLContext *>(fromYAMLContext);
     if (context) {
@@ -188,7 +188,7 @@ void s_error_parse [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataParse const&,
     }
 }
 
-void s_error_visit [[noreturn]] (ryml::csubstr msg, ryml::ErrorDataVisit const&, void * fromYAMLContext)
+void s_error_visit [[noreturn]] (ryml::csubstr msg, const ryml::ErrorDataVisit &, void * fromYAMLContext)
 {
     auto context = static_cast<const FromYAMLContext *>(fromYAMLContext);
     if (context) {
@@ -425,10 +425,10 @@ void FromYAMLContext::visitYAMLNode(Value & v, ryml::ConstNodeRef t, bool isTopN
 
 namespace nix {
 
-static RegisterPrimOp primop_fromYAML(
-    {.name = "__fromYAML",
-     .args = {"e", "attrset"},
-     .doc = R"(
+static RegisterPrimOp primop_fromYAML({
+    .name = "__fromYAML",
+    .args = {"e", "attrset"},
+    .doc = R"(
        Convert a YAML 1.2 string *e* to a Nix value, if a conversion is possible.
        The second argument is an attribute set with optional parameters for the parser.
        For example,
@@ -451,70 +451,79 @@ static RegisterPrimOp primop_fromYAML(
          - useBoolYAML1_1 :: bool ? false: When enabled booleans are parsed according to the YAML 1.1 spec, which matches more values than YAML 1.2.
                                            This option improves compatibility because many applications and configs are still using YAML 1.1 features.
      )",
-     .impl =
-         [](EvalState & state, CallSite callSite, Value * const * args, Value & val) {
-             auto pos = callSite.pos;
-             auto yaml = state.forceStringNoCtx(
-                 *args[0], pos, "while evaluating the first argument passed to builtins.fromYAML");
-             state.forceAttrs(*args[1], pos, "while evaluating the second argument passed to builtins.fromYAML");
-             auto options = args[1]->attrs();
+    .impl =
+        [](EvalState & state, CallSite callSite, Value * const * args, Value & val) {
+            auto pos = callSite.pos;
+            auto yaml = state.forceStringNoCtx(
+                *args[0], pos, "while evaluating the first argument passed to builtins.fromYAML");
+            state.forceAttrs(*args[1], pos, "while evaluating the second argument passed to builtins.fromYAML");
+            auto options = args[1]->attrs();
 
-             FromYAMLContext context(state, pos, yaml, options);
-             ryml::Callbacks callbacks;
-             callbacks.m_user_data = &context;
-             callbacks.set_error_basic(s_error_basic);
-             callbacks.set_error_parse(s_error_parse);
-             callbacks.set_error_visit(s_error_visit);
-             ryml::set_callbacks(callbacks);
-             ryml::EventHandlerTree evth(callbacks);
-             ryml::Parser parser(&evth);
-             ryml::Tree tree = ryml::parse_in_arena(&parser, ryml::csubstr(yaml.begin(), yaml.size()));
-             tree.resolve(); // resolve references
-             tree.resolve_tags();
+            FromYAMLContext context(state, pos, yaml, options);
+            ryml::Callbacks callbacks;
+            callbacks.m_user_data = &context;
+            callbacks.set_error_basic(s_error_basic);
+            callbacks.set_error_parse(s_error_parse);
+            callbacks.set_error_visit(s_error_visit);
+            ryml::set_callbacks(callbacks);
+            ryml::EventHandlerTree evth(callbacks);
+            ryml::Parser parser(&evth);
+            ryml::Tree tree = ryml::parse_in_arena(&parser, ryml::csubstr(yaml.begin(), yaml.size()));
+            tree.resolve(); // resolve references
+            tree.resolve_tags();
 
-             auto root = tree.crootref();
-             if (root.is_stream() && root.num_children() == 1 && root.child(0).is_doc()) {
-                 root = root.child(0);
-             }
-             context.visitYAMLNode(val, root, true);
-         },
-     });
+            auto root = tree.crootref();
+            if (root.is_stream() && root.num_children() == 1 && root.child(0).is_doc()) {
+                root = root.child(0);
+            }
+            context.visitYAMLNode(val, root, true);
+        },
+});
 
 static bool needsYAMLQuoting(std::string_view s)
 {
-    if (s.empty()) return true;
-    if (s == "true" || s == "false" || s == "null"
-        || s == "yes" || s == "no" || s == "on" || s == "off"
-        || s == "~" || s == ".inf" || s == "-.inf" || s == ".nan"
-        || s == ".Inf" || s == "-.Inf" || s == ".NaN"
-        || s == "True" || s == "False" || s == "Yes" || s == "No"
-        || s == "On" || s == "Off" || s == "TRUE" || s == "FALSE"
-        || s == "YES" || s == "NO" || s == "ON" || s == "OFF"
-        || s == "NULL" || s == "Null")
+    if (s.empty())
+        return true;
+    if (s == "true" || s == "false" || s == "null" || s == "yes" || s == "no" || s == "on" || s == "off" || s == "~"
+        || s == ".inf" || s == "-.inf" || s == ".nan" || s == ".Inf" || s == "-.Inf" || s == ".NaN" || s == "True"
+        || s == "False" || s == "Yes" || s == "No" || s == "On" || s == "Off" || s == "TRUE" || s == "FALSE"
+        || s == "YES" || s == "NO" || s == "ON" || s == "OFF" || s == "NULL" || s == "Null")
         return true;
     bool looksNumeric = true;
     bool hasDot = false;
     for (size_t i = 0; i < s.size(); i++) {
         char c = s[i];
-        if (i == 0 && (c == '-' || c == '+')) continue;
-        if (c == '.' && !hasDot) { hasDot = true; continue; }
-        if (c < '0' || c > '9') { looksNumeric = false; break; }
+        if (i == 0 && (c == '-' || c == '+'))
+            continue;
+        if (c == '.' && !hasDot) {
+            hasDot = true;
+            continue;
+        }
+        if (c < '0' || c > '9') {
+            looksNumeric = false;
+            break;
+        }
     }
-    if (looksNumeric) return true;
+    if (looksNumeric)
+        return true;
     for (char c : s) {
-        if (c == ':' || c == '#' || c == '[' || c == ']'
-            || c == '{' || c == '}' || c == ',' || c == '&'
-            || c == '*' || c == '!' || c == '|' || c == '>'
-            || c == '\'' || c == '"' || c == '%' || c == '@'
-            || c == '`' || c == '\n' || c == '\r' || c == '\t')
+        if (c == ':' || c == '#' || c == '[' || c == ']' || c == '{' || c == '}' || c == ',' || c == '&' || c == '*'
+            || c == '!' || c == '|' || c == '>' || c == '\'' || c == '"' || c == '%' || c == '@' || c == '`'
+            || c == '\n' || c == '\r' || c == '\t')
             return true;
     }
     return false;
 }
 
-static void buildYAMLTree(EvalState & state, bool strict, Value & v, const PosIdx pos,
-                          ryml::Tree & tree, ryml::id_type node, bool hasKey,
-                          NixStringContext & context)
+static void buildYAMLTree(
+    EvalState & state,
+    bool strict,
+    Value & v,
+    const PosIdx pos,
+    ryml::Tree & tree,
+    ryml::id_type node,
+    bool hasKey,
+    NixStringContext & context)
 {
     checkInterrupt();
     auto _level = state.addCallDepth(pos);
@@ -649,25 +658,25 @@ static void buildYAMLTree(EvalState & state, bool strict, Value & v, const PosId
     }
 }
 
-static RegisterPrimOp primop_toYAML(
-    {.name = "__toYAML",
-     .args = {"e"},
-     .doc = R"(
+static RegisterPrimOp primop_toYAML({
+    .name = "__toYAML",
+    .args = {"e"},
+    .doc = R"(
        Return a string containing a YAML representation of *e*. Strings,
        integers, floats, booleans, nulls and lists are mapped to their YAML
        equivalents. Sets are represented as YAML mappings with keys in
        lexicographic order.
      )",
-     .impl =
-         [](EvalState & state, CallSite callSite, Value * const * args, Value & val) {
-             auto pos = callSite.pos;
-             NixStringContext context;
-             ryml::Tree tree;
-             buildYAMLTree(state, true, *args[0], pos, tree, tree.root_id(), false, context);
-             std::string yaml = ryml::emitrs_yaml<std::string>(tree);
-             val.mkString(yaml, context, state.mem);
-         },
-     });
+    .impl =
+        [](EvalState & state, CallSite callSite, Value * const * args, Value & val) {
+            auto pos = callSite.pos;
+            NixStringContext context;
+            ryml::Tree tree;
+            buildYAMLTree(state, true, *args[0], pos, tree, tree.root_id(), false, context);
+            std::string yaml = ryml::emitrs_yaml<std::string>(tree);
+            val.mkString(yaml, context, state.mem);
+        },
+});
 
 } /* namespace nix */
 
