@@ -116,10 +116,14 @@ scope: {
         installPhase = lib.replaceStrings [ "--without-python" ] [ "" ] old.installPhase;
       });
 
-  rapidyaml = pkgs.rapidyaml.overrideAttrs (old: old // {
-    cmakeFlags = [
-      "-DRYML_WITH_TAB_TOKENS=ON"
-      "-DBUILD_SHARED_LIBS=ON"
-    ];
-  });
+  rapidyaml = pkgs.rapidyaml.overrideAttrs (
+    old:
+    old
+    // {
+      cmakeFlags = [
+        "-DRYML_WITH_TAB_TOKENS=ON"
+        "-DBUILD_SHARED_LIBS=ON"
+      ];
+    }
+  );
 }

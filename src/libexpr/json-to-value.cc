@@ -217,7 +217,7 @@ void JSONParseError::anchor() {}
 
 std::unique_ptr<nlohmann::json_sax<json>> makeJSONSaxParser(EvalState & state, Value & v)
 {
-    return { std::make_unique<JSONSax>(state, v) };
+    return {std::make_unique<JSONSax>(state, v)};
 }
 
 } // namespace nix
