@@ -1,3 +1,4 @@
+// Force rebuild for macOS 26 sandbox testing
 #include <gtest/gtest.h>
 #include <filesystem>
 #include <string>
