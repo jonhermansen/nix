@@ -51,7 +51,7 @@ jobs:
             os: linux
           - runs-on: ubuntu-26.04-arm
             os: linux
-          - runs-on: macos-14
+          - runs-on: [self-hosted, macOS, ARM64]
             os: darwin
     runs-on: ${{ matrix.runs-on }}
     timeout-minutes: 90
