@@ -97,3 +97,15 @@ jobs:
         run: |
           gh release upload "${{ needs.create-release.outputs.tag }}" dist/* \
             --repo "$GITHUB_REPOSITORY" --clobber
+      # Nix's own installer (install.in), per-system, with this build's tarball hash
+      # baked in and --tarball-url-prefix support. Downstream curls install-$system and
+      # runs it against this release, so the sha256 lives only here, never copied around.
+      - name: Upload installer to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          system=$(nix eval --raw --impure --expr builtins.currentSystem)
+          nix build -L ".#hydraJobs.installerScriptForGHA.$system" --out-link result-installer
+          gh release upload "${{ needs.create-release.outputs.tag }}" \
+            "result-installer/install#install-$system" \
+            --repo "$GITHUB_REPOSITORY" --clobber
