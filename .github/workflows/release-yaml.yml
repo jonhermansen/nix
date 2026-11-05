@@ -106,6 +106,8 @@ jobs:
         run: |
           system=$(nix eval --raw --impure --expr builtins.currentSystem)
           nix build -L ".#hydraJobs.installerScriptForGHA.$system" --out-link result-installer
-          gh release upload "${{ needs.create-release.outputs.tag }}" \
-            "result-installer/install#install-$system" \
+          # Asset name is the file's basename, so rename per-system (otherwise all three
+          # legs upload "install" and --clobber collapses them to one).
+          cp result-installer/install "install-$system"
+          gh release upload "${{ needs.create-release.outputs.tag }}" "install-$system" \
             --repo "$GITHUB_REPOSITORY" --clobber
