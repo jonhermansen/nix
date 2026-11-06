@@ -73,12 +73,14 @@ case "$(uname -s).$(uname -m)" in
     *) oops "sorry, there is no binary distribution of Nix for your platform";;
 esac
 
-# Use this command-line option to fetch the tarballs using nar-serve or Cachix
+# Use this command-line option to fetch the tarballs from a custom base URL.
+# Fork change: join with the flat tarball filename (a GitHub release serves assets
+# flat, with no store-hash subdir), not ${path} which carries the Hydra/Cachix hash dir.
 if [ "${1:-}" = "--tarball-url-prefix" ]; then
     if [ -z "${2:-}" ]; then
         oops "missing argument for --tarball-url-prefix"
     fi
-    url=${2}/${path}
+    url=${2}/nix-@nixVersion@-$system.tar.xz
     shift 2
 else
     url=https://releases.nixos.org/nix/nix-@nixVersion@/nix-@nixVersion@-$system.tar.xz
