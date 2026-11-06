@@ -27,47 +27,38 @@ require_util() {
 case "$(uname -s).$(uname -m)" in
     Linux.x86_64)
         hash=@tarballHash_x86_64-linux@
-        path=@tarballPath_x86_64-linux@
         system=x86_64-linux
         ;;
     Linux.i?86)
         hash=@tarballHash_i686-linux@
-        path=@tarballPath_i686-linux@
         system=i686-linux
         ;;
     Linux.aarch64)
         hash=@tarballHash_aarch64-linux@
-        path=@tarballPath_aarch64-linux@
         system=aarch64-linux
         ;;
     Linux.armv6l)
         hash=@tarballHash_armv6l-linux@
-        path=@tarballPath_armv6l-linux@
         system=armv6l-linux
         ;;
     Linux.armv7l)
         hash=@tarballHash_armv7l-linux@
-        path=@tarballPath_armv7l-linux@
         system=armv7l-linux
         ;;
     Linux.riscv64)
         hash=@tarballHash_riscv64-linux@
-        path=@tarballPath_riscv64-linux@
         system=riscv64-linux
         ;;
     Darwin.x86_64)
         hash=@tarballHash_x86_64-darwin@
-        path=@tarballPath_x86_64-darwin@
         system=x86_64-darwin
         ;;
     Darwin.arm64|Darwin.aarch64)
         hash=@tarballHash_aarch64-darwin@
-        path=@tarballPath_aarch64-darwin@
         system=aarch64-darwin
         ;;
     FreeBSD.amd64|FreeBSD.x86_64)
         hash=@tarballHash_x86_64-freebsd@
-        path=@tarballPath_x86_64-freebsd@
         system=x86_64-freebsd
         ;;
     *) oops "sorry, there is no binary distribution of Nix for your platform";;
