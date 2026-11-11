@@ -30,13 +30,17 @@ jobs:
       - uses: actions/checkout@v6
       - id: tag
         run: echo "tag=${{ github.event.inputs.tag || github.ref_name }}" >> "$GITHUB_OUTPUT"
-      - name: Create the release if it does not exist
+      - name: Create the release (as a draft) if it does not exist
         env:
           GH_TOKEN: ${{ github.token }}
+        # Draft, so immutable-release protection (now the default on new
+        # releases) doesn't lock the asset endpoints before per-platform
+        # uploads land. The finalize job publishes the draft at the end.
         run: |
           tag="${{ steps.tag.outputs.tag }}"
           gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
             || gh release create "$tag" --repo "$GITHUB_REPOSITORY" \
+                 --draft \
                  --title "$tag" \
                  --notes "YAML-fork of Nix (fromYAML/toYAML builtins) — $tag" \
                  --target "$GITHUB_SHA"
@@ -111,3 +115,16 @@ jobs:
           cp result-installer/install "install-$system"
           gh release upload "${{ needs.create-release.outputs.tag }}" "install-$system" \
             --repo "$GITHUB_REPOSITORY" --clobber
+
+  # Flip the draft to a published release only after every build leg landed its
+  # assets. Immutability (if enabled on the repo/org) takes effect at publish time.
+  finalize:
+    needs: [create-release, build]
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release edit "${{ needs.create-release.outputs.tag }}" \
+            --repo "$GITHUB_REPOSITORY" --draft=false
